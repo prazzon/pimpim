@@ -1,0 +1,79 @@
+.container {
+   padding: 0 7rem;
+   position: relative;
+
+   .content {
+      display: flex;
+      flex-direction: column;
+
+      .header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+
+         .title {
+            padding: 1rem 0;
+            font-size: 2.5rem;
+         }
+
+         .see_more {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+         }
+      }
+
+      .carousel_group {
+         display: grid;
+         // gap: 2rem;
+         gap: 2.5rem;
+         // gap: 3rem;
+         grid-auto-flow: column;
+         padding-bottom: 2rem;
+         overflow-x: scroll;
+         scroll-behavior: smooth;
+
+         &.small {
+            grid-auto-columns: 33rem;
+         }
+
+         &.large {
+            grid-auto-columns: 50rem;
+         }
+
+         /* Hide scrollbar for Chrome, Safari and Opera */
+         &::-webkit-scrollbar {
+            display: none;
+         }
+
+         /* Hide scrollbar for IE, Edge and Firefox */
+         & {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+         }
+      }
+   }
+
+   .left_handle,
+   .right_handle {
+      background-color: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      font-size: 5rem;
+      cursor: pointer;
+      padding: 0 1rem;
+      z-index: 10;
+
+      position: absolute;
+      top: 0;
+      height: 100%;
+   }
+
+   .left_handle {
+      left: 0;
+   }
+   .right_handle {
+      right: 0;
+   }
+}

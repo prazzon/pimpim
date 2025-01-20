@@ -1,0 +1,22 @@
+.button {
+   font-size: 1.4rem;
+   font-size: 1.3rem;
+   border-radius: 0.7rem;
+   border-radius: 10rem;
+   padding: 0.8rem 3rem;
+   // font-weight: 500;
+   background: linear-gradient(to right, #ff0000 50%, #f5eb0c);
+   background-size: 200% 100%;
+   background-position: right;
+   transition: background-position 0.5s ease;
+   color: #fff;
+   cursor: pointer;
+
+   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+   border: none;
+
+   &.secondary {
+      background: transparent;
+      border: 1px solid #fff;
+   }
+}
