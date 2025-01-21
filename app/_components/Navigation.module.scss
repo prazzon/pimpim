@@ -22,7 +22,7 @@
       position: relative;
       // font-size: 1.2rem;
       // text-transform: uppercase;
-      
+
       a {
          padding: 1rem 0;
       }
@@ -31,7 +31,7 @@
          position: absolute;
          // left: 50%;
          // transform: translateX(-50%);
-         bottom: -.2rem;
+         bottom: -0.2rem;
          left: 0;
          height: 2px;
          width: 100%;
@@ -42,15 +42,9 @@
       }
    }
 
-   // &_btn {
-   //    border-radius: 0.7rem;
-   //    padding: 0.8rem 3rem;
-   //    font-weight: 500;
-   //    background: linear-gradient(to right, #ff0000 50%, #f5eb0c);
-   //    background-size: 200% 100%;
-   //    background-position: right;
-   //    transition: background-position 0.5s ease;
-   //    color: #fff;
-   //    cursor: pointer;
-   // }
+   &_btn {
+      padding: 0.8rem 3rem;
+      font-size: 1.3rem;
+      border-radius: 1rem;
+   }
 }
