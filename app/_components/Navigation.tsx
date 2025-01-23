@@ -1,5 +1,4 @@
 "use client";
-
 import Logo from "@/public/logo.svg";
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -19,6 +18,13 @@ const navLinks = [
 function Navigation() {
    const pathname = usePathname();
 
+   function isActivePath(href: string) {
+      if (href === "/" && pathname !== href) {
+         return false;
+      }
+
+      return pathname.startsWith(href);
+   }
    return (
       <nav className={styles.nav}>
          <Link href="/" className={styles.nav_logo}>
@@ -29,7 +35,7 @@ function Navigation() {
             {navLinks.map((link) => (
                <li key={link.name} className={styles.nav_link}>
                   <Link href={link.href}>{link.name}</Link>
-                  {pathname === link.href && (
+                  {isActivePath(link.href) && (
                      <motion.span
                         layoutId="nav_link"
                         className={styles.active}

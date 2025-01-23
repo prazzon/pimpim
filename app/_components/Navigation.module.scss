@@ -2,7 +2,12 @@
    display: flex;
    align-items: center;
    padding: 3rem 4rem;
-   padding: 2.5rem;
+   padding: 2.5rem 6rem;
+   position: sticky;
+   top: 0;
+   z-index: 1000;
+   background: var(--background);
+   // padding: 2.5rem;
 
    &_logo {
       // font-size: 2rem;
