@@ -22,7 +22,6 @@ export default function GradientText({
    };
    
    return (
-      // <div className={`${styles.animated_gradient_text} ${className}`}>
       <div className={clsx(styles.animated_gradient_text, className)}>
          {showBorder && (
             <div className={styles.gradient_overlay} style={gradientStyle}></div>
