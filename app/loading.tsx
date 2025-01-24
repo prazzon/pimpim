@@ -1,7 +1,9 @@
+import Spinner from "./_components/UI/Spinner/Spinner"
+
 function Loading() {
    return (
       <>
-         <h1>Loading</h1>
+         <Spinner />
       </>
    )
 }
