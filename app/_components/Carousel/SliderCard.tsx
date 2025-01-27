@@ -1,9 +1,9 @@
+import { Data } from "@/app/_data/types";
 import { motion } from "motion/react";
-import { SliderData } from "./Carousel";
 import styles from "./SliderCard.module.scss";
 
 type Prop = {
-   data: SliderData;
+   data: Data;
 };
 
 function SliderCard({ data }: Prop) {
@@ -12,7 +12,7 @@ function SliderCard({ data }: Prop) {
          // layout
          layoutId={data.id.toString()}
          initial={{ scale: 0.8, opacity: 0 }}
-         animate={{ scale: 1, opacity: 1, transition: { duration: .4 } }}
+         animate={{ scale: 1, opacity: 1, transition: { duration: 0.4 } }}
          exit={{ scale: 0.8, opacity: 0 }}
          transition={{
             type: "spring",
@@ -25,7 +25,7 @@ function SliderCard({ data }: Prop) {
             // layoutId={data.id.toString()}
             // layout
             alt={data.title}
-            src={data.thumbnail}
+            src={data.poster}
             className={styles.image}
          />
          <motion.div className={styles.content}>

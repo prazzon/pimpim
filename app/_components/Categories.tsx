@@ -9,7 +9,6 @@ function Categories() {
       <section className={styles.categories}>
          <CarouselGroup title="Trending" link="/trending" size="large">
             {trending.map((item) => (
-               // <FeaturedCard key={item.id} item={item} />
                <FilmCard key={item.id} item={item} size="large" />
             ))}
          </CarouselGroup>

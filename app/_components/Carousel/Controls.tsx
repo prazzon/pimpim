@@ -1,18 +1,20 @@
-import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
+// import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
+import { Dispatch, SetStateAction, useCallback } from "react";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
-import { CurrentSlideData, SliderData } from "./Carousel";
+import { CurrentSlideData } from "./Carousel";
 import styles from "./Controls.module.scss";
 import Progress from "./Progress";
+import { Data } from "@/app/_data/types";
 
 type Props = {
    currentSlideData: CurrentSlideData;
-   transitionData: SliderData;
-   data: SliderData[];
-   initData: SliderData;
-   handleData: Dispatch<SetStateAction<SliderData[]>>;
-   handleTransitionData: Dispatch<SetStateAction<SliderData>>;
+   transitionData: Data;
+   data: Data[];
+   initData: Data;
+   handleData: Dispatch<SetStateAction<Data[]>>;
+   handleTransitionData: Dispatch<SetStateAction<Data>>;
    handleCurrentSlideData: Dispatch<SetStateAction<CurrentSlideData>>;
-   sliderData: SliderData[];
+   sliderData: Data[];
 };
 
 function Controls({
@@ -67,15 +69,15 @@ function Controls({
       sliderData,
    ]);
 
-   useEffect(() => {
-      const intervalId = setInterval(() => {
-         handleNext();
-      }, 5000);
+   // useEffect(() => {
+   //    const intervalId = setInterval(() => {
+   //       handleNext();
+   //    }, 5000);
 
-      return () => {
-         clearInterval(intervalId);
-      };
-   }, [handleNext]);
+   //    return () => {
+   //       clearInterval(intervalId);
+   //    };
+   // }, [handleNext]);
 
    return (
       <div className={styles.controls}>

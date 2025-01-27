@@ -1,10 +1,9 @@
-import Carousel from "./Carousel/Carousel";
 import styles from "./Hero.module.scss";
 
-function Hero() {
+function Hero({ children }: { children: React.ReactNode }) {
    return (
       <header className={styles.header}>
-         <Carousel />
+         {children}
       </header>
    );
 }
