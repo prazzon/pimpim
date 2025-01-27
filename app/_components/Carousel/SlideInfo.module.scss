@@ -2,6 +2,7 @@
    display: flex;
    flex-direction: column;
    gap: 1.5rem;
+   gap: 3rem;
    position: relative;
 
    .divider {
@@ -19,6 +20,18 @@
    &_content {
       display: flex;
       flex-direction: column;
+      gap: 1.5rem;
+
+      .category {
+         padding: 0.2rem 0.8rem;
+         transform: translateX(-2px);
+         font-size: 1.2rem;
+         font-weight: 500;
+         letter-spacing: 1px;
+         border-radius: 2rem;
+         align-self: flex-start;
+         background-color: #2e2e2e;
+      }
 
       .title {
          color: var(--text-primary);
@@ -37,14 +50,9 @@
       }
 
       .description {
-         font-size: 1.5rem;
-         // font-size: 1.4rem;
-         // letter-spacing: 1px;
-         // line-height: 1.75rem;
+         font-size: 1.4rem;
          font-weight: 500;
          color: #eeeeee;
-         // color: var(--text-primary);
-         // width: 80%;
          max-width: 53rem;
       }
    }
@@ -55,12 +63,18 @@
 
       button {
          padding: 1.2rem 2.4rem;
-         // padding: 1rem 3rem;
+         padding: 1.4rem 2.8rem;
          border-radius: 10rem;
          font-weight: 500;
          display: flex;
          align-items: center;
          gap: 1rem;
+
+         a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+         }
 
          svg {
             font-size: 2rem;
@@ -70,18 +84,16 @@
             background: var(--background-gradient);
             background-size: 200% 100%;
             background-position: 100%;
-
             background: #fff;
             color: #000;
          }
 
          &.btn_secondary {
             background: transparent;
-            border: 1px solid #fff;
-            border: 1px solid #999999;
-            // backdrop-filter: blur(6px);
-            // -webkit-backdrop-filter: blur(16px) saturate(180%);
-            // background-color: rgba(0, 0, 0, 0.25);
+            border: 1.5px solid var(--text-secondary);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(0, 0, 0, 0.25);
          }
       }
    }
