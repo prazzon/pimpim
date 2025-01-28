@@ -10,6 +10,7 @@ function ShowsPage() {
          <Hero>
             <Carousel sliderData={shows} />
          </Hero>
+         
          <List title="Shows">
             <FilteredList data={shows} />
          </List>
@@ -17,4 +18,4 @@ function ShowsPage() {
    );
 }
 
-export default ShowsPage
+export default ShowsPage;

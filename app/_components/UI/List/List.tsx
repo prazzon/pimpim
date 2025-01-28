@@ -3,8 +3,8 @@ import styles from "./List.module.scss";
 
 type Props = {
    children: React.ReactNode;
-   title?: string
-}
+   title?: string;
+};
 
 function List({ children, title }: Props) {
    return (
@@ -12,7 +12,7 @@ function List({ children, title }: Props) {
          {title && <Title>{title}</Title>}
          {children}
       </div>
-   )
+   );
 }
 
-export default List
+export default List;

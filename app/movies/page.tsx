@@ -10,6 +10,7 @@ function MoviesPage() {
          <Hero>
             <Carousel sliderData={movies} />
          </Hero>
+         
          <List title="Movies">
             <FilteredList data={movies} />
          </List>
@@ -17,4 +18,4 @@ function MoviesPage() {
    );
 }
 
-export default MoviesPage
+export default MoviesPage;
