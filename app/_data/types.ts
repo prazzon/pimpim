@@ -45,10 +45,10 @@ export type Event = {
    title: string;
    shortDescription: string;
    longDescription: string;
-   time: string;
    poster: string;
    date: string;
    location: string;
+   price: number;
    tags: string[];
    availableTickets: number;
    shareLinks?: {
