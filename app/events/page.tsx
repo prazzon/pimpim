@@ -1,7 +1,15 @@
+import EventCard from "../_components/UI/Card/EventCard/EventCard";
+import Grid from "../_components/UI/Grid/Grid";
+import { events } from "../_data/data-events";
+
 function EventsPage() {
    return (
       <>
-         <h1>Events Page</h1>
+         <Grid title="Events">
+            {events.map((event) => (
+               <EventCard key={event.id} event={event} />
+            ))}
+         </Grid>
       </>
    );
 }
