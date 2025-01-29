@@ -5,6 +5,10 @@
    gap: 4rem;
    margin: 0 6rem;
 
+   width: 1140px;
+   margin: 0 auto;
+   grid-template-columns:35% 1fr;
+
    &_img {
       position: relative;
       height: 55rem;
