@@ -9,6 +9,8 @@ import IFrame from "../../IFrame/IFrame";
 import Modal, { Content, OpenBtn } from "../../UI/Modal/Modal";
 import styles from "./Movie.module.scss";
 import Button from "../../UI/Button/Button";
+import { MdDateRange } from "react-icons/md";
+import { BiTimeFive } from "react-icons/bi";
 
 type Props = {
    movie: Movie;
@@ -35,9 +37,18 @@ function Movie({ movie }: Props) {
                   Back to all movies
                </Link>
                <h1 className={styles.title}>{movie.title}</h1>
-               <p className={styles.text}>
+               {/* <p className={styles.text}>
                   {movie.year} &bull; {movie.duration} mins
+               </p> */}
+               <p className={styles.text}>
+                  <MdDateRange />
+                  {movie.year}
                </p>
+               <p className={styles.text}>
+                  <BiTimeFive />
+                  {movie.duration} mins
+               </p>
+
                <div className={styles.genres}>
                   {movie.genres.map((genre, index) => (
                      <span key={index} className={styles.genre}>
