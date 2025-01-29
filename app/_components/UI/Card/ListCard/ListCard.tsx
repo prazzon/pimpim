@@ -11,11 +11,34 @@ type Props = {
 };
 
 function ListCard({ item, position }: Props) {
+   let pageLink;
+
+   switch (item.category) {
+      case "movie":
+         pageLink = `/movies/${item.id}`;
+         break;
+      case "series":
+         pageLink = `/series/${item.id}`;
+         break;
+      case "show":
+         pageLink = `/shows/${item.id}`;
+         break;
+      case "news":
+         pageLink = `/trending/${item.id}`;
+         break;
+      case "event":
+         pageLink = `/events/${item.id}`;
+         break;
+      default:
+         pageLink = "/";
+         break;
+   }
+
    return (
       <>
          <div key={item.id} className={`${styles.item}`}>
             {position && <span className={styles.position}>0{position}</span>}
-            <div className={styles.image}>
+            <Link href={pageLink} className={styles.image}>
 
                {item.position && (
                   <span className={styles.position}>
@@ -26,24 +49,24 @@ function ListCard({ item, position }: Props) {
                <Image src={item.poster} alt={item.title} fill />
 
                {(item.category === "movie" || item.category === "series") && (
-                  <Link href={`/movies/${item.id}`} scroll={false} className={styles.play}>
+                  <div className={styles.play}>
                      <FaCirclePlay />
-                  </Link>
+                  </div>
                )}
 
                {item.category === "show" && (
-                  <Link href={`/shows/${item.id}`} className={styles.play}>
+                  <div className={styles.play}>
                      <FaCirclePlay />
-                  </Link>
+                  </div>
                )}
 
                {item.category === "news" && (
-                  <Link href={`/trending/${item.id}`} className={styles.play}>
+                  <div className={styles.play}>
                      <FaReadme />
-                  </Link>
+                  </div>
                )}
 
-            </div>
+            </Link>
             <div className={styles.info}>
                <div className={styles.info_category}>
                   <ShinyText
@@ -73,7 +96,11 @@ function ListCard({ item, position }: Props) {
                )}
 
                {item.category !== "event" && (
-                  <p className={styles.info_description}>{item.description}</p>
+                  <p className={styles.info_description}>
+                     {item.description.length > 200
+                        ? `${item.description.substring(0, 200)} ...`
+                        : item.description}
+                  </p>
                )}
 
                {item.category === "news" && (

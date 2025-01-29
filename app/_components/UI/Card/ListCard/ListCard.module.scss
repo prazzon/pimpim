@@ -3,34 +3,30 @@
 .item {
    display: grid;
    grid-template-columns: 40% 1fr;
-   // grid-template-columns: 1fr 1fr;
    display: flex;
    justify-content: center;
-   gap: 4rem;
    gap: 4.5rem;
 
    .position {
-      font-size: 1.2rem;
       font-size: 4rem;
       font-weight: 600;
    }
 
    .image {
       position: relative;
-      width: 40rem;
-      height: 30rem;
-
-      height: 40rem;
-      height: 30rem;
-      width: 55rem;
-      // height: 100%;
-      // width: 100%;
       border-radius: 2rem;
       overflow: hidden;
+      height: 24rem;
+      aspect-ratio: 16 / 9;
+
+      &:hover img {
+         transform: scale(1.1);
+      }
 
       img {
          object-fit: cover;
          filter: brightness(80%);
+         transition: transform 0.4s;
       }
 
       .position {
