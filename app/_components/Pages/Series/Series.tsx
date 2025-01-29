@@ -1,14 +1,15 @@
 import { type Series } from "@/app/_data/types";
+import Image from "next/image";
 import Link from "next/link";
 import { FaCirclePlay } from "react-icons/fa6";
 import { IoArrowBackOutline } from "react-icons/io5";
+import { MdDateRange, MdOutlineFormatListBulleted } from "react-icons/md";
 import IFrame from "../../IFrame/IFrame";
 import Button from "../../UI/Button/Button";
 import ImageLoader from "../../UI/ImageLoader/ImageLoader";
 import Modal, { Content, OpenBtn } from "../../UI/Modal/Modal";
 import Title from "../../UI/Title/Title";
 import styles from "./Series.module.scss";
-import Image from "next/image";
 
 type Props = {
    series: Series;
@@ -23,7 +24,12 @@ function getVideoId(url: string): string | null {
 function Series({ series }: Props) {
    return (
       <main className={styles.series}>
-         <Image src={series.poster} alt={series.title} fill className={styles.background_image} />
+         <Image
+            src={series.poster}
+            alt={series.title}
+            fill
+            className={styles.background_image}
+         />
          <title>{series.title}</title>
          <div className={styles.series_info}>
             <div className={styles.series_info_poster}>
@@ -37,7 +43,17 @@ function Series({ series }: Props) {
                   Back to all shows
                </Link>
                <h1 className={styles.title}>{series.title}</h1>
-               <p className={styles.text}>{series.year} &bull; {series.episodes.length} episodes</p>
+               {/* <p className={styles.text}>
+                  {series.year} &bull; {series.episodes.length} episodes
+               </p> */}
+               <p className={styles.text}>
+                  <MdDateRange />
+                  {series.year}
+               </p>
+               <p className={styles.text}>
+                  <MdOutlineFormatListBulleted />
+                  {series.episodes.length} episodes
+               </p>
                <div className={styles.genres}>
                   {series.genres.map((genre, index) => (
                      <span key={index} className={styles.genre}>
