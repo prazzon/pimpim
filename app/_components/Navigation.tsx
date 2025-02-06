@@ -28,7 +28,7 @@ function Navigation() {
    return (
       <nav className={styles.nav}>
          <Link href="/" className={styles.nav_logo}>
-            <Image src={Logo} alt="logo" width={120} />
+            <Image src={Logo} alt="logo" width={120} priority />
          </Link>
 
          <ul className={styles.nav_links}>
