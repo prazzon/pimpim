@@ -1,9 +1,9 @@
-import Link from "next/link";
-import styles from "./Footer.module.scss";
-import Button from "./UI/Button/Button";
-import Image from "next/image";
 import Logo from "@/public/logo.svg";
+import Image from "next/image";
+import Link from "next/link";
 import { FaInstagram, FaTiktok, FaXTwitter } from "react-icons/fa6";
+import Button from "../UI/Button/Button";
+import styles from "./Footer.module.scss";
 
 function Footer() {
    return (
@@ -19,8 +19,10 @@ function Footer() {
          </div>
 
          <div className={styles.footer_bottom}>
-            <p className={styles.copyright}>© PimPim, Inc. 2025. All Rights Reserved</p>
-            
+            <p className={styles.copyright}>
+               © PimPim, Inc. 2025. All Rights Reserved
+            </p>
+
             <div className={styles.social}>
                Follow us:
                <div className={styles.social_links}>
@@ -40,4 +42,4 @@ function Footer() {
    );
 }
 
-export default Footer
+export default Footer;
