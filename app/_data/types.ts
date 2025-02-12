@@ -1,7 +1,8 @@
 export type Movie = {
-   id: number;
+   id: string;
    category: "movie";
    title: string;
+   slug: string;
    year: string;
    description: string;
    poster: string;
@@ -81,5 +82,20 @@ export type News = {
 export type Trending = Data & {
    position?: number;
 };
+
+export type Post = {
+   id: number;
+   category: string;
+   title: string;
+   summary: string;
+   content: string;
+   author: string;
+   createdAt: Date;
+   updatedAt: Date;
+   poster: string;
+   tags: string[];
+   viewCount: number;
+   position?: number;
+}
 
 export type Data = Movie | Series | Event | News;
