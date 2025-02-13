@@ -25,6 +25,7 @@ function Navigation() {
 
       return pathname.startsWith(href);
    }
+   
    return (
       <nav className={styles.nav}>
          <Link href="/" className={styles.nav_logo}>
