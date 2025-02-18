@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 type Props = {
    children: React.ReactNode;
    className?: string;
+   containerClassName?: string;
    id: string;
 };
 
@@ -24,9 +25,12 @@ const item = {
    },
 };
 
-function AnimatedText({ children, className, id }: Props) {
+function AnimatedText({ children, className, containerClassName, id }: Props) {
    return (
-      <span style={{ overflow: "hidden", display: "inline-block" }}>
+      <span
+         style={{ overflow: "hidden", display: "inline-block" }}
+         className={containerClassName}
+      >
          <motion.p
             variants={item}
             initial="hidden"
@@ -35,7 +39,7 @@ function AnimatedText({ children, className, id }: Props) {
             key={id}
             className={className}
          >
-            {children}
+            <span>{children}</span>
          </motion.p>
       </span>
    );
