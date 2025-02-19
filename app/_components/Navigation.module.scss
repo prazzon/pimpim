@@ -1,18 +1,20 @@
 .nav {
    display: flex;
    align-items: center;
-   padding: 3rem 4rem;
+   padding: 3rem 6rem;
    padding: 2.5rem 6rem;
    position: sticky;
    top: 0;
+   transition: all 0.2s ease-in-out;
    z-index: 1000;
-   background: var(--background);
-   // padding: 2.5rem;
+
+   &.scrolled {
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.5);
+   }
 
    &_logo {
-      // font-size: 2rem;
       margin-bottom: -1rem;
-      // margin-top: 1rem;
    }
 
    &_links {
@@ -50,6 +52,6 @@
    &_btn {
       padding: 0.8rem 3rem;
       font-size: 1.5rem;
-      border-radius: .7rem;
+      border-radius: 0.7rem;
    }
 }

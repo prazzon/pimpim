@@ -1,9 +1,11 @@
 "use client";
+
 import Logo from "@/public/logo.svg";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import styles from "./Navigation.module.scss";
 import GradientText from "./UI/GradientText/GradientText";
 
@@ -25,9 +27,32 @@ function Navigation() {
 
       return pathname.startsWith(href);
    }
-   
+
+   const navRef = useRef<HTMLElement | null>(null);
+
+   const activePath =
+      navLinks.find((link) => isActivePath(link.href))?.href || "/";
+
+   useEffect(() => {
+      const handleScroll = () => {
+         if (!navRef.current) return;
+
+         if (window.scrollY > 0) {
+            navRef.current.classList.add(styles.scrolled);
+         } else {
+            navRef.current.classList.remove(styles.scrolled);
+         }
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+         window.removeEventListener("scroll", handleScroll);
+      };
+   }, []);
+
    return (
-      <nav className={styles.nav}>
+      <nav className={styles.nav} ref={navRef}>
          <Link href="/" className={styles.nav_logo}>
             <Image src={Logo} alt="logo" width={120} priority />
          </Link>
@@ -36,7 +61,7 @@ function Navigation() {
             {navLinks.map((link) => (
                <li key={link.name} className={styles.nav_link}>
                   <Link href={link.href}>{link.name}</Link>
-                  {isActivePath(link.href) && (
+                  {activePath === link.href && (
                      <motion.span
                         layoutId="nav_link"
                         className={styles.active}
