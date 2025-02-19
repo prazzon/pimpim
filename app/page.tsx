@@ -1,15 +1,9 @@
-// import Carousel from "./_components/Carousel/Carousel";
-import Categories from "./_components/Categories";
-// import Hero from "./_components/Hero";
-// import { trending } from "./_data/data-trending";
+import Home from "./_components/Pages/Home/Home";
 
 export default function HomePage() {
    return (
       <section>
-         {/* <Hero>
-            <Carousel sliderData={trending} />
-         </Hero> */}
-         <Categories />
+         <Home />
       </section>
    );
 }
