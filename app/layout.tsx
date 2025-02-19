@@ -1,18 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import Navigation from "./_components/Navigation";
+import Footer from "./_components/UI/Footer/Footer";
+import Main from "./_components/UI/Main/Main";
+import Navigation from "./_components/UI/Navigation/Navigation";
 import "./globals.scss";
-import Footer from "./_components/Footer";
-
-const geistSans = Geist({
-   variable: "--font-geist-sans",
-   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-   variable: "--font-geist-mono",
-   subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
    title: "PimPim",
@@ -26,10 +16,12 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en">
-         <body className={`${geistSans.variable} ${geistMono.variable}`}>
+         <body>
             <Navigation />
-            {children}
-            <Footer />
+            <Main>
+               {children}
+               <Footer />
+            </Main>
          </body>
       </html>
    );
