@@ -4,7 +4,7 @@ type Props = {
    text: string;
    disabled: boolean;
    speed: number;
-   className: string;
+   className?: string;
 };
 
 const ShinyText = ({
