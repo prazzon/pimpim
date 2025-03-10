@@ -1,7 +1,8 @@
 "use client";
 
 import ListCard from "@/app/_components/UI/Card/ListCard/ListCard";
-import { Data } from "@/app/_data/types";
+// import { Data } from "@/app/_data/types";
+import { Data } from "@/app/_lib/firebase/types";
 import clsx from "clsx";
 import { useState } from "react";
 import styles from "./FilteredList.module.scss";
@@ -27,12 +28,8 @@ function FilteredList({ data }: Props) {
    const [filter, setFilter] = useState("All");
 
    if (filter !== "All") {
-      data = data.filter(
-         (dataItem) =>
-            (dataItem.category === "movie" ||
-               dataItem.category === "show" ||
-               dataItem.category === "series") &&
-            dataItem.genres.includes(filter)
+      data = data.filter((dataItem) =>
+         dataItem.genres.includes(filter.toLowerCase())
       );
    }
 

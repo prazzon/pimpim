@@ -3,7 +3,7 @@ import Spinner from "./_components/UI/Spinner/Spinner"
 function Loading() {
    return (
       <>
-         <Spinner />
+         <Spinner type="inline" />
       </>
    )
 }

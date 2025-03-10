@@ -16,28 +16,54 @@ export type Movie = {
    position?: number;
 };
 
+// export type Series = {
+//    id: number;
+//    category: "series" | "show";
+//    title: string;
+//    year: string;
+//    description: string;
+//    poster: string;
+//    trailerLink: string;
+//    episodes: Episode[];
+//    rating: number;
+//    genres: string[];
+//    credits: string;
+//    viewCount: number;
+//    position?: number;
+// };
+
+// export type Episode = {
+//    title: string;
+//    rating: number;
+//    episodeLink: string;
+//    description: string;
+//    viewCount: number;
+// };
+
 export type Series = {
    id: number;
    category: "series" | "show";
    title: string;
+   slug: string;
    year: string;
    description: string;
    poster: string;
    trailerLink: string;
    episodes: Episode[];
-   rating: number;
    genres: string[];
-   credits: string;
-   viewCount: number;
+   createdAt: Date;
+   rating?: number;
+   credits?: string;
+   viewCount?: number;
    position?: number;
 };
 
 export type Episode = {
    title: string;
-   rating: number;
    episodeLink: string;
    description: string;
-   viewCount: number;
+   rating?: number;
+   viewCount?: number;
 };
 
 export type Event = {
@@ -86,6 +112,7 @@ export type Trending = Data & {
 export type Post = {
    id: number;
    category: string;
+   categoryId: string;
    title: string;
    summary: string;
    content: string;

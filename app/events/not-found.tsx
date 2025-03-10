@@ -1,4 +1,4 @@
-import NotFound from "../_components/NotFound/NotFound";
+import NotFound from "../_components/UI/NotFound/NotFound";
 
 function NotFoundPage() {
    return (

@@ -2,9 +2,10 @@ import { Movie } from "./types";
 
 export const movies: Movie[] = [
    {
-      id: 1,
+      id: "1",
       category: "movie",
       title: "The Homecoming",
+      slug: "the-homecoming",
       year: "2022",
       description:
          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non eligendi quibusdam!",
@@ -18,12 +19,13 @@ export const movies: Movie[] = [
       viewCount: 1000,
    },
    {
-      id: 2,
+      id: "2",
       category: "movie",
       title: "Chemistry",
+      slug: "chemistry",
       year: "2023",
       description:
-         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non eligendi quibusdam!",
+         "Juliet was sixteen when her parents flew her to the States to hide a very big secret, seven years later she came back to seek justice against the people who hurt her and she will do anything to protect the evidence of her secret and the man she loves the most.",
       poster: "/images/movie2.webp",
       trailerLink: "https://youtu.be/-wSQ5mP_iww?si=GoZoShtXP44GRvA_",
       movieLink: "https://youtu.be/-wSQ5mP_iww?si=GoZoShtXP44GRvA_",
@@ -34,9 +36,10 @@ export const movies: Movie[] = [
       viewCount: 1000,
    },
    {
-      id: 3,
+      id: "3",
       category: "movie",
       title: "The Jailer",
+      slug: "the-jailer",
       year: "2021",
       description:
          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non eligendi quibusdam!",
@@ -50,9 +53,10 @@ export const movies: Movie[] = [
       viewCount: 1000,
    },
    {
-      id: 4,
+      id: "4",
       category: "movie",
       title: "Mission: Impossible",
+      slug: "mission-impossible",
       year: "2020",
       description:
          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non eligendi quibusdam!",
@@ -66,9 +70,10 @@ export const movies: Movie[] = [
       viewCount: 1000,
    },
    {
-      id: 5,
+      id: "5",
       category: "movie",
       title: "Fractured Identity",
+      slug: "fractured-identity",
       year: "2024",
       description:
          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non eligendi quibusdam!",
@@ -82,9 +87,10 @@ export const movies: Movie[] = [
       viewCount: 1000,
    },
    {
-      id: 6,
+      id: "6",
       category: "movie",
       title: "The Devil's Conspiracy",
+      slug: "the-devils-conspiracy",
       year: "2025",
       description:
          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit ullam mollitia commodi ut facere soluta, vel corporis nobis modi at, accusantium aliquid tempore eos asperiores illo! Recusandae non eligendi quibusdam!",

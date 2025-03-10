@@ -1,12 +1,26 @@
 .movie {
    display: flex;
    flex-direction: column;
-   width: 1100px;
    margin: 0 auto;
    margin-top: 4rem;
+   margin-top: 6rem;
+   width: 100%;
+   max-width: 1200px;
+   max-width: 1400px;
+   min-height: calc(100vh - 18rem);
+   margin-bottom: 4rem;
+   padding: 0 6rem;
+
+   @media (max-width: 1024) {
+      padding: 0 3rem;
+   }
+
+   @media (max-width: 425) {
+      padding: 0 2rem;
+   }
 
    .background_image {
-      filter: blur(30px) brightness(15%);
+      filter: blur(30px) brightness(35%);
       object-fit: cover;
       z-index: -1;
    }
@@ -15,7 +29,18 @@
       display: flex;
       display: grid;
       grid-template-columns: 35% 1fr;
+      grid-template-columns: 378px 1fr;
       gap: 6rem;
+
+      @media (max-width: 1024px) {
+         grid-template-columns: 40% 1fr;
+      }
+
+      @media (max-width: 768px) {
+         grid-template-columns: 1fr;
+         grid-template-rows: auto 1fr;
+         gap: 2rem;
+      }
 
       &_poster {
          position: relative;
@@ -25,9 +50,13 @@
          border-radius: 2.5rem;
          overflow: hidden;
 
+         background: #131313;
+         border: 1rem solid #131313;
+
          img {
             object-fit: cover;
             filter: brightness(90%);
+            border-radius: 1.8rem;
          }
       }
 
@@ -51,7 +80,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
 
             &:hover {
                text-decoration: underline;
@@ -100,19 +129,31 @@
 
          .genres {
             display: flex;
+            flex-wrap: wrap;
             gap: 1.5rem;
 
             .genre {
-               font-size: 1.4rem;
+               font-size: 1.5rem;
                background-color: #1b1b1b;
-               padding: 0.5rem 1.5rem;
+               padding: 0.8rem 2rem;
                border-radius: 5rem;
+               text-transform: capitalize;
             }
          }
 
          .btns {
             display: flex;
             gap: 1.5rem;
+
+            @media (max-width: 425px) {
+               flex-direction: column;
+               justify-content: center;
+
+               button {
+                  display: flex;
+                  justify-content: center;
+               }
+            }
          }
       }
    }

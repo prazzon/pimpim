@@ -1,18 +1,20 @@
-import Carousel from "../_components/Carousel/Carousel";
-import Hero from "../_components/Hero";
+import Carousel from "../_components/UI/Carousel/Carousel";
+import Hero from "../_components/UI/Hero/Hero";
 import FilteredList from "../_components/UI/List/FilteredList/FilteredList";
 import List from "../_components/UI/List/List";
-import { movies } from "../_data/data-movies";
+import { getMovies } from "../_lib/firebase/movies/service";
 
-function MoviesPage() {
+async function MoviesPage() {
+   const moviesData = await getMovies();
+
    return (
       <>
          <Hero>
-            <Carousel sliderData={movies} />
+            <Carousel sliderData={moviesData} />
          </Hero>
-         
+
          <List title="Movies">
-            <FilteredList data={movies} />
+            <FilteredList data={moviesData} />
          </List>
       </>
    );

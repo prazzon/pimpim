@@ -1,11 +1,12 @@
-import { type Series } from "@/app/_data/types";
+// import { type Series } from "@/app/_data/types";
+import { type Series } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
 import { FaCirclePlay } from "react-icons/fa6";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { MdDateRange, MdOutlineFormatListBulleted } from "react-icons/md";
-import IFrame from "../../IFrame/IFrame";
 import Button from "../../UI/Button/Button";
+import IFrame from "../../UI/IFrame/IFrame";
 import ImageLoader from "../../UI/ImageLoader/ImageLoader";
 import Modal, { Content, OpenBtn } from "../../UI/Modal/Modal";
 import Title from "../../UI/Title/Title";
@@ -102,6 +103,17 @@ function Series({ series }: Props) {
                         )}/hqdefault.jpg`}
                         alt={episode.title}
                      />
+
+                     <Modal>
+                        <OpenBtn>
+                           <div className={styles.play}>
+                              <FaCirclePlay />
+                           </div>
+                        </OpenBtn>
+                        <Content>
+                           <IFrame link={episode.episodeLink} />
+                        </Content>
+                     </Modal>
                   </div>
                   <div className={styles.episode_info}>
                      <h3 className={styles.episode_info_title}>
@@ -110,17 +122,17 @@ function Series({ series }: Props) {
                      <p className={styles.episode_info_text}>
                         {episode.description}
                      </p>
-                     <Modal>
+                     {/* <Modal>
                         <OpenBtn>
-                           <Button type="play" size="small">
+                           <Button type="play" size="medium">
                               <FaCirclePlay />
-                              Play now
+                              Watch
                            </Button>
                         </OpenBtn>
                         <Content>
                            <IFrame link={episode.episodeLink} />
                         </Content>
-                     </Modal>
+                     </Modal> */}
                   </div>
                </div>
             ))}

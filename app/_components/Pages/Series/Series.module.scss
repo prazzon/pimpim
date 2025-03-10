@@ -1,12 +1,24 @@
 .series {
    display: flex;
    flex-direction: column;
-   width: 1100px;
    margin: 0 auto;
-   margin-top: 4rem;
+   margin-top: 6rem;
+   width: 100%;
+   max-width: 1400px;
+   min-height: calc(100vh - 18rem);
+   margin-bottom: 4rem;
+   padding: 0 6rem;
+
+   @media (max-width: 1024) {
+      padding: 0 3rem;
+   }
+
+   @media (max-width: 425) {
+      padding: 0 2rem;
+   }
 
    .background_image {
-      filter: blur(30px) brightness(15%);
+      filter: blur(30px) brightness(35%);
       object-fit: cover;
       z-index: -1;
    }
@@ -15,20 +27,36 @@
       display: flex;
       display: grid;
       grid-template-columns: 35% 1fr;
+      grid-template-columns: 378px 1fr;
       gap: 6rem;
+
+      @media (max-width: 1024px) {
+         grid-template-columns: 40% 1fr;
+      }
+
+      @media (max-width: 768px) {
+         grid-template-columns: 1fr;
+         grid-template-rows: auto 1fr;
+         gap: 2rem;
+      }
 
       &_poster {
          position: relative;
          width: 100%;
          height: 50rem;
+         aspect-ratio: 16 / 9;
          object-fit: cover;
          border-radius: 2.5rem;
          overflow: hidden;
          background-color: #111;
 
+         background: #131313;
+         border: 1rem solid #131313;
+
          img {
             object-fit: cover;
             filter: brightness(90%);
+            border-radius: 1.8rem;
          }
       }
 
@@ -52,7 +80,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
 
             &:hover {
                text-decoration: underline;
@@ -101,19 +129,31 @@
 
          .genres {
             display: flex;
+            flex-wrap: wrap;
             gap: 1.5rem;
 
             .genre {
-               font-size: 1.4rem;
+               font-size: 1.5rem;
                background-color: #1b1b1b;
-               padding: 0.5rem 1.2rem;
+               padding: 0.8rem 2rem;
                border-radius: 5rem;
+               text-transform: capitalize;
             }
          }
 
          .btns {
             display: flex;
             gap: 1.5rem;
+
+            @media (max-width: 500px) {
+               flex-direction: column;
+               justify-content: center;
+
+               button {
+                  display: flex;
+                  justify-content: center;
+               }
+            }
          }
       }
    }
@@ -127,14 +167,47 @@
       .episode {
          display: flex;
          gap: 5rem;
+         display: grid;
+         grid-template-columns: 35% 1fr;
+         grid-template-columns: 378px 1fr;
+         gap: 6rem;
+
+         @media (max-width: 1024px) {
+            grid-template-columns: 40% 1fr;
+         }
+
+         @media (max-width: 768px) {
+            gap: 3rem;
+         }
+
+         @media (max-width: 625px) {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+         }
 
          &_poster {
-            height: 22rem;
+            // height: 22rem;
             aspect-ratio: 16 / 9;
+            // aspect-ratio: 1 / 1;
             position: relative;
-            border-radius: 2rem;
+            border-radius: 1.5rem;
             overflow: hidden;
             background-color: #111;
+
+            .play {
+               font-size: 2rem;
+               position: absolute;
+               top: 50%;
+               left: 50%;
+               transform: translate(-50%, -50%);
+               padding: 1.5rem;
+               display: flex;
+               border-radius: 10rem;
+               background: rgba(255, 255, 255, 0.25);
+               backdrop-filter: blur(16px);
+               z-index: 10;
+               cursor: pointer;
+            }
 
             img {
                object-fit: cover;
@@ -164,12 +237,26 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 2rem;
-            padding: 2rem 0;
+            justify-content: center;
+            gap: 1.5rem;
+            // padding: 2rem 0;
+
+            @media (max-width: 768px) {
+               gap: 1rem;
+            }
 
             &_title {
                font-size: 2.2rem;
+               font-size: 2.5rem;
                font-weight: 600;
+
+               @media (max-width: 1024px) {
+                  font-size: 2.2rem;
+               }
+
+               @media (max-width: 768px) {
+                  font-size: 2rem;
+               }
             }
 
             &_text {

@@ -1,16 +1,16 @@
-import { type Movie } from "@/app/_data/types";
+import { type Movie } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
 // import { BiLike } from "react-icons/bi";
 // import { BsReply } from "react-icons/bs";
+import { BiTimeFive } from "react-icons/bi";
 import { FaCirclePlay } from "react-icons/fa6";
 import { IoArrowBackOutline } from "react-icons/io5";
-import IFrame from "../../IFrame/IFrame";
+import { MdDateRange } from "react-icons/md";
+import Button from "../../UI/Button/Button";
+import IFrame from "../../UI/IFrame/IFrame";
 import Modal, { Content, OpenBtn } from "../../UI/Modal/Modal";
 import styles from "./Movie.module.scss";
-import Button from "../../UI/Button/Button";
-import { MdDateRange } from "react-icons/md";
-import { BiTimeFive } from "react-icons/bi";
 
 type Props = {
    movie: Movie;

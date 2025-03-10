@@ -4,11 +4,12 @@ import styles from "./List.module.scss";
 type Props = {
    children: React.ReactNode;
    title?: string;
+   style?: React.CSSProperties;
 };
 
-function List({ children, title }: Props) {
+function List({ children, title, style }: Props) {
    return (
-      <div className={styles.list}>
+      <div className={styles.list} style={style}>
          {title && <Title>{title}</Title>}
          {children}
       </div>

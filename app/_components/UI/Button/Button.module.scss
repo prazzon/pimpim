@@ -13,6 +13,7 @@
 
    &.play {
       padding: 1.4rem 2.8rem;
+      line-height: 1;
    }
 
    &.normal {
@@ -22,6 +23,16 @@
    &.small {
       padding: 0.8rem 2rem;
       font-size: 1.3rem;
+   }
+
+   &.medium {
+      padding: 1rem 2rem;
+      font-size: 1.4rem;
+
+      @media (max-width: 768px) {
+         padding: 0.8rem 2rem;
+         font-size: 1.3rem;
+      }
    }
 
    &.primary {

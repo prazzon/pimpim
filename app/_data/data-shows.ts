@@ -1,8 +1,10 @@
-import { Series } from "./types";
+// import { Series } from "./types";
+
+import { Series } from "../_lib/firebase/types";
 
 export const shows: Series[] = [
    {
-      id: 1,
+      id: "1",
       category: "show",
       title: "The Flash",
       year: "2021",
@@ -13,8 +15,11 @@ export const shows: Series[] = [
       credits: "Cast: Actor 1, Actor 2, Actor 3",
       trailerLink: "https://www.youtube.com/watch?v=cuATJ5Mlrok",
       poster: "/images/movie1.webp",
+      slug: "the-flash",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "Pilot",
             description: "Pilot episode.",
             rating: 9.5,
@@ -22,6 +27,7 @@ export const shows: Series[] = [
             viewCount: 1000,
          },
          {
+            episodeNumber: 2,
             title: "Fastest Man Alive",
             description: "Barry learns to control his speed.",
             rating: 9.2,
@@ -29,6 +35,7 @@ export const shows: Series[] = [
             viewCount: 980,
          },
          {
+            episodeNumber: 3,
             title: "Things You Can't Outrun",
             description: "A dangerous foe returns.",
             rating: 9.1,
@@ -36,6 +43,7 @@ export const shows: Series[] = [
             viewCount: 950,
          },
          {
+            episodeNumber: 4,
             title: "Going Rogue",
             description: "Barry faces a new enemy.",
             rating: 9.0,
@@ -43,6 +51,7 @@ export const shows: Series[] = [
             viewCount: 940,
          },
          {
+            episodeNumber: 5,
             title: "Plastique",
             description: "Barry tracks down a dangerous meta-human.",
             rating: 8.8,
@@ -53,7 +62,7 @@ export const shows: Series[] = [
       viewCount: 1000,
    },
    {
-      id: 2,
+      id: "2",
       category: "show",
       title: "The Big Bang Theory",
       year: "2007",
@@ -64,8 +73,11 @@ export const shows: Series[] = [
       credits: "Cast: Johnny Galecki, Jim Parsons, Kaley Cuoco",
       trailerLink: "https://www.youtube.com/watch?v=WBb3fojgW0Q",
       poster: "/images/movie2.webp",
+      slug: "the-big-bang-theory",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "Pilot",
             description: "Pilot episode.",
             rating: 8.4,
@@ -73,6 +85,7 @@ export const shows: Series[] = [
             viewCount: 1000,
          },
          {
+            episodeNumber: 2,
             title: "The Big Bran Hypothesis",
             description: "Leonard offers to do something nice for Penny.",
             rating: 8.2,
@@ -80,6 +93,7 @@ export const shows: Series[] = [
             viewCount: 980,
          },
          {
+            episodeNumber: 3,
             title: "The Fuzzy Boots Corollary",
             description: "Leonard asks Penny out on a date.",
             rating: 8.3,
@@ -87,6 +101,7 @@ export const shows: Series[] = [
             viewCount: 970,
          },
          {
+            episodeNumber: 4,
             title: "The Luminous Fish Effect",
             description: "Sheldon is fired from his job.",
             rating: 8.1,
@@ -94,6 +109,7 @@ export const shows: Series[] = [
             viewCount: 960,
          },
          {
+            episodeNumber: 5,
             title: "The Hamburger Postulate",
             description: "Leslie invites Leonard to her apartment.",
             rating: 8.0,
@@ -104,7 +120,7 @@ export const shows: Series[] = [
       viewCount: 1000,
    },
    {
-      id: 3,
+      id: "3",
       category: "show",
       title: "Stranger Things",
       year: "2016",
@@ -115,8 +131,11 @@ export const shows: Series[] = [
       credits: "Cast: Winona Ryder, David Harbour, Finn Wolfhard",
       trailerLink: "https://www.youtube.com/watch?v=XWxyRG_tckY",
       poster: "/images/movie1.webp",
+      slug: "stranger-things",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "The Vanishing of Will Byers",
             description: "Will goes missing.",
             rating: 8.2,
@@ -124,6 +143,7 @@ export const shows: Series[] = [
             viewCount: 1000,
          },
          {
+            episodeNumber: 2,
             title: "The Weirdo on Maple Street",
             description: "Lucas and Dustin meet Eleven.",
             rating: 8.5,
@@ -131,6 +151,7 @@ export const shows: Series[] = [
             viewCount: 990,
          },
          {
+            episodeNumber: 3,
             title: "Holly, Jolly",
             description: "Joyce finds a strange clue.",
             rating: 8.4,
@@ -138,6 +159,7 @@ export const shows: Series[] = [
             viewCount: 980,
          },
          {
+            episodeNumber: 4,
             title: "The Body",
             description: "Hopper uncovers a lab secret.",
             rating: 8.3,
@@ -145,6 +167,7 @@ export const shows: Series[] = [
             viewCount: 970,
          },
          {
+            episodeNumber: 5,
             title: "The Flea and the Acrobat",
             description: "The boys learn about a dimension.",
             rating: 8.1,
@@ -155,7 +178,7 @@ export const shows: Series[] = [
       viewCount: 1000,
    },
    {
-      id: 4,
+      id: "4",
       category: "show",
       title: "The Office (US)",
       year: "2005",
@@ -166,8 +189,11 @@ export const shows: Series[] = [
       credits: "Cast: Steve Carell, John Krasinski, Rainn Wilson",
       trailerLink: "https://www.youtube.com/watch?v=7QvV3y7qf0Q",
       poster: "/images/movie2.webp",
+      slug: "the-office-us",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "Pilot",
             description: "Pilot episode.",
             rating: 8.8,
@@ -175,6 +201,7 @@ export const shows: Series[] = [
             viewCount: 1000,
          },
          {
+            episodeNumber: 2,
             title: "Diversity Day",
             description: "Michael's seminar goes awry.",
             rating: 8.6,
@@ -182,6 +209,7 @@ export const shows: Series[] = [
             viewCount: 990,
          },
          {
+            episodeNumber: 3,
             title: "Health Care",
             description: "Michael delegates a task.",
             rating: 8.5,
@@ -189,6 +217,7 @@ export const shows: Series[] = [
             viewCount: 980,
          },
          {
+            episodeNumber: 4,
             title: "The Alliance",
             description: "Jim pulls a prank on Dwight.",
             rating: 8.4,
@@ -196,6 +225,7 @@ export const shows: Series[] = [
             viewCount: 970,
          },
          {
+            episodeNumber: 5,
             title: "Basketball",
             description: "Office vs. warehouse game.",
             rating: 8.3,
@@ -206,7 +236,7 @@ export const shows: Series[] = [
       viewCount: 1000,
    },
    {
-      id: 5,
+      id: "5",
       category: "show",
       title: "Game of Thrones",
       year: "2011",
@@ -217,8 +247,11 @@ export const shows: Series[] = [
       credits: "Cast: Peter Dinklage, Emilia Clarke, Kit Harington",
       trailerLink: "https://www.youtube.com/watch?v=KPLWWIOQSYU",
       poster: "/images/movie1.webp",
+      slug: "game-of-thrones",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "Winter is Coming",
             description: "Pilot episode.",
             rating: 9.2,
@@ -226,6 +259,7 @@ export const shows: Series[] = [
             viewCount: 1000,
          },
          {
+            episodeNumber: 2,
             title: "The Kingsroad",
             description: "The Stark family begins to split.",
             rating: 9.1,
@@ -233,6 +267,7 @@ export const shows: Series[] = [
             viewCount: 990,
          },
          {
+            episodeNumber: 3,
             title: "Lord Snow",
             description: "Jon struggles with his new life.",
             rating: 9.0,
@@ -240,6 +275,7 @@ export const shows: Series[] = [
             viewCount: 980,
          },
          {
+            episodeNumber: 4,
             title: "Cripples, Bastards, and Broken Things",
             description: "Ned probes Jon Arryn's death.",
             rating: 8.9,
@@ -247,6 +283,7 @@ export const shows: Series[] = [
             viewCount: 970,
          },
          {
+            episodeNumber: 5,
             title: "The Wolf and the Lion",
             description: "Tyrion is arrested.",
             rating: 8.8,
@@ -257,7 +294,7 @@ export const shows: Series[] = [
       viewCount: 1000,
    },
    {
-      id: 6,
+      id: "6",
       category: "show",
       title: "Narcos",
       year: "2015",
@@ -268,8 +305,11 @@ export const shows: Series[] = [
       credits: "Cast: Wagner Moura, Boyd Holbrook, Pedro Pascal",
       trailerLink: "https://www.youtube.com/watch?v=3EsrK7y3s2Q",
       poster: "/images/movie2.webp",
+      slug: "narcos",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "Descenso",
             description: "Pablo Escobar rises to power.",
             rating: 8.8,
@@ -277,6 +317,7 @@ export const shows: Series[] = [
             viewCount: 1000,
          },
          {
+            episodeNumber: 1,
             title: "The Sword of Simón Bolívar",
             description: "Escobar's empire grows.",
             rating: 8.7,
@@ -284,6 +325,7 @@ export const shows: Series[] = [
             viewCount: 990,
          },
          {
+            episodeNumber: 1,
             title: "The Men of Always",
             description: "Escobar moves into politics.",
             rating: 8.6,
@@ -291,6 +333,7 @@ export const shows: Series[] = [
             viewCount: 980,
          },
          {
+            episodeNumber: 1,
             title: "The Palace in Flames",
             description: "The violence escalates.",
             rating: 8.5,
@@ -298,6 +341,7 @@ export const shows: Series[] = [
             viewCount: 970,
          },
          {
+            episodeNumber: 1,
             title: "There Will Be a Future",
             description: "Escobar plans for the future.",
             rating: 8.4,
@@ -308,7 +352,7 @@ export const shows: Series[] = [
       viewCount: 1000,
    },
    {
-      id: 7,
+      id: "7",
       category: "show",
       title: "Breaking Bad",
       year: "2008",
@@ -319,8 +363,11 @@ export const shows: Series[] = [
       credits: "Cast: Bryan Cranston, Aaron Paul, Anna Gunn",
       trailerLink: "https://www.youtube.com/watch?v=HhesaQXLuRY",
       poster: "/images/movie1.webp",
+      slug: "breaking-bad",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "Pilot",
             description: "Pilot episode.",
             rating: 9.4,
@@ -328,6 +375,7 @@ export const shows: Series[] = [
             viewCount: 1000,
          },
          {
+            episodeNumber: 1,
             title: "Cat's in the Bag...",
             description: "Walt and Jesse face a problem.",
             rating: 9.3,
@@ -335,6 +383,7 @@ export const shows: Series[] = [
             viewCount: 990,
          },
          {
+            episodeNumber: 1,
             title: "...And the Bag's in the River",
             description: "Walt deals with a dilemma.",
             rating: 9.2,
@@ -342,6 +391,7 @@ export const shows: Series[] = [
             viewCount: 980,
          },
          {
+            episodeNumber: 1,
             title: "Cancer Man",
             description: "Walt faces his diagnosis.",
             rating: 9.1,
@@ -349,6 +399,7 @@ export const shows: Series[] = [
             viewCount: 970,
          },
          {
+            episodeNumber: 1,
             title: "Gray Matter",
             description: "Walt's past resurfaces.",
             rating: 9.0,
@@ -359,7 +410,7 @@ export const shows: Series[] = [
       viewCount: 1000,
    },
    {
-      id: 8,
+      id: "8",
       category: "show",
       title: "The Witcher",
       year: "2019",
@@ -368,42 +419,49 @@ export const shows: Series[] = [
       rating: 8.4,
       genres: ["Drama", "Fantasy"],
       credits: "Cast: Henry Cavill, Freya Allan, Anya Chalotra",
-      trailerLink: "https://www.youtube.com/watch?v=ndzNR6PBKDQ",
+      trailerLink: "https://youtu.be/ndl1W4ltcmg?si=u04U1sKWKKDa3tZM",
       poster: "/images/movie2.webp",
+      slug: "the-witcher",
+      createdAt: new Date("2022-01-01T12:00:00.000Z"),
       episodes: [
          {
+            episodeNumber: 1,
             title: "The End's Beginning",
             description: "Pilot episode.",
             rating: 8.4,
-            episodeLink: "https://www.youtube.com/watch?v=ndzNR6PBKDQ",
+            episodeLink: "https://youtu.be/ndl1W4ltcmg?si=u04U1sKWKKDa3tZM",
             viewCount: 1000,
          },
          {
+            episodeNumber: 1,
             title: "Four Marks",
             description: "Yennefer's origin begins.",
             rating: 8.3,
-            episodeLink: "https://www.youtube.com/watch?v=ndzNR6PBKDQ",
+            episodeLink: "https://youtu.be/ndl1W4ltcmg?si=u04U1sKWKKDa3tZM",
             viewCount: 990,
          },
          {
+            episodeNumber: 1,
             title: "Betrayer Moon",
             description: "Geralt hunts a monster.",
             rating: 8.2,
-            episodeLink: "https://www.youtube.com/watch?v=ndzNR6PBKDQ",
+            episodeLink: "https://youtu.be/ndl1W4ltcmg?si=u04U1sKWKKDa3tZM",
             viewCount: 980,
          },
          {
+            episodeNumber: 1,
             title: "Of Banquets, Bastards and Burials",
             description: "A royal affair unfolds.",
             rating: 8.1,
-            episodeLink: "https://www.youtube.com/watch?v=ndzNR6PBKDQ",
+            episodeLink: "https://youtu.be/ndl1W4ltcmg?si=u04U1sKWKKDa3tZM",
             viewCount: 970,
          },
          {
+            episodeNumber: 1,
             title: "Bottled Appetites",
             description: "A genie causes trouble.",
             rating: 8.0,
-            episodeLink: "https://www.youtube.com/watch?v=ndzNR6PBKDQ",
+            episodeLink: "https://youtu.be/ndl1W4ltcmg?si=u04U1sKWKKDa3tZM",
             viewCount: 960,
          },
       ],
