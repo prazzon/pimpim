@@ -3,9 +3,7 @@ import { events } from "@/app/_data/data-events";
 import { notFound } from "next/navigation";
 
 type Props = {
-   params: {
-      eventId: string;
-   };
+   params: Promise<{ eventId: string }>;
 };
 
 async function EventPage({ params }: Props) {

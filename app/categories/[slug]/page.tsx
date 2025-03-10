@@ -3,9 +3,7 @@ import { getPostsByCategorySlug } from "@/app/_lib/firebase/posts/service";
 import { notFound } from "next/navigation";
 
 type Props = {
-   params: {
-      slug: string;
-   };
+   params: Promise<{ slug: string }>;
 };
 
 async function CategoryPage({ params }: Props) {

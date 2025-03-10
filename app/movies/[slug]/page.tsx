@@ -3,9 +3,7 @@ import { getMovieBySlug } from "@/app/_lib/firebase/movies/service";
 import { notFound } from "next/navigation";
 
 type Props = {
-   params: {
-      slug: string;
-   };
+   params: Promise<{ slug: string }>;
 };
 
 async function MoviePage({ params }: Props) {

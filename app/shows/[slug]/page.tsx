@@ -3,9 +3,7 @@ import { shows } from "@/app/_data/data-shows";
 import { notFound } from "next/navigation";
 
 type Props = {
-   params: {
-      slug: string;
-   };
+   params: Promise<{ slug: string }>;
 };
 
 async function ShowPage({ params }: Props) {
