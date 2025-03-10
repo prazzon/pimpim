@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Footer from "./_components/UI/Footer/Footer";
-import Main from "./_components/UI/Main/Main";
 import Navigation from "./_components/UI/Navigation/Navigation";
 import "./globals.scss";
 
@@ -18,10 +17,8 @@ export default function RootLayout({
       <html lang="en">
          <body>
             <Navigation />
-            <Main>
-               {children}
-               <Footer />
-            </Main>
+            {children}
+            <Footer />
          </body>
       </html>
    );
