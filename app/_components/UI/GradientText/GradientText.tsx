@@ -12,7 +12,7 @@ type Props = {
 export default function GradientText({
    children,
    className = "",
-   colors = ["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"],
+   colors = ["#ff0000", "#f5eb0c", "#ff0000", "#f5eb0c", "#ff0000"],
    animationSpeed = 8,
    showBorder = false,
 }: Props) {
@@ -20,11 +20,14 @@ export default function GradientText({
       backgroundImage: `linear-gradient(to right, ${colors.join(", ")})`,
       animationDuration: `${animationSpeed}s`,
    };
-   
+
    return (
       <div className={clsx(styles.animated_gradient_text, className)}>
          {showBorder && (
-            <div className={styles.gradient_overlay} style={gradientStyle}></div>
+            <div
+               className={styles.gradient_overlay}
+               style={gradientStyle}
+            ></div>
          )}
          <div className={styles.text_content} style={gradientStyle}>
             {children}
