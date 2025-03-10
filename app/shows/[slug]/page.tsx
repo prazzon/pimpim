@@ -4,14 +4,14 @@ import { notFound } from "next/navigation";
 
 type Props = {
    params: {
-      showId: string;
+      slug: string;
    };
 };
 
 async function ShowPage({ params }: Props) {
-   const { showId } = await params;
+   const { slug } = await params;
 
-   const show = shows.find((show) => show.id.toString() === showId);
+   const show = shows.find((show) => show.slug === slug);
 
    if (!show) notFound();
 
