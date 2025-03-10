@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Spinner from "../UI/Spinner/Spinner";
+import Spinner from "../Spinner/Spinner";
 
 function convertLinkToEmbed(link: string) {
    return link
@@ -14,7 +14,7 @@ function convertLinkToEmbed(link: string) {
 
 function IFrame({ link }: { link: string }) {
    const [isLoading, setIsLoading] = useState(true);
-   
+
    const embedLink = convertLinkToEmbed(link);
 
    return (

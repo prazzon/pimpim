@@ -2,7 +2,7 @@ import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { FaInstagram, FaTiktok, FaXTwitter } from "react-icons/fa6";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import styles from "./Footer.module.scss";
 
 function Footer() {
@@ -10,7 +10,8 @@ function Footer() {
       <footer className={styles.footer}>
          <div className={styles.footer_top}>
             <Link href="/" className={styles.footer_logo}>
-               <Image src={Logo} alt="logo" width={120} />
+               <Image src={Logo} alt="logo" fill />
+               {/* <Image src={Logo} alt="logo" width={180} /> */}
             </Link>
             <div className={styles.footer_btns}>
                <Button>Register</Button>
