@@ -1,12 +1,11 @@
-import { Data } from "@/app/_data/types";
+import { Data } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion } from "motion/react";
-import { FaPlay, FaReadme } from "react-icons/fa6";
-import AnimatedText from "../UI/AnimatedText/AnimatedText";
-import { CurrentSlideData } from "./Carousel";
-// import ShinyText from "../UI/ShinyText/ShinyText";
 import Link from "next/link";
+import { FaPlay } from "react-icons/fa6";
+import AnimatedText from "../AnimatedText/AnimatedText";
 import IFrame from "../IFrame/IFrame";
-import Modal, { Content, OpenBtn } from "../UI/Modal/Modal";
+import Modal, { Content, OpenBtn } from "../Modal/Modal";
+import { CurrentSlideData } from "./Carousel";
 import styles from "./SlideInfo.module.scss";
 
 type Props = {
@@ -57,7 +56,7 @@ function SlideInfo({ transitionData, currentSlideData }: Props) {
             </AnimatePresence>
 
             <AnimatePresence mode="wait">
-               {data.category !== "event" && (
+               {data.description && (
                   <AnimatedText
                      id={data.id + "desc"}
                      key={data.id + "desc"}
@@ -71,21 +70,17 @@ function SlideInfo({ transitionData, currentSlideData }: Props) {
 
          <motion.div layout className={styles.slide_info_btns}>
             <AnimatePresence mode="wait">
-               {(data.category === "movie" ||
-                  data.category === "series" ||
-                  data.category === "show") && (
-                  <AnimatedText id={data.id + "btn"} key={data.id + "btn"}>
-                     <motion.button className={styles.btn_primary}>
-                        <Link href={`/${page}/${data.id}`} scroll={false}>
-                           <FaPlay />
-                           Watch now
-                        </Link>
-                     </motion.button>
-                  </AnimatedText>
-               )}
+               <AnimatedText id={data.id + "btn"} key={data.id + "btn"}>
+                  <motion.button className={styles.btn_primary}>
+                     <Link href={`/${page}/${data.slug}`} scroll={false}>
+                        <FaPlay />
+                        Watch now
+                     </Link>
+                  </motion.button>
+               </AnimatedText>
             </AnimatePresence>
 
-            <AnimatePresence mode="wait">
+            {/* <AnimatePresence mode="wait">
                {data.category === "news" && (
                   <AnimatedText
                      id={data.id + "btnNews"}
@@ -99,12 +94,10 @@ function SlideInfo({ transitionData, currentSlideData }: Props) {
                      </motion.button>
                   </AnimatedText>
                )}
-            </AnimatePresence>
+            </AnimatePresence> */}
 
             <AnimatePresence mode="wait">
-               {(data.category === "movie" ||
-                  data.category === "series" ||
-                  data.category === "show") && (
+               {data.trailerLink && (
                   <AnimatedText
                      id={data.id + "btnTrailer"}
                      key={data.id + "btnTrailer"}

@@ -1,4 +1,4 @@
-import { Data } from "@/app/_data/types";
+import { Data } from "@/app/_lib/firebase/types";
 import { motion } from "motion/react";
 import styles from "./SliderCard.module.scss";
 

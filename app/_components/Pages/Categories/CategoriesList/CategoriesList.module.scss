@@ -1,0 +1,27 @@
+.categories {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1.2rem 1rem;
+   margin: 1.5rem 0;
+   // margin: 2rem 0;
+
+   .category {
+      padding: 1rem 2rem;
+      background-color: #1b1b1b;
+      border-radius: 5rem;
+
+      &.active {
+         background-color: #fff;
+         color: #1b1b1b;
+      }
+
+      h3 {
+         font-size: 1.4rem;
+         font-weight: 500;
+      }
+   }
+}
+
+.title {
+   margin-top: 1rem;
+}

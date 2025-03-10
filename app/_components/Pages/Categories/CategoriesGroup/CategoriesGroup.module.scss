@@ -35,13 +35,27 @@
       height: 5rem;
       width: 5rem;
       border-radius: 20rem;
+
+      @media (max-width: 1024px) {
+         font-size: 4rem;
+         height: 4rem;
+         width: 4rem;
+      }
    }
 
    .left_handle {
       left: -2.5rem;
+
+      @media (max-width: 1024px) {
+         left: -1.5rem;
+      }
    }
    .right_handle {
       right: -2.5rem;
+
+      @media (max-width: 1024px) {
+         right: -1.5rem;
+      }
    }
 }
 
@@ -64,14 +78,22 @@
    }
 
    .category {
-
-
       &_img {
          position: relative;
          height: 15rem;
          width: 30rem;
          border-radius: 1rem 1rem 0 0;
-         overflow: hidden; 
+         overflow: hidden;
+
+         @media (max-width: 1024px) {
+            height: 12rem;
+            width: 25rem;
+         }
+
+         @media (max-width: 768px) {
+            height: 10rem;
+            width: 20rem;
+         }
 
          img {
             object-fit: cover;
