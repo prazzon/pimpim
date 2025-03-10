@@ -1,0 +1,95 @@
+"use client";
+
+import Logo from "@/public/logo.svg";
+import { motion } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
+import GradientText from "../GradientText/GradientText";
+import styles from "./Navigation.module.scss";
+import NavigationMenu from "./NavigationMenu/NavigationMenu";
+
+const navLinks = [
+   { name: "Home", href: "/" },
+   { name: "Trending", href: "/trending" },
+   { name: "Movies", href: "/movies" },
+   { name: "Shows", href: "/shows" },
+   { name: "Events", href: "/events" },
+];
+
+function Navigation() {
+   const pathname = usePathname();
+
+   function isActivePath(href: string) {
+      if (href === "/" && pathname !== href) {
+         return false;
+      }
+
+      return pathname.startsWith(href);
+   }
+
+   const navRef = useRef<HTMLElement | null>(null);
+
+   const activePath =
+      navLinks.find((link) => isActivePath(link.href))?.href || "/";
+
+   useEffect(() => {
+      const handleScroll = () => {
+         if (!navRef.current) return;
+
+         if (window.scrollY > 0) {
+            navRef.current.classList.add(styles.scrolled);
+         } else {
+            navRef.current.classList.remove(styles.scrolled);
+         }
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+         window.removeEventListener("scroll", handleScroll);
+      };
+   }, []);
+
+   return (
+      <nav className={styles.nav} ref={navRef}>
+         <Link href="/" className={styles.nav_logo}>
+            <Image src={Logo} alt="logo" width={120} priority />
+         </Link>
+
+         <ul className={styles.nav_links}>
+            {navLinks.map((link) => (
+               <li key={link.name} className={styles.nav_link}>
+                  <Link href={link.href}>{link.name}</Link>
+                  {activePath === link.href && (
+                     <motion.span
+                        layoutId="nav_link"
+                        className={styles.active}
+                     ></motion.span>
+                  )}
+               </li>
+            ))}
+         </ul>
+         {/* <GradientText
+            animationSpeed={40}
+            showBorder={true}
+            className={styles.nav_btn}
+         >
+            Log in
+         </GradientText> */}
+         <GradientText
+            animationSpeed={40}
+            showBorder={true}
+            className={styles.nav_btn}
+         >
+            Register
+         </GradientText>
+         {/* <button className={styles.nav_btn_secondary}>Register</button> */}
+
+         <NavigationMenu navLinks={navLinks} />
+      </nav>
+   );
+}
+
+export default Navigation;

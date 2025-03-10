@@ -1,0 +1,11 @@
+.menu_btn {
+   position: relative;
+   justify-self: center;
+   display: flex;
+   flex-direction: column;
+   gap: .8rem;
+   cursor: pointer;
+   stroke: var(--text-secondary);
+   stroke-width: 2;
+   z-index: 50;
+}
