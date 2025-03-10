@@ -1,10 +1,11 @@
-import { useOutsideClick } from "@/app/_hooks/useOutsideClick";
+// import { useOutsideClick } from "@/app/_hooks/useOutsideClick";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 import GradientText from "../../GradientText/GradientText";
 import NavigationBtn from "./NavigationBtn";
 import styles from "./NavigationMenu.module.scss";
+import { useClickAway } from "@uidotdev/usehooks";
 
 type Props = {
    navLinks: { name: string; href: string }[];
@@ -13,7 +14,7 @@ type Props = {
 function NavigationMenu({ navLinks }: Props) {
    const [menuOpen, setMenuOpen] = useState(false);
 
-   const ref = useOutsideClick(() => setMenuOpen(false));
+   const ref = useClickAway<HTMLDivElement>(() => setMenuOpen(false));
 
    return (
       <div className={styles.nav_menu} ref={ref}>
