@@ -29,9 +29,11 @@ async function Post({ post }: Props) {
          </div>
 
          <h1 className={styles.title}>{post.title}</h1>
+
          <div className={styles.poster}>
             <Image src={post.poster} alt={post.title} fill />
          </div>
+
          <p className={styles.summary}>{post.summary}</p>
 
          <span className={styles.divider}></span>
@@ -151,7 +153,7 @@ async function Post({ post }: Props) {
                </p>
             </div>
 
-            <div className={styles.sidebar}>Side Content</div>
+            {/* <div className={styles.sidebar}>Side Content</div> */}
          </div>
       </div>
    );

@@ -34,30 +34,21 @@
    }
 
    .title {
-      font-size: 4rem;
-      font-size: 6rem;
+      font-size: 5rem;
       font-weight: 500;
       text-align: center;
-
-      display: -webkit-box;
-      line-clamp: 2;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-
       padding: 0 6rem;
-      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+      margin-top: 2rem;
 
       @media (max-width: 1024px) {
          padding: 0 3rem;
-         padding-bottom: 2rem;
-         font-size: 5rem;
+         font-size: 3rem;
       }
 
       @media (max-width: 425px) {
          padding: 0 2rem;
-         padding-bottom: 2rem;
-         font-size: 4rem;
+         font-size: 2.5rem;
       }
    }
 
@@ -93,7 +84,7 @@
 
    .grid {
       display: grid;
-      grid-template-columns: 1fr 32.5rem;
+      // grid-template-columns: 1fr 32.5rem;
       gap: 2rem;
 
       padding: 0 6rem;
