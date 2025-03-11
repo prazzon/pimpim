@@ -5,13 +5,18 @@ import { useEffect } from "react";
 import styles from "./NavigationBtn.module.scss";
 
 const path1Variants = {
+   closed: { d: "M 2 3 L 23 3" },
    open: { d: "M3.06061 2.99999L21.0606 21" },
-   closed: { d: "M0 8.5L24 8.5" },
 };
 
 const path2Variants = {
+   closed: { d: "M 2 17 L 23 17" },
    open: { d: "M3.00006 21.0606L21 3.06064" },
-   closed: { d: "M0 15.5L24 15.5" },
+};
+
+const path3Variants = {
+   closed: { opacity: 1 },
+   open: { opacity: 0 },
 };
 
 type Props = {
@@ -22,16 +27,19 @@ type Props = {
 function NavigationBtn({ menuOpen, setMenuOpen }: Props) {
    const path1Controls = useAnimation();
    const path2Controls = useAnimation();
+   const path3Controls = useAnimation();
 
    useEffect(() => {
       if (menuOpen) {
          path1Controls.start(path1Variants.open);
          path2Controls.start(path2Variants.open);
+         path3Controls.start(path3Variants.open);
       } else {
          path1Controls.start(path1Variants.closed);
          path2Controls.start(path2Variants.closed);
+         path3Controls.start(path3Variants.closed);
       }
-   }, [menuOpen, path1Controls, path2Controls]);
+   }, [menuOpen, path1Controls, path2Controls, path3Controls]);
 
    return (
       <div onClick={() => setMenuOpen(!menuOpen)} className={styles.menu_btn}>
@@ -39,6 +47,11 @@ function NavigationBtn({ menuOpen, setMenuOpen }: Props) {
             <motion.path
                {...path1Variants.closed}
                animate={path1Controls}
+               transition={{ duration: 0.2 }}
+            />
+            <motion.path
+               d="M 2 10 L 23 10"
+               animate={path3Controls}
                transition={{ duration: 0.2 }}
             />
             <motion.path

@@ -1,14 +1,26 @@
 // import { useOutsideClick } from "@/app/_hooks/useOutsideClick";
+import { useClickAway } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 import GradientText from "../../GradientText/GradientText";
 import NavigationBtn from "./NavigationBtn";
 import styles from "./NavigationMenu.module.scss";
-import { useClickAway } from "@uidotdev/usehooks";
 
 type Props = {
    navLinks: { name: string; href: string }[];
+};
+
+const listVariants = {
+   open: (index: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.2 + index * 0.1, type: "linear" },
+   }),
+   closed: {
+      opacity: 0,
+      y: 10,
+   },
 };
 
 function NavigationMenu({ navLinks }: Props) {
@@ -39,10 +51,18 @@ function NavigationMenu({ navLinks }: Props) {
                   </GradientText>
 
                   <ul className={styles.menu_links}>
-                     {navLinks.map((link) => (
-                        <li key={link.name} onClick={() => setMenuOpen(false)}>
+                     {navLinks.map((link, index) => (
+                        <motion.li
+                           key={link.name}
+                           custom={index}
+                           variants={listVariants}
+                           initial="closed"
+                           animate="open"
+                           exit="closed"
+                           onClick={() => setMenuOpen(false)}
+                        >
                            <Link href={link.href}>{link.name}</Link>
-                        </li>
+                        </motion.li>
                      ))}
                   </ul>
                </motion.div>

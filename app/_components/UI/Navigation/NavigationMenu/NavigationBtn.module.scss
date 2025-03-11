@@ -7,5 +7,6 @@
    cursor: pointer;
    stroke: var(--text-secondary);
    stroke-width: 2;
+   stroke-linecap: round;
    z-index: 50;
 }
