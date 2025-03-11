@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
 import Footer from "./_components/UI/Footer/Footer";
 import Navigation from "./_components/UI/Navigation/Navigation";
 import "./globals.scss";
+
+const poppins = Poppins({
+   subsets: ["latin"],
+   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
    title: "PimPim",
@@ -14,7 +20,7 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en">
+      <html lang="en" className={poppins.className}>
          <body>
             <Navigation />
             {children}
