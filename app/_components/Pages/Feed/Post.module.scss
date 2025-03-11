@@ -45,7 +45,20 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
 
+      padding: 0 6rem;
       padding-bottom: 2rem;
+
+      @media (max-width: 1024px) {
+         padding: 0 3rem;
+         padding-bottom: 2rem;
+         font-size: 5rem;
+      }
+
+      @media (max-width: 425px) {
+         padding: 0 2rem;
+         padding-bottom: 2rem;
+         font-size: 4rem;
+      }
    }
 
    .summary {
@@ -70,8 +83,6 @@
    .poster {
       position: relative;
       width: 100%;
-      width: 100vw;
-      transform: translateX(-77px);
       height: 50rem;
       margin: 0 auto;
 
@@ -85,11 +96,21 @@
       grid-template-columns: 1fr 32.5rem;
       gap: 2rem;
 
+      padding: 0 6rem;
+
+      @media (max-width: 1024px) {
+         padding: 0 3rem;
+      }
+
+      @media (max-width: 425px) {
+         padding: 0 2rem;
+      }
+
       .sidebar {
          margin: 2rem;
       }
    }
-   
+
    .content {
       font-size: 1.6rem;
       // width: 80%;
