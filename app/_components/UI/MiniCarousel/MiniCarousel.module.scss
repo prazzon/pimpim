@@ -105,6 +105,11 @@
 
       @media (max-width: 768px) {
          padding: 0 2rem;
+         bottom: 14rem;
+      }
+
+      @media (max-width: 525px) {
+         bottom: 12rem;
       }
 
       &_text {
