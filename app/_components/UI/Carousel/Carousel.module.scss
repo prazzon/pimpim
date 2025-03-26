@@ -27,6 +27,7 @@
 
          @media (max-width: 1024px) {
             padding-left: 4rem;
+            margin-bottom: -10rem;
          }
       }
 
@@ -37,6 +38,10 @@
          flex: 1 1 0%;
          justify-content: flex-start;
 
+         @media (max-width: 1024px) {
+            margin-left: 2rem;
+         }
+
          @media (max-width: 768px) {
             padding-top: 0;
          }
@@ -45,6 +50,10 @@
             display: grid;
             width: 100%;
             gap: 1.5rem;
+
+            @media (max-width: 1024px) {
+               gap: 0.5rem;
+            }
          }
       }
    }
