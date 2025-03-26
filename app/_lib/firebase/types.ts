@@ -6,7 +6,7 @@ export type Movie = {
    year: string;
    description: string;
    poster: string;
-   trailerLink: string;
+   trailerLink?: string;
    movieLink: string;
    duration: number;
    genres: string[];

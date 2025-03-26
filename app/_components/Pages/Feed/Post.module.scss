@@ -1,7 +1,7 @@
 .post {
    // max-width: 1140px;
    // padding: 0 2rem;
-   margin: 0 auto;
+   // margin: 0 auto;
    display: flex;
    flex-direction: column;
    // gap: 2rem;
@@ -78,7 +78,9 @@
       margin: 0 auto;
 
       img {
-         object-fit: cover;
+         // object-fit: cover;
+         object-fit: contain;
+         object-position: center 20%;
       }
    }
 
@@ -104,8 +106,15 @@
 
    .content {
       font-size: 1.6rem;
-      // width: 80%;
-      // margin: 0 auto;
+      margin: 2rem 6rem;
+
+      @media (max-width: 1024px) {
+         margin: 2rem 3rem;
+      }
+
+      @media (max-width: 425px) {
+         margin: 2rem 2rem;
+      }
 
       p,
       h2 {

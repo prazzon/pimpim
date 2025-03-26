@@ -38,12 +38,12 @@ async function Post({ post }: Props) {
 
          <span className={styles.divider}></span>
 
-         {/* <div
+         <div
             className={styles.content}
             dangerouslySetInnerHTML={{ __html: post.content }}
-         /> */}
+         />
 
-         <div className={styles.grid}>
+         {/* <div className={styles.grid}>
             <div className={styles.content}>
                <p>
                   Sometimes the deals that don’t get done in the transfer window
@@ -153,8 +153,8 @@ async function Post({ post }: Props) {
                </p>
             </div>
 
-            {/* <div className={styles.sidebar}>Side Content</div> */}
-         </div>
+            <div className={styles.sidebar}>Side Content</div>
+         </div> */}
       </div>
    );
 }
