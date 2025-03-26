@@ -32,6 +32,8 @@ function ListCard({ item, position }: Props) {
    return (
       <>
          <div key={item.id} className={`${styles.item}`}>
+            <Link href={pageLink} className={styles.overlay} />
+
             {position && <span className={styles.position}>0{position}</span>}
             <Link href={pageLink} className={styles.image}>
                <Image src={item.poster} alt={item.title} fill />
