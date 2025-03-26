@@ -1,12 +1,12 @@
 "use client";
 
+import { Data } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import styles from "./Carousel.module.scss";
 import Controls from "./Controls";
 import SlideInfo from "./SlideInfo";
 import SliderCard from "./SliderCard";
-import { Data } from "@/app/_lib/firebase/types";
 
 export type CurrentSlideData = {
    data: Data;
@@ -68,7 +68,12 @@ function Carousel({ sliderData }: Props) {
                   {/* Slider right carousel content */}
                   <div className={styles.slider_right}>
                      {/* Slides */}
-                     <div className={styles.slides}>
+                     <div
+                        className={styles.slides}
+                        style={{
+                           gridTemplateColumns: `repeat(${data.length}, 22rem)`,
+                        }}
+                     >
                         {data.map((item) => (
                            <SliderCard key={item.id} data={item} />
                         ))}
