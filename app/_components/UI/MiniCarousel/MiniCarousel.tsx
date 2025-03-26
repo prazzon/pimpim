@@ -1,12 +1,12 @@
 "use client";
 
+import { Post } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion, wrap } from "motion/react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { GrFormNextLink } from "react-icons/gr";
 import AnimatedText from "../AnimatedText/AnimatedText";
 import styles from "./MiniCarousel.module.scss";
-import { Post } from "@/app/_lib/firebase/types";
 
 type Props = {
    items: Post[];
@@ -75,7 +75,10 @@ function MiniCarousel({ items }: Props) {
             </AnimatePresence>
          </Link>
 
-         <Link href={`/feed/${items[imageIndex].slug}`} className={styles.title}>
+         <Link
+            href={`/feed/${items[imageIndex].slug}`}
+            className={styles.title}
+         >
             <AnimatePresence mode="wait">
                <AnimatedText
                   id={items[imageIndex].id + "title"}
