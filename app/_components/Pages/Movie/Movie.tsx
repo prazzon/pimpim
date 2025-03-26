@@ -4,7 +4,7 @@ import Link from "next/link";
 // import { BiLike } from "react-icons/bi";
 // import { BsReply } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
-import { FaCirclePlay } from "react-icons/fa6";
+import { FaCirclePlay, FaPlay } from "react-icons/fa6";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
 import Button from "../../UI/Button/Button";
@@ -27,6 +27,20 @@ function Movie({ movie }: Props) {
          />
          <div className={styles.movie_info}>
             <div className={styles.movie_info_poster}>
+               <Modal>
+                  <OpenBtn>
+                     <div className={styles.pulse_wrapper}>
+                        <div className={styles.pulse}>
+                           <FaPlay />
+                           <p>Watch now</p>
+                        </div>
+                     </div>
+                  </OpenBtn>
+                  <Content>
+                     <IFrame link={movie.movieLink} />
+                  </Content>
+               </Modal>
+
                <Image src={movie.poster} alt={movie.title} fill />
             </div>
             <div className={styles.movie_info_content}>
@@ -58,7 +72,7 @@ function Movie({ movie }: Props) {
                </div>
                <p className={styles.description}>{movie.description}</p>
                <div className={styles.btns}>
-                  <Modal>
+                  {/* <Modal>
                      <OpenBtn>
                         <Button type="play" btnStyle="primary">
                            <FaCirclePlay />
@@ -68,19 +82,21 @@ function Movie({ movie }: Props) {
                      <Content>
                         <IFrame link={movie.movieLink} />
                      </Content>
-                  </Modal>
+                  </Modal> */}
 
-                  <Modal>
-                     <OpenBtn>
-                        <Button type="play" btnStyle="secondary">
-                           <FaCirclePlay />
-                           Watch trailer
-                        </Button>
-                     </OpenBtn>
-                     <Content>
-                        <IFrame link={movie.trailerLink} />
-                     </Content>
-                  </Modal>
+                  {movie.trailerLink && (
+                     <Modal>
+                        <OpenBtn>
+                           <Button type="play" btnStyle="secondary">
+                              <FaCirclePlay />
+                              Watch trailer
+                           </Button>
+                        </OpenBtn>
+                        <Content>
+                           <IFrame link={movie.trailerLink} />
+                        </Content>
+                     </Modal>
+                  )}
                </div>
             </div>
          </div>
