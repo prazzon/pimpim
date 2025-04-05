@@ -1,4 +1,3 @@
-// import { type Series } from "@/app/_data/types";
 import { type Series } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";

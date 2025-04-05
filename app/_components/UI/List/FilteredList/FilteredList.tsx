@@ -1,7 +1,6 @@
 "use client";
 
 import ListCard from "@/app/_components/UI/Card/ListCard/ListCard";
-// import { Data } from "@/app/_data/types";
 import { Data } from "@/app/_lib/firebase/types";
 import clsx from "clsx";
 import { useState } from "react";

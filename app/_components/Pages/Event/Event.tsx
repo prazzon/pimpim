@@ -1,4 +1,4 @@
-import { type Event } from "@/app/_data/types";
+import { type Event } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
 import { BsFileText } from "react-icons/bs";
