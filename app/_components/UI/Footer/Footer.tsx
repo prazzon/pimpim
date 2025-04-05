@@ -11,7 +11,6 @@ function Footer() {
          <div className={styles.footer_top}>
             <Link href="/" className={styles.footer_logo}>
                <Image src={Logo} alt="logo" fill />
-               {/* <Image src={Logo} alt="logo" width={180} /> */}
             </Link>
             <div className={styles.footer_btns}>
                <Button>Register</Button>
