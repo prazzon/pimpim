@@ -4,6 +4,8 @@ import FilteredList from "../_components/UI/List/FilteredList/FilteredList";
 import List from "../_components/UI/List/List";
 import { shows } from "../_data/data-shows";
 
+export const dynamic = "force-dynamic";
+
 function ShowsPage() {
    return (
       <>

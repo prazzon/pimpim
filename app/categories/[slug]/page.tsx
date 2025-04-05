@@ -10,7 +10,6 @@ async function CategoryPage({ params }: Props) {
    const { slug } = await params;
 
    const posts = await getPostsByCategorySlug(slug);
-   // const posts = [];
 
    if (!posts) notFound();
 
@@ -23,9 +22,7 @@ async function CategoryPage({ params }: Props) {
          {posts.length === 0 && (
             <div>
                <h1>No posts found</h1>
-               <p>
-                  There are no posts in this category
-               </p>
+               <p>There are no posts in this category</p>
             </div>
          )}
       </>

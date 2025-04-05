@@ -1,5 +1,4 @@
-import { getCategories } from "@/app/_lib/firebase/categories/service";
-import { getPosts } from "@/app/_lib/firebase/posts/service";
+import { Category, Post } from "@/app/_lib/firebase/types";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
@@ -9,18 +8,20 @@ import styles from "./Home.module.scss";
 import ItemCard from "./ItemCard/ItemCard";
 import Trending from "./Trending/Trending";
 
-async function Home() {
-   const allPosts = await getPosts();
-   const categories = await getCategories();
+type Props = {
+   posts: Post[];
+   categories: Category[];
+};
 
+async function Home({ posts, categories }: Props) {
    return (
       <section className={styles.home}>
          <div className={styles.grid}>
             <div className={styles.main}>
-               <MiniCarousel items={allPosts} />
+               <MiniCarousel items={posts} />
                <div>
                   <Title type="secondary">Spotlight</Title>
-                  {allPosts.slice(0, 7).map((item) => (
+                  {posts.slice(0, 7).map((item) => (
                      <ItemCard key={item.id} item={item} />
                   ))}
                </div>
@@ -28,18 +29,7 @@ async function Home() {
 
             <div className={styles.sidebar}>
                <div>
-                  <Trending posts={allPosts} />
-                  {/* <Title type="secondary">Trending</Title>
-                  {addPositionToPosts(allPosts)
-                     .slice(0, 5)
-                     .map((item, index) => (
-                        <ItemCard
-                           key={item.id}
-                           item={item}
-                           position={index + 1}
-                           layout="vertical"
-                        />
-                     ))} */}
+                  <Trending posts={posts} />
                </div>
 
                <div>
@@ -51,7 +41,7 @@ async function Home() {
             </div>
          </div>
 
-         <Featured features={allPosts} />
+         <Featured features={posts} />
 
          <CategoriesGroup categories={categories} />
 
@@ -60,7 +50,7 @@ async function Home() {
                <div>
                   <Title type="secondary">Latest</Title>
 
-                  {allPosts.slice(0, 5).map((item) => (
+                  {posts.slice(0, 5).map((item) => (
                      <ItemCard key={item.id} item={item} />
                   ))}
                </div>

@@ -4,6 +4,8 @@ import FilteredList from "../_components/UI/List/FilteredList/FilteredList";
 import List from "../_components/UI/List/List";
 import { getMovies } from "../_lib/firebase/movies/service";
 
+export const dynamic = "force-dynamic";
+
 async function MoviesPage() {
    const moviesData = await getMovies();
 

@@ -2,6 +2,8 @@ import EventCard from "../_components/UI/Card/EventCard/EventCard";
 import Grid from "../_components/UI/Grid/Grid";
 import { events } from "../_data/data-events";
 
+export const dynamic = "force-dynamic";
+
 function EventsPage() {
    return (
       <>
