@@ -9,8 +9,9 @@ import Logo from "@/public/logo.svg";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import type React from "react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { FcGoogle } from "react-icons/fc";
+import Alert, { AlertType } from "../UI/Alert/Alert";
 import {
    Dialog,
    DialogContent,
@@ -32,10 +33,19 @@ interface AuthDialogProps {
 export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
    const [activeTab, setActiveTab] = useState(0);
    const [pending, startTransition] = useTransition();
+   const [alert, setAlert] = useState<{
+      type: AlertType;
+      message: string;
+   } | null>(null);
+
+   // Clear alert when tab changes or dialog closes/opens
+   useEffect(() => {
+      setAlert(null);
+   }, [activeTab, open]);
 
    const handleLoginSubmit = (data: LoginFormValues) => {
       console.log("Login form submitted:", data);
-      // Add your login logic here
+      setAlert(null);
 
       startTransition(async () => {
          const result = await signIn("credentials", {
@@ -46,25 +56,50 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
 
          console.log(result);
          if (result?.error) {
-            console.error("Login error:", result.error);
+            setAlert({
+               type: "error",
+               message: "Invalid email or password. Please try again.",
+            });
          } else {
-            onOpenChange(false);
+            setAlert({
+               type: "success",
+               message: "Login successful! Redirecting...",
+            });
+
+            // Close dialog after 2 seconds
+            setTimeout(() => {
+               onOpenChange(false);
+            }, 2000);
          }
       });
    };
 
    const handleSignupSubmit = (data: SignupFormValues) => {
       console.log("Signup form submitted:", data);
-      // Add your signup logic here
+      setAlert(null);
 
       startTransition(async () => {
          const result = await registerUser(data);
          console.log(result);
          if (!result.success) {
-            console.error("Signup error:", result.message);
+            setAlert({
+               type: "error",
+               message:
+                  result.message ||
+                  "Failed to create account. Please try again.",
+            });
             return;
          }
-         onOpenChange(false);
+
+         setAlert({
+            type: "success",
+            message: "Account created successfully! Redirecting...",
+         });
+
+         // Close dialog after 2 seconds
+         setTimeout(() => {
+            onOpenChange(false);
+         }, 2000);
       });
    };
 
@@ -100,6 +135,14 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
                activeTab={activeTab}
                onChange={setActiveTab}
             />
+
+            {alert && (
+               <Alert
+                  type={alert.type}
+                  message={alert.message}
+                  onClose={() => setAlert(null)}
+               />
+            )}
 
             {activeTab === 0 ? (
                <LoginForm onSubmit={handleLoginSubmit} pending={pending} />
