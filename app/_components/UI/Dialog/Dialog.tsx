@@ -10,6 +10,7 @@ import {
    useState,
    type ReactNode,
 } from "react";
+import { createPortal } from "react-dom";
 import { IoMdClose } from "react-icons/io";
 import styles from "./Dialog.module.scss";
 
@@ -49,30 +50,11 @@ export function Dialog({
    // Prevent body scrolling when dialog is open
    useEffect(() => {
       if (isOpen) {
-         // Save the current scroll position
-         const scrollY = window.scrollY;
-
-         // Add styles to prevent scrolling
-         document.body.style.position = "fixed";
-         document.body.style.top = `-${scrollY}px`;
-         document.body.style.width = "100%";
-      } else {
-         // Restore scrolling and scroll position
-         const scrollY = document.body.style.top;
-         document.body.style.position = "";
-         document.body.style.top = "";
-         document.body.style.width = "";
-
-         if (scrollY) {
-            window.scrollTo(0, Number.parseInt(scrollY || "0", 10) * -1);
-         }
+         document.body.style.overflow = "hidden";
       }
 
       return () => {
-         // Cleanup in case component unmounts while dialog is open
-         document.body.style.position = "";
-         document.body.style.top = "";
-         document.body.style.width = "";
+         document.body.style.overflow = "";
       };
    }, [isOpen]);
 
@@ -132,6 +114,13 @@ export function DialogContent({
    onInteractOutside,
 }: DialogContentProps) {
    const context = useContext(DialogContext);
+   const [mounted, setMounted] = useState(false);
+
+   // Handle client-side mounting
+   useEffect(() => {
+      setMounted(true);
+      return () => setMounted(false);
+   }, []);
 
    if (!context) {
       throw new Error("DialogContent must be used within a Dialog");
@@ -158,7 +147,11 @@ export function DialogContent({
       },
    };
 
-   return (
+   // Don't render anything on the server
+   if (!mounted) return null;
+
+   // Use createPortal to render the dialog directly to the body
+   return createPortal(
       <AnimatePresence mode="wait">
          {context.isOpen && (
             <motion.div
@@ -190,7 +183,8 @@ export function DialogContent({
                </motion.div>
             </motion.div>
          )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
    );
 }
 
