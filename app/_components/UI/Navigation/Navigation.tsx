@@ -88,7 +88,7 @@ function Navigation() {
                showBorder={true}
                className={styles.nav_btn}
             >
-               Register
+               Sign In
             </GradientText>
          </div>
 

@@ -1,11 +1,11 @@
-import Spinner from "@/app/_components/UI/Spinner/Spinner"
+import Spinner from "@/app/_components/UI/Spinner/Spinner";
 
 function Loading() {
    return (
       <>
-         <Spinner type="inline" />
+         <Spinner />
       </>
-   )
+   );
 }
 
-export default Loading
+export default Loading;
