@@ -1,0 +1,10 @@
+.loader {
+   animation: spin 1.5s linear infinite;
+   font-size: 1.6rem;
+}
+
+@keyframes spin {
+   to {
+      transform: rotate(360deg);
+   }
+}

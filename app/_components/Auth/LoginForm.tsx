@@ -9,16 +9,18 @@ import { useForm } from "react-hook-form";
 import { FaLock } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { Button, Checkbox, ForgotPassword, Input } from "../UI/Input/Input";
+import Loader from "../UI/Loader/Loader";
 
 interface LoginFormProps {
    onSubmit: (data: LoginFormValues) => void;
+   pending?: boolean;
 }
 
-export default function LoginForm({ onSubmit }: LoginFormProps) {
+export default function LoginForm({ onSubmit, pending }: LoginFormProps) {
    const {
       register,
       handleSubmit,
-      formState: { errors, isSubmitting },
+      formState: { errors },
    } = useForm<LoginFormValues>({
       resolver: zodResolver(loginSchema),
       defaultValues: {
@@ -61,8 +63,9 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
             <Checkbox label="Remember me" {...register("rememberMe")} />
             <ForgotPassword />
          </div>
-         <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Signing in..." : "Sign in"}
+         <Button type="submit" disabled={pending}>
+            {pending && <Loader />}
+            {pending ? "Signing in" : "Sign in"}
          </Button>
       </form>
    );

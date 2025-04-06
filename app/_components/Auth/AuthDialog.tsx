@@ -1,13 +1,15 @@
 "use client";
 
+import { registerUser } from "@/app/_lib/firebase/auth/actions";
 import {
    LoginFormValues,
    SignupFormValues,
 } from "@/app/_lib/zod/schema/auth.schema";
 import Logo from "@/public/logo.svg";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import type React from "react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { FcGoogle } from "react-icons/fc";
 import {
    Dialog,
@@ -29,15 +31,41 @@ interface AuthDialogProps {
 
 export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
    const [activeTab, setActiveTab] = useState(0);
+   const [pending, startTransition] = useTransition();
 
    const handleLoginSubmit = (data: LoginFormValues) => {
       console.log("Login form submitted:", data);
       // Add your login logic here
+
+      startTransition(async () => {
+         const result = await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            redirect: false,
+         });
+
+         console.log(result);
+         if (result?.error) {
+            console.error("Login error:", result.error);
+         } else {
+            onOpenChange(false);
+         }
+      });
    };
 
    const handleSignupSubmit = (data: SignupFormValues) => {
       console.log("Signup form submitted:", data);
       // Add your signup logic here
+
+      startTransition(async () => {
+         const result = await registerUser(data);
+         console.log(result);
+         if (!result.success) {
+            console.error("Signup error:", result.message);
+            return;
+         }
+         onOpenChange(false);
+      });
    };
 
    const handleGoogleLogin = () => {
@@ -74,9 +102,9 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
             />
 
             {activeTab === 0 ? (
-               <LoginForm onSubmit={handleLoginSubmit} />
+               <LoginForm onSubmit={handleLoginSubmit} pending={pending} />
             ) : (
-               <SignupForm onSubmit={handleSignupSubmit} />
+               <SignupForm onSubmit={handleSignupSubmit} pending={pending} />
             )}
 
             <DialogDivider />
