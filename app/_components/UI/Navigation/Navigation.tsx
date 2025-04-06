@@ -5,7 +5,8 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import AuthDialog from "../../Auth/AuthDialog";
 import GradientText from "../GradientText/GradientText";
 import styles from "./Navigation.module.scss";
 import NavigationMenu from "./NavigationMenu/NavigationMenu";
@@ -20,6 +21,7 @@ const navLinks = [
 
 function Navigation() {
    const pathname = usePathname();
+   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
 
    function isActivePath(href: string) {
       if (href === "/" && pathname !== href) {
@@ -52,6 +54,14 @@ function Navigation() {
       };
    }, []);
 
+   const handleOpenAuthDialog = () => {
+      setIsAuthDialogOpen(true);
+   };
+
+   const handleAuthDialogOpenChange = (open: boolean) => {
+      setIsAuthDialogOpen(open);
+   };
+
    return (
       <nav className={styles.nav} ref={navRef}>
          <Link href="/" className={styles.nav_logo}>
@@ -71,23 +81,26 @@ function Navigation() {
                </li>
             ))}
          </ul>
-         {/* <GradientText
-            animationSpeed={40}
-            showBorder={true}
-            className={styles.nav_btn}
-         >
-            Log in
-         </GradientText> */}
-         <GradientText
-            animationSpeed={40}
-            showBorder={true}
-            className={styles.nav_btn}
-         >
-            Register
-         </GradientText>
-         {/* <button className={styles.nav_btn_secondary}>Register</button> */}
 
-         <NavigationMenu navLinks={navLinks} />
+         <div onClick={handleOpenAuthDialog}>
+            <GradientText
+               animationSpeed={40}
+               showBorder={true}
+               className={styles.nav_btn}
+            >
+               Register
+            </GradientText>
+         </div>
+
+         <NavigationMenu
+            navLinks={navLinks}
+            onRegisterClick={handleOpenAuthDialog}
+         />
+
+         <AuthDialog
+            open={isAuthDialogOpen}
+            onOpenChange={handleAuthDialogOpenChange}
+         />
       </nav>
    );
 }

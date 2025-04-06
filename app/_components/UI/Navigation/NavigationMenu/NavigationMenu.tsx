@@ -1,3 +1,5 @@
+"use client";
+
 // import { useOutsideClick } from "@/app/_hooks/useOutsideClick";
 import { useClickAway } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "motion/react";
@@ -9,6 +11,7 @@ import styles from "./NavigationMenu.module.scss";
 
 type Props = {
    navLinks: { name: string; href: string }[];
+   onRegisterClick?: () => void;
 };
 
 const listVariants = {
@@ -23,10 +26,17 @@ const listVariants = {
    },
 };
 
-function NavigationMenu({ navLinks }: Props) {
+function NavigationMenu({ navLinks, onRegisterClick }: Props) {
    const [menuOpen, setMenuOpen] = useState(false);
 
    const ref = useClickAway<HTMLDivElement>(() => setMenuOpen(false));
+
+   const handleRegisterClick = () => {
+      setMenuOpen(false);
+      if (onRegisterClick) {
+         onRegisterClick();
+      }
+   };
 
    return (
       <div className={styles.nav_menu} ref={ref}>
@@ -42,13 +52,15 @@ function NavigationMenu({ navLinks }: Props) {
                   style={{ transformOrigin: "top right" }}
                   className={styles.menu}
                >
-                  <GradientText
-                     animationSpeed={40}
-                     showBorder={true}
-                     className={styles.nav_btn}
-                  >
-                     Sign In
-                  </GradientText>
+                  <div onClick={handleRegisterClick}>
+                     <GradientText
+                        animationSpeed={40}
+                        showBorder={true}
+                        className={styles.nav_btn}
+                     >
+                        Sign In
+                     </GradientText>
+                  </div>
 
                   <ul className={styles.menu_links}>
                      {navLinks.map((link, index) => (

@@ -1,0 +1,118 @@
+.dialog_overlay {
+   position: fixed;
+   inset: 0;
+   background-color: rgba(0, 0, 0, 0.5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 50;
+}
+
+.blur_overlay {
+   backdrop-filter: blur(4px);
+}
+
+.dialog_content {
+   position: relative;
+   background-color: #111;
+   border-radius: 12px;
+   padding: 24px;
+   padding: 30px;
+   width: 100%;
+   max-width: 448px;
+   max-height: 95vh;
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+   overflow: hidden;
+   overflow-y: auto;
+}
+
+.dialog_close {
+   position: absolute;
+   top: 12px;
+   right: 12px;
+   background: transparent;
+   border: none;
+   color: #999;
+   cursor: pointer;
+   font-size: 20px;
+   padding: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: color 0.2s;
+
+   &:hover {
+      color: white;
+   }
+}
+
+.dialog_header {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-bottom: 24px;
+}
+
+.dialog_title {
+   font-size: 24px;
+   font-weight: 600;
+   color: white;
+   margin-top: 8px;
+   margin-bottom: 8px;
+   text-align: center;
+}
+
+.dialog_description {
+   font-size: 14px;
+   color: #999;
+   text-align: center;
+   margin-bottom: 8px;
+}
+
+.dialog_footer {
+   margin-top: 24px;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+}
+
+.dialog_divider {
+   display: flex;
+   align-items: center;
+   margin: 16px 0;
+   color: #666;
+   font-size: 14px;
+
+   &::before,
+   &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #333;
+   }
+
+   &::before {
+      margin-right: 8px;
+   }
+
+   &::after {
+      margin-left: 8px;
+   }
+}
+
+.dialog_logo {
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   background-color: #222;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 8px;
+   padding: 4px;
+
+   svg {
+      width: 40px;
+      height: 40px;
+   }
+}

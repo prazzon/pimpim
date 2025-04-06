@@ -1,0 +1,217 @@
+.form_group {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 16px;
+}
+
+.label {
+   font-size: 14px;
+   font-weight: 500;
+   color: #fff;
+   margin-bottom: 8px;
+}
+
+.input_wrapper {
+   position: relative;
+   display: flex;
+   align-items: center;
+}
+
+.icon {
+   position: absolute;
+   left: 16px;
+   color: #666;
+   font-size: 16px;
+   pointer-events: none;
+   display: flex;
+}
+
+.right_icon {
+   position: absolute;
+   right: 16px;
+   color: #666;
+   font-size: 16px;
+   background: none;
+   border: none;
+   cursor: pointer;
+   padding: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   &:hover {
+      color: #999;
+   }
+}
+
+.input {
+   padding: 12px 16px;
+   background-color: #1a1a1a;
+   border: 1px solid #333;
+   border-radius: 8px;
+   color: #fff;
+   font-size: 14px;
+   transition: border-color 0.2s, box-shadow 0.2s;
+   width: 100%;
+
+   &:focus {
+      outline: none;
+      border-color: #666;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+   }
+
+   &::placeholder {
+      color: #666;
+   }
+
+   &.error {
+      border-color: #ff4d4f;
+   }
+
+   &.with_left_icon {
+      padding-left: 44px;
+   }
+
+   &.with_right_icon {
+      padding-right: 44px;
+   }
+}
+
+.error_message {
+   color: #ff4d4f;
+   font-size: 12px;
+   margin-top: 4px;
+}
+
+.checkbox_group {
+   display: flex;
+   align-items: center;
+   margin-bottom: 16px;
+}
+
+.checkbox {
+   margin-right: 8px;
+   appearance: none;
+   width: 16px;
+   height: 16px;
+   border: 1px solid #666;
+   border-radius: 4px;
+   background-color: #1a1a1a;
+   cursor: pointer;
+   position: relative;
+
+   &:checked {
+      background-color: #333;
+      border-color: #333;
+
+      &::after {
+         content: "";
+         position: absolute;
+         left: 4px;
+         top: 1px;
+         width: 5px;
+         height: 9px;
+         border: solid white;
+         border-width: 0 2px 2px 0;
+         transform: rotate(45deg);
+      }
+   }
+
+   &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+   }
+}
+
+.checkbox_label {
+   font-size: 14px;
+   color: #999;
+   cursor: pointer;
+}
+
+.forgot_password {
+   font-size: 14px;
+   color: #fff;
+   text-decoration: none;
+   transition: color 0.2s;
+   margin-left: auto;
+
+   &:hover {
+      color: #ccc;
+      text-decoration: underline;
+   }
+}
+
+.button {
+   padding: 12px 16px;
+   border-radius: 8px;
+   font-size: 14px;
+   font-weight: 500;
+   cursor: pointer;
+   transition: background-color 0.2s, color 0.2s;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 8px;
+
+   &.primary {
+      background-color: #fff;
+      color: #000;
+      border: none;
+
+      &:hover {
+         background-color: #f2f2f2;
+      }
+   }
+
+   &.secondary {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #333;
+
+      &:hover {
+         background-color: rgba(255, 255, 255, 0.05);
+      }
+   }
+
+   &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+   }
+}
+
+.tab_group {
+   display: flex;
+   border-bottom: 1px solid #333;
+   margin-bottom: 24px;
+}
+
+.tab {
+   flex: 1;
+   padding: 12px;
+   text-align: center;
+   font-size: 14px;
+   color: #999;
+   cursor: pointer;
+   transition: color 0.2s;
+   position: relative;
+
+   &.active {
+      color: #fff;
+
+      &::after {
+         content: "";
+         position: absolute;
+         bottom: -1px;
+         left: 0;
+         width: 100%;
+         height: 2px;
+         background-color: #fff;
+      }
+   }
+
+   &:hover {
+      color: #ccc;
+   }
+}
