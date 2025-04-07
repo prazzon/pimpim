@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import SessionProvider from "./_components/Providers/SessionProvider";
 import Footer from "./_components/UI/Footer/Footer";
 import Navigation from "./_components/UI/Navigation/Navigation";
 import "./globals.scss";
@@ -22,9 +23,11 @@ export default function RootLayout({
    return (
       <html lang="en" className={poppins.className}>
          <body>
-            <Navigation />
-            {children}
-            <Footer />
+            <SessionProvider>
+               <Navigation />
+               {children}
+               <Footer />
+            </SessionProvider>
          </body>
       </html>
    );

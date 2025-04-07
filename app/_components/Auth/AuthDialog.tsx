@@ -63,7 +63,7 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
          } else {
             setAlert({
                type: "success",
-               message: "Login successful! Redirecting...",
+               message: "Login successful!",
             });
 
             // Close dialog after 2 seconds
@@ -93,7 +93,7 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
 
          setAlert({
             type: "success",
-            message: "Account created successfully! Redirecting...",
+            message: "Account created successfully!",
          });
 
          // Close dialog after 2 seconds
