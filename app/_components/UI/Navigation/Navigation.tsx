@@ -2,12 +2,14 @@
 
 import Logo from "@/public/logo.svg";
 import { motion } from "motion/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import AuthDialog from "../../Auth/AuthDialog";
 import GradientText from "../GradientText/GradientText";
+import UserDropdown from "../UserDropdown/UserDropdown";
 import styles from "./Navigation.module.scss";
 import NavigationMenu from "./NavigationMenu/NavigationMenu";
 
@@ -22,6 +24,7 @@ const navLinks = [
 function Navigation() {
    const pathname = usePathname();
    const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+   const { data: session, status } = useSession();
 
    function isActivePath(href: string) {
       if (href === "/" && pathname !== href) {
@@ -82,19 +85,30 @@ function Navigation() {
             ))}
          </ul>
 
-         <div onClick={handleOpenAuthDialog}>
-            <GradientText
-               animationSpeed={40}
-               showBorder={true}
-               className={styles.nav_btn}
-            >
-               Sign In
-            </GradientText>
+         <div className={styles.desktop_auth}>
+            {status === "authenticated" && session?.user ? (
+               <UserDropdown
+                  name={session.user.name}
+                  image={session.user.image}
+               />
+            ) : (
+               <div onClick={handleOpenAuthDialog}>
+                  <GradientText
+                     animationSpeed={40}
+                     showBorder={true}
+                     className={styles.nav_btn}
+                  >
+                     Sign In
+                  </GradientText>
+               </div>
+            )}
          </div>
 
          <NavigationMenu
             navLinks={navLinks}
-            onRegisterClick={handleOpenAuthDialog}
+            onRegisterClick={
+               status === "authenticated" ? undefined : handleOpenAuthDialog
+            }
          />
 
          <AuthDialog

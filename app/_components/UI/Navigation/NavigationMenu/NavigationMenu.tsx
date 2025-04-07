@@ -1,16 +1,21 @@
 "use client";
 
-// import { useOutsideClick } from "@/app/_hooks/useOutsideClick";
 import { useClickAway } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "motion/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { IoHomeOutline, IoLogOutOutline } from "react-icons/io5";
+import { MdOutlineEventNote, MdTrendingUp } from "react-icons/md";
+import { PiFilmSlate, PiTelevisionSimple } from "react-icons/pi";
 import GradientText from "../../GradientText/GradientText";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 import NavigationBtn from "./NavigationBtn";
 import styles from "./NavigationMenu.module.scss";
 
 type Props = {
-   navLinks: { name: string; href: string }[];
+   navLinks: { name: string; href: string; icon?: React.ReactNode }[];
    onRegisterClick?: () => void;
 };
 
@@ -28,6 +33,19 @@ const listVariants = {
 
 function NavigationMenu({ navLinks, onRegisterClick }: Props) {
    const [menuOpen, setMenuOpen] = useState(false);
+   const { data: session, status } = useSession();
+
+   // Default navigation links with icons if not provided
+   const defaultNavLinks = [
+      { name: "Home", href: "/", icon: <IoHomeOutline /> },
+      { name: "Trending", href: "/trending", icon: <MdTrendingUp /> },
+      { name: "Movies", href: "/movies", icon: <PiFilmSlate /> },
+      { name: "Shows", href: "/shows", icon: <PiTelevisionSimple /> },
+      { name: "Events", href: "/events", icon: <MdOutlineEventNote /> },
+   ];
+
+   // Use provided navLinks or default ones
+   const linksToRender = navLinks.length > 0 ? navLinks : defaultNavLinks;
 
    const ref = useClickAway<HTMLDivElement>(() => setMenuOpen(false));
 
@@ -38,9 +56,25 @@ function NavigationMenu({ navLinks, onRegisterClick }: Props) {
       }
    };
 
+   const handleLogout = async () => {
+      setMenuOpen(false);
+      await signOut();
+   };
+
    return (
       <div className={styles.nav_menu} ref={ref}>
-         <NavigationBtn menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+         <div className={styles.nav_menu_controls}>
+            {status === "authenticated" && session?.user && (
+               <div className={styles.avatar_container}>
+                  <UserAvatar
+                     name={session.user.name}
+                     image={session.user.image}
+                     darkBackground={true}
+                  />
+               </div>
+            )}
+            <NavigationBtn menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+         </div>
 
          <AnimatePresence>
             {menuOpen && (
@@ -52,18 +86,56 @@ function NavigationMenu({ navLinks, onRegisterClick }: Props) {
                   style={{ transformOrigin: "top right" }}
                   className={styles.menu}
                >
-                  <div onClick={handleRegisterClick}>
-                     <GradientText
-                        animationSpeed={40}
-                        showBorder={true}
-                        className={styles.nav_btn}
-                     >
-                        Sign In
-                     </GradientText>
-                  </div>
+                  {status === "authenticated" && session?.user ? (
+                     <>
+                        <div className={styles.user_info}>
+                           <div className={styles.avatar_container}>
+                              <UserAvatar
+                                 name={session.user.name}
+                                 image={session.user.image}
+                                 darkBackground={true}
+                              />
+                           </div>
+                           <p className={styles.user_name}>
+                              {session.user.name || "User"}
+                           </p>
+                           <p className={styles.user_email}>
+                              {session.user.email}
+                           </p>
+                        </div>
+
+                        <div className={styles.user_menu}>
+                           <Link
+                              href="/profile"
+                              className={styles.user_menu_item}
+                              onClick={() => setMenuOpen(false)}
+                           >
+                              <FaUser />
+                              <span>My Profile</span>
+                           </Link>
+                           <div
+                              className={styles.user_menu_item}
+                              onClick={handleLogout}
+                           >
+                              <IoLogOutOutline />
+                              <span>Logout</span>
+                           </div>
+                        </div>
+                     </>
+                  ) : (
+                     <div onClick={handleRegisterClick}>
+                        <GradientText
+                           animationSpeed={40}
+                           showBorder={true}
+                           className={styles.nav_btn}
+                        >
+                           Sign In
+                        </GradientText>
+                     </div>
+                  )}
 
                   <ul className={styles.menu_links}>
-                     {navLinks.map((link, index) => (
+                     {linksToRender.map((link, index) => (
                         <motion.li
                            key={link.name}
                            custom={index}
@@ -73,7 +145,14 @@ function NavigationMenu({ navLinks, onRegisterClick }: Props) {
                            exit="closed"
                            onClick={() => setMenuOpen(false)}
                         >
-                           <Link href={link.href}>{link.name}</Link>
+                           <Link href={link.href} className={styles.nav_link}>
+                              {link.icon && (
+                                 <span className={styles.nav_icon}>
+                                    {link.icon}
+                                 </span>
+                              )}
+                              <span>{link.name}</span>
+                           </Link>
                         </motion.li>
                      ))}
                   </ul>
