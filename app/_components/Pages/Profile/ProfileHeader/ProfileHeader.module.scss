@@ -1,0 +1,67 @@
+.header {
+   position: relative;
+   width: 100%;
+
+   .cover {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 16px;
+
+      .cover_image {
+         object-fit: cover;
+      }
+
+      .cover_gradient {
+         width: 100%;
+         height: 100%;
+         background: linear-gradient(135deg, red, #f5eb0c);
+      }
+   }
+
+   .profile_info {
+      display: flex;
+      align-items: flex-end;
+      margin-top: -60px;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 100;
+
+      @media (max-width: 768px) {
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+      }
+
+      .avatar_container {
+         margin-right: 2rem;
+
+         :global(.avatar) {
+            border: 4px solid var(--background);
+         }
+
+         @media (max-width: 768px) {
+            margin-right: 0;
+            margin-bottom: 1.5rem;
+         }
+      }
+
+      .details {
+         padding-bottom: 1rem;
+
+         .name {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+         }
+
+         .location,
+         .occupation {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+         }
+      }
+   }
+}

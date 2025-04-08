@@ -1,0 +1,83 @@
+.comments {
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+    .interaction {
+      display: flex;
+      gap: 1.5rem;
+      background-color: #171717;
+      border-radius: 12px;
+      padding: 1.5rem;
+      
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background-color: #2a2a2a;
+        color: var(--text-primary);
+        font-size: 1.8rem;
+      }
+      
+      .content {
+        flex: 1;
+        
+        .header {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 0.8rem;
+          flex-wrap: wrap;
+          
+          .type {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+          }
+          
+          .post_title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+        
+        .comment_text {
+          font-size: 1.4rem;
+          line-height: 1.5;
+          margin-bottom: 1rem;
+          color: var(--text-primary);
+        }
+        
+        .date {
+          font-size: 1.2rem;
+          color: var(--text-secondary);
+        }
+      }
+    }
+  }
+  
+  .empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: #171717;
+    border-radius: 12px;
+    font-size: 1.6rem;
+    color: var(--text-secondary);
+  }
+}
