@@ -119,3 +119,52 @@ export type Author = {
 
 // export type Data = Movie | Series | Event | News;
 export type Data = Movie | Series;
+
+export type MediaItem = {
+   id: string;
+   type: string;
+   url: string;
+   title: string;
+   createdAt: string;
+};
+
+export type Interaction = {
+   id: string;
+   type: "comment" | "like";
+   content?: string;
+   postId: string;
+   postTitle: string;
+   createdAt: string;
+};
+
+export type Profile = {
+   id: string;
+   username?: string;
+   firstName?: string;
+   lastName?: string;
+   email?: string;
+   phone?: string;
+   location?: string;
+   occupation?: string;
+   bio?: string;
+   dateOfBirth?: string;
+   profileImage?: string | null;
+   coverImage?: string | null;
+   socialLinks?: {
+      instagram?: string;
+      facebook?: string;
+      youtube?: string;
+      tiktok?: string;
+      twitter?: string;
+   };
+   portfolioLinks?: {
+      behance?: string;
+      dribbble?: string;
+      linkedin?: string;
+      website?: string;
+   };
+   media?: MediaItem[];
+   commentsAndLikes?: Interaction[];
+   createdAt?: Date;
+   updatedAt?: Date;
+};
