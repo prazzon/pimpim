@@ -1,0 +1,46 @@
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import Profile from "../_components/Pages/Profile/Profile";
+import Main from "../_components/UI/Main/Main";
+import { mockProfile } from "../_data/mock-profile";
+import { getUserProfile } from "../_lib/firebase/profile/service";
+
+export const dynamic = "force-dynamic";
+
+export default async function ProfilePage() {
+   const session = await auth();
+
+   // Redirect to home if not authenticated
+   if (!session) {
+      redirect("/");
+   }
+
+   // Get the user ID from the session
+   const userId = session.user.id;
+
+   // Fetch the user's profile data from Firebase
+   let profileData = await getUserProfile(userId);
+
+   // If no profile data is found, use mock data as fallback
+   if (!profileData) {
+      profileData = {
+         ...mockProfile,
+         id: userId,
+         username: session.user?.name || mockProfile.username,
+         email: session.user?.email || mockProfile.email,
+         profileImage: session.user?.image || mockProfile.profileImage,
+      };
+   } else {
+      profileData = {
+         ...profileData,
+         username: session.user?.name || "",
+         email: session.user?.email || "",
+      };
+   }
+
+   return (
+      <Main>
+         <Profile profile={profileData} />
+      </Main>
+   );
+}

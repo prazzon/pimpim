@@ -4,11 +4,14 @@ import Image from "next/image";
 import { useMemo } from "react";
 import styles from "./UserAvatar.module.scss";
 
+type AvatarSize = "small" | "medium" | "large" | "xlarge";
+
 interface UserAvatarProps {
    name?: string | null;
    image?: string | null;
    onClick?: () => void;
    darkBackground?: boolean;
+   size?: AvatarSize;
 }
 
 export default function UserAvatar({
@@ -16,6 +19,7 @@ export default function UserAvatar({
    image,
    onClick,
    darkBackground = false,
+   size = "medium",
 }: UserAvatarProps) {
    const initials = useMemo(() => {
       if (!name) return "U";
@@ -34,7 +38,9 @@ export default function UserAvatar({
 
    return (
       <div
-         className={`${styles.avatar} ${darkBackground ? styles.dark_bg : ""}`}
+         className={`${styles.avatar} ${styles[size]} ${
+            darkBackground ? styles.dark_bg : ""
+         }`}
          onClick={onClick}
       >
          {image ? (
