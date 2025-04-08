@@ -58,108 +58,112 @@ export default function ProfileOverview({ profile }: ProfileOverviewProps) {
          </section>
 
          {/* Social Media Links */}
-         <section className={styles.section}>
-            <h2 className={styles.section_title}>Social Media</h2>
-            <div className={styles.social_links}>
-               {socialLinks?.instagram && (
-                  <a
-                     href={socialLinks.instagram}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaInstagram />
-                  </a>
-               )}
-               {socialLinks?.facebook && (
-                  <a
-                     href={socialLinks.facebook}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaFacebook />
-                  </a>
-               )}
-               {socialLinks?.youtube && (
-                  <a
-                     href={socialLinks.youtube}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaYoutube />
-                  </a>
-               )}
-               {socialLinks?.tiktok && (
-                  <a
-                     href={socialLinks.tiktok}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaTiktok />
-                  </a>
-               )}
-               {socialLinks?.twitter && (
-                  <a
-                     href={socialLinks.twitter}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaXTwitter />
-                  </a>
-               )}
-            </div>
-         </section>
+         {socialLinks && (
+            <section className={styles.section}>
+               <h2 className={styles.section_title}>Social Media</h2>
+               <div className={styles.social_links}>
+                  {socialLinks?.instagram && (
+                     <a
+                        href={socialLinks.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaInstagram />
+                     </a>
+                  )}
+                  {socialLinks?.facebook && (
+                     <a
+                        href={socialLinks.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaFacebook />
+                     </a>
+                  )}
+                  {socialLinks?.youtube && (
+                     <a
+                        href={socialLinks.youtube}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaYoutube />
+                     </a>
+                  )}
+                  {socialLinks?.tiktok && (
+                     <a
+                        href={socialLinks.tiktok}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaTiktok />
+                     </a>
+                  )}
+                  {socialLinks?.twitter && (
+                     <a
+                        href={socialLinks.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaXTwitter />
+                     </a>
+                  )}
+               </div>
+            </section>
+         )}
 
          {/* Portfolio Links */}
-         <section className={styles.section}>
-            <h2 className={styles.section_title}>Portfolio</h2>
-            <div className={styles.social_links}>
-               {portfolioLinks?.behance && (
-                  <a
-                     href={portfolioLinks.behance}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaBehance />
-                  </a>
-               )}
-               {portfolioLinks?.dribbble && (
-                  <a
-                     href={portfolioLinks.dribbble}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaDribbble />
-                  </a>
-               )}
-               {portfolioLinks?.linkedin && (
-                  <a
-                     href={portfolioLinks.linkedin}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaLinkedin />
-                  </a>
-               )}
-               {portfolioLinks?.website && (
-                  <a
-                     href={portfolioLinks.website}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className={styles.social_icon}
-                  >
-                     <FaGlobe />
-                  </a>
-               )}
-            </div>
-         </section>
+         {portfolioLinks && (
+            <section className={styles.section}>
+               <h2 className={styles.section_title}>Portfolio</h2>
+               <div className={styles.social_links}>
+                  {portfolioLinks?.behance && (
+                     <a
+                        href={portfolioLinks.behance}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaBehance />
+                     </a>
+                  )}
+                  {portfolioLinks?.dribbble && (
+                     <a
+                        href={portfolioLinks.dribbble}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaDribbble />
+                     </a>
+                  )}
+                  {portfolioLinks?.linkedin && (
+                     <a
+                        href={portfolioLinks.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaLinkedin />
+                     </a>
+                  )}
+                  {portfolioLinks?.website && (
+                     <a
+                        href={portfolioLinks.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.social_icon}
+                     >
+                        <FaGlobe />
+                     </a>
+                  )}
+               </div>
+            </section>
+         )}
       </div>
    );
 }

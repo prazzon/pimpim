@@ -122,6 +122,7 @@ export type Data = Movie | Series;
 
 export type MediaItem = {
    id: string;
+   userId: string;
    type: string;
    url: string;
    title: string;
@@ -163,7 +164,6 @@ export type Profile = {
       linkedin?: string;
       website?: string;
    };
-   media?: MediaItem[];
    commentsAndLikes?: Interaction[];
    createdAt?: Date;
    updatedAt?: Date;

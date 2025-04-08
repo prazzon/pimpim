@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Profile from "../_components/Pages/Profile/Profile";
 import Main from "../_components/UI/Main/Main";
 import { mockProfile } from "../_data/mock-profile";
+import { getUserMedia } from "../_lib/firebase/profile/media/service";
 import { getUserProfile } from "../_lib/firebase/profile/service";
 
 export const dynamic = "force-dynamic";
@@ -35,12 +36,16 @@ export default async function ProfilePage() {
          ...profileData,
          username: session.user?.name || "",
          email: session.user?.email || "",
+         commentsAndLikes: mockProfile.commentsAndLikes,
       };
    }
 
+   // Fetch the user's media items from the media collection
+   const mediaItems = await getUserMedia(userId);
+
    return (
       <Main>
-         <Profile profile={profileData} />
+         <Profile profile={profileData} mediaItems={mediaItems} />
       </Main>
    );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Profile as ProfileType } from "@/app/_lib/firebase/types";
+import { MediaItem, Profile as ProfileType } from "@/app/_lib/firebase/types";
 import { useState } from "react";
 import { Tabs } from "../../UI/Input/Input";
 import styles from "./Profile.module.scss";
@@ -11,9 +11,10 @@ import ProfileOverview from "./ProfileOverview/ProfileOverview";
 
 type ProfileProps = {
    profile: ProfileType;
+   mediaItems?: MediaItem[];
 };
 
-export default function Profile({ profile }: ProfileProps) {
+export default function Profile({ profile, mediaItems = [] }: ProfileProps) {
    const [activeTab, setActiveTab] = useState(0);
 
    const tabs = ["Overview", "Media", "Comments & Likes"];
@@ -28,7 +29,7 @@ export default function Profile({ profile }: ProfileProps) {
 
          <div className={styles.content}>
             {activeTab === 0 && <ProfileOverview profile={profile} />}
-            {activeTab === 1 && <ProfileMedia media={profile.media} />}
+            {activeTab === 1 && <ProfileMedia media={mediaItems} />}
             {activeTab === 2 && (
                <ProfileComments interactions={profile.commentsAndLikes} />
             )}

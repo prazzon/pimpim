@@ -1,7 +1,7 @@
 "use server";
 
-import { Profile } from "@/app/_lib/firebase/types";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { MediaItem, Profile } from "@/app/_lib/firebase/types";
+import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
 /**
@@ -73,8 +73,8 @@ export async function createUserProfile(
          profileDocRef,
          {
             ...profileData,
-            createdAt: new Date(),
-            updatedAt: new Date(),
+            createdAt: Timestamp.now(),
+            updatedAt: Timestamp.now(),
          },
          { merge: true }
       );
@@ -100,7 +100,7 @@ export async function updateUserProfile(
          profileDocRef,
          {
             ...profileData,
-            updatedAt: new Date(),
+            updatedAt: Timestamp.now(),
          },
          { merge: true }
       );
@@ -117,41 +117,18 @@ export async function updateUserProfile(
  * @param userId The user's ID
  * @param mediaItem The media item to add
  * @returns A success message or error message
+ * @deprecated Use addMedia from _lib/firebase/profile/media/actions.ts instead
  */
 export async function addUserMedia(
    userId: string,
-   mediaItem: Omit<Profile["media"][0], "id">
+   mediaItem: Omit<MediaItem, "id" | "createdAt">
 ): Promise<{ success: boolean; message: string; mediaId?: string }> {
    try {
-      // Get the current profile
-      const profile = await getUserProfile(userId);
-      if (!profile) {
-         return { success: false, message: "Profile not found" };
-      }
+      // Import the new addMedia function
+      const { addMedia } = await import("./media/actions");
 
-      // Generate a unique ID for the media item
-      const mediaId = `media_${Date.now()}`;
-      const newMediaItem = {
-         id: mediaId,
-         ...mediaItem,
-         createdAt: new Date().toISOString(),
-      };
-
-      // Add the media item to the profile
-      const updatedMedia = [...(profile.media || []), newMediaItem];
-
-      // Update the profile
-      const profileDocRef = doc(db, "profiles", userId);
-      await setDoc(
-         profileDocRef,
-         {
-            media: updatedMedia,
-            updatedAt: new Date(),
-         },
-         { merge: true }
-      );
-
-      return { success: true, message: "Media added successfully", mediaId };
+      // Use the new function instead
+      return await addMedia(userId, mediaItem);
    } catch (error) {
       console.error("Error adding user media:", error);
       return { success: false, message: "Failed to add media" };
@@ -186,7 +163,7 @@ export async function updateSocialLink(
          profileDocRef,
          {
             socialLinks,
-            updatedAt: new Date(),
+            updatedAt: Timestamp.now(),
          },
          { merge: true }
       );
@@ -232,7 +209,7 @@ export async function updatePortfolioLink(
          profileDocRef,
          {
             portfolioLinks,
-            updatedAt: new Date(),
+            updatedAt: Timestamp.now(),
          },
          { merge: true }
       );
