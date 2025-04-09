@@ -47,8 +47,24 @@ export default function UserAvatar({
             <Image
                src={image}
                alt={name || "User"}
-               width={40}
-               height={40}
+               width={
+                  size === "small"
+                     ? 40
+                     : size === "medium"
+                     ? 80
+                     : size === "large"
+                     ? 120
+                     : 150
+               }
+               height={
+                  size === "small"
+                     ? 40
+                     : size === "medium"
+                     ? 80
+                     : size === "large"
+                     ? 120
+                     : 150
+               }
                className={styles.image}
             />
          ) : (
