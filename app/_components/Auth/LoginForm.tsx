@@ -12,11 +12,11 @@ import { Button, Checkbox, ForgotPassword, Input } from "../UI/Input/Input";
 import Loader from "../UI/Loader/Loader";
 
 interface LoginFormProps {
-   onSubmit: (data: LoginFormValues) => void;
+   onSubmitAction: (data: LoginFormValues) => void;
    pending?: boolean;
 }
 
-export default function LoginForm({ onSubmit, pending }: LoginFormProps) {
+export default function LoginForm({ onSubmitAction, pending }: LoginFormProps) {
    const {
       register,
       handleSubmit,
@@ -31,7 +31,7 @@ export default function LoginForm({ onSubmit, pending }: LoginFormProps) {
    });
 
    const onFormSubmit = handleSubmit((data) => {
-      onSubmit(data);
+      onSubmitAction(data);
    });
 
    return (

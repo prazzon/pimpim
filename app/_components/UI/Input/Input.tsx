@@ -209,10 +209,10 @@ export function ForgotPassword({
 interface TabProps {
    tabs: string[];
    activeTab: number;
-   onChange: (index: number) => void;
+   onChangeAction: (index: number) => void;
 }
 
-export function Tabs({ tabs, activeTab, onChange }: TabProps) {
+export function Tabs({ tabs, activeTab, onChangeAction }: TabProps) {
    return (
       <div className={styles.tab_group}>
          {tabs.map((tab, index) => (
@@ -221,7 +221,7 @@ export function Tabs({ tabs, activeTab, onChange }: TabProps) {
                className={`${styles.tab} ${
                   activeTab === index ? styles.active : ""
                }`}
-               onClick={() => onChange(index)}
+               onClick={() => onChangeAction(index)}
             >
                {tab}
             </div>

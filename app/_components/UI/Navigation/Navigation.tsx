@@ -113,7 +113,7 @@ function Navigation() {
 
          <AuthDialog
             open={isAuthDialogOpen}
-            onOpenChange={handleAuthDialogOpenChange}
+            action={handleAuthDialogOpenChange}
          />
       </nav>
    );

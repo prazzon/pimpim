@@ -27,10 +27,10 @@ import SignupForm from "./SignupForm";
 
 interface AuthDialogProps {
    open: boolean;
-   onOpenChange: (open: boolean) => void;
+   action: (open: boolean) => void;
 }
 
-export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
+export default function AuthDialog({ open, action }: AuthDialogProps) {
    const [activeTab, setActiveTab] = useState(0);
    const [pending, startTransition] = useTransition();
    const [alert, setAlert] = useState<{
@@ -68,7 +68,7 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
 
             // Close dialog after 2 seconds
             setTimeout(() => {
-               onOpenChange(false);
+               action(false);
             }, 2000);
          }
       });
@@ -98,7 +98,7 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
 
          // Close dialog after 2 seconds
          setTimeout(() => {
-            onOpenChange(false);
+            action(false);
          }, 2000);
       });
    };
@@ -109,8 +109,8 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
    };
 
    return (
-      <Dialog open={open} onOpenChange={onOpenChange} hasBlur={true}>
-         <DialogContent onInteractOutside={() => onOpenChange(false)}>
+      <Dialog open={open} onOpenChange={action} hasBlur={true}>
+         <DialogContent onInteractOutside={() => action(false)}>
             <DialogHeader>
                <DialogLogo>
                   <Image
@@ -133,7 +133,7 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
             <Tabs
                tabs={["Login", "Sign up"]}
                activeTab={activeTab}
-               onChange={setActiveTab}
+               onChangeAction={setActiveTab}
             />
 
             {alert && (
@@ -145,9 +145,15 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
             )}
 
             {activeTab === 0 ? (
-               <LoginForm onSubmit={handleLoginSubmit} pending={pending} />
+               <LoginForm
+                  onSubmitAction={handleLoginSubmit}
+                  pending={pending}
+               />
             ) : (
-               <SignupForm onSubmit={handleSignupSubmit} pending={pending} />
+               <SignupForm
+                  onSubmitAction={handleSignupSubmit}
+                  pending={pending}
+               />
             )}
 
             <DialogDivider />

@@ -12,11 +12,14 @@ import { Button, Input } from "../UI/Input/Input";
 import Loader from "../UI/Loader/Loader";
 
 interface SignupFormProps {
-   onSubmit: (data: SignupFormValues) => void;
+   onSubmitAction: (data: SignupFormValues) => void;
    pending: boolean;
 }
 
-export default function SignupForm({ onSubmit, pending }: SignupFormProps) {
+export default function SignupForm({
+   onSubmitAction,
+   pending,
+}: SignupFormProps) {
    const {
       register,
       handleSubmit,
@@ -32,7 +35,7 @@ export default function SignupForm({ onSubmit, pending }: SignupFormProps) {
    });
 
    const onFormSubmit = handleSubmit((data) => {
-      onSubmit(data);
+      onSubmitAction(data);
    });
 
    return (

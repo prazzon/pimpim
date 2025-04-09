@@ -24,7 +24,11 @@ export default function Profile({ profile, mediaItems = [] }: ProfileProps) {
          <ProfileHeader profile={profile} />
 
          <div className={styles.tabs_container}>
-            <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+            <Tabs
+               tabs={tabs}
+               activeTab={activeTab}
+               onChangeAction={setActiveTab}
+            />
          </div>
 
          <div className={styles.content}>
