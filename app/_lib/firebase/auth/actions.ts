@@ -42,6 +42,12 @@ export const registerUser = async (data: SignupFormValues) => {
 
    await setDoc(docRef, user);
 
+   await createUserProfile(uniqueId, {
+      id: uniqueId,
+      username: username,
+      email: email,
+   });
+
    revalidatePath("/");
 
    return { message: "User created successfully", success: true };
