@@ -4,7 +4,7 @@ import {
    updatePortfolioLink,
    updateSocialLink,
    updateUserProfile,
-} from "@/app/_lib/firebase/profile/service";
+} from "@/app/_lib/firebase/profile/actions";
 import { Profile } from "@/app/_lib/firebase/types";
 import {
    ProfileEditFormValues,
