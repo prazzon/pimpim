@@ -27,7 +27,7 @@ export default function SignupForm({
    } = useForm<SignupFormValues>({
       resolver: zodResolver(signupSchema),
       defaultValues: {
-         fullName: "",
+         username: "",
          email: "",
          password: "",
          confirmPassword: "",
@@ -41,17 +41,17 @@ export default function SignupForm({
    return (
       <form onSubmit={onFormSubmit}>
          <Input
-            label="Full Name"
+            label="Username"
             type="text"
-            placeholder="John Doe"
+            placeholder="Olayinka"
             icon={<FaUser />}
-            error={errors.fullName?.message}
-            {...register("fullName")}
+            error={errors.username?.message}
+            {...register("username")}
          />
          <Input
             label="Email"
             type="email"
-            placeholder="hi@yourcompany.com"
+            placeholder="olayinka@gmail.com"
             icon={<IoMail />}
             error={errors.email?.message}
             {...register("email")}

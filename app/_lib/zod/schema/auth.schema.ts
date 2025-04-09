@@ -18,10 +18,10 @@ export type LoginFormValues = z.infer<typeof loginSchema>;
 // Signup form schema
 export const signupSchema = z
    .object({
-      fullName: z
+      username: z
          .string()
-         .min(1, { message: "Full name is required" })
-         .min(2, { message: "Full name must be at least 2 characters" }),
+         .min(1, { message: "Username is required" })
+         .min(2, { message: "Username must be at least 2 characters" }),
       email: z
          .string()
          .min(1, { message: "Email is required" })

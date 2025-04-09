@@ -39,7 +39,7 @@ export default function LoginForm({ onSubmitAction, pending }: LoginFormProps) {
          <Input
             label="Email"
             type="email"
-            placeholder="hi@yourcompany.com"
+            placeholder="olayinka@gmail.com"
             icon={<IoMail />}
             error={errors.email?.message}
             {...register("email")}

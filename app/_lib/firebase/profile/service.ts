@@ -42,7 +42,6 @@ export async function getUserProfile(userId: string): Promise<Profile | null> {
             id: userId,
             username: userData.name,
             email: userData.email,
-            profileImage: userData.image,
             // Add other fields as needed
          };
 
