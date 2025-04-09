@@ -11,6 +11,8 @@ import Image from "next/image";
 import type React from "react";
 import { useEffect, useState, useTransition } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "sonner";
+import { useOnboarding } from "../Onboarding/OnboardingProvider";
 import Alert, { AlertType } from "../UI/Alert/Alert";
 import {
    Dialog,
@@ -37,6 +39,7 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
       type: AlertType;
       message: string;
    } | null>(null);
+   const { showOnboarding } = useOnboarding();
 
    // Clear alert when tab changes or dialog closes/opens
    useEffect(() => {
@@ -100,6 +103,24 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
          setTimeout(() => {
             action(false);
          }, 2000);
+
+         // Automatically log in the user with their credentials
+         const loginResult = await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            redirect: false,
+         });
+
+         if (loginResult?.error) {
+            console.error("Auto-login failed:", loginResult.error);
+            toast.error(
+               "Auto-login failed, please login with your credentials"
+            );
+            return;
+         }
+
+         // Show onboarding after login
+         showOnboarding();
       });
    };
 
