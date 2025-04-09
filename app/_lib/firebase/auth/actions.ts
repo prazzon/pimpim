@@ -12,14 +12,15 @@ import {
 } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
 import { db } from "../firebase";
+import { createUserProfile } from "../profile/actions";
 
 /**
  * Register a new user in Firebase
- * @param data The signup form data containing fullName, email, and password
+ * @param data The signup form data containing username, email, and password
  * @returns An object with success status and message
  */
 export const registerUser = async (data: SignupFormValues) => {
-   const { fullName, email, password } = data;
+   const { username, email, password } = data;
 
    const existedUser = await getDocs(
       query(collection(db, "users"), where("email", "==", email))
@@ -33,7 +34,7 @@ export const registerUser = async (data: SignupFormValues) => {
 
    const hash = await bcryptjs.hash(password, 10);
 
-   const user = { fullName, email, password: hash, role: "user" };
+   const user = { name: username, email, password: hash, role: "user" };
 
    const uniqueId = doc(collection(db, "users")).id;
 
