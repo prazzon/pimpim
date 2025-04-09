@@ -9,6 +9,10 @@ import {
 import { db } from "../firebase";
 import { Series } from "../types";
 
+/**
+ * Get all series from the database
+ * @returns An array of series objects
+ */
 export async function getSeries() {
    const seriesRef = collection(db, "series");
 
@@ -18,7 +22,7 @@ export async function getSeries() {
       (doc) =>
          ({
             id: doc.id,
-         ...doc.data(),
+            ...doc.data(),
             createdAt: new Date(doc.data().createdAt),
          } as Series)
    );
@@ -26,6 +30,11 @@ export async function getSeries() {
    return series;
 }
 
+/**
+ * Get a series by its ID
+ * @param id The series' ID
+ * @returns The series object or null if not found
+ */
 export async function getSeriesById(id: string) {
    if (!id) return null;
 
@@ -44,6 +53,11 @@ export async function getSeriesById(id: string) {
    } as Series;
 }
 
+/**
+ * Get a series by its slug
+ * @param slug The series' slug
+ * @returns The series object or null if not found
+ */
 export async function getSeriesBySlug(slug: string) {
    if (!slug) return null;
 

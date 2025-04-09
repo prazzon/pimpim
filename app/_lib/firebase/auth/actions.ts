@@ -13,6 +13,11 @@ import {
 import { revalidatePath } from "next/cache";
 import { db } from "../firebase";
 
+/**
+ * Register a new user in Firebase
+ * @param data The signup form data containing fullName, email, and password
+ * @returns An object with success status and message
+ */
 export const registerUser = async (data: SignupFormValues) => {
    const { fullName, email, password } = data;
 

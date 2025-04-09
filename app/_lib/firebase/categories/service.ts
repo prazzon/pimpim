@@ -10,6 +10,10 @@ import {
 import { db } from "../firebase";
 import { Category } from "../types";
 
+/**
+ * Get all categories from the database, ordered by name
+ * @returns An array of category objects
+ */
 export async function getCategories() {
    const categoriesRef = collection(db, "categories");
    const q = query(categoriesRef, orderBy("name"));
@@ -26,6 +30,11 @@ export async function getCategories() {
    return categories;
 }
 
+/**
+ * Get a category by its ID
+ * @param id The category's ID
+ * @returns The category object or null if not found
+ */
 export async function getCategoryById(id: string) {
    if (!id) return null;
 
@@ -43,6 +52,11 @@ export async function getCategoryById(id: string) {
    } as Category;
 }
 
+/**
+ * Get a category by its slug
+ * @param slug The category's slug
+ * @returns The category object or null if not found
+ */
 export async function getCategoryBySlug(slug: string) {
    if (!slug) return null;
 

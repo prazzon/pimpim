@@ -9,6 +9,10 @@ import {
 import { db } from "../firebase";
 import { Movie } from "../types";
 
+/**
+ * Get all movies from the database
+ * @returns An array of movie objects
+ */
 export async function getMovies() {
    const moviesRef = collection(db, "movies");
 
@@ -26,6 +30,11 @@ export async function getMovies() {
    return movies;
 }
 
+/**
+ * Get a movie by its ID
+ * @param id The movie's ID
+ * @returns The movie object or null if not found
+ */
 export async function getMovieById(id: string) {
    if (!id) return null;
 
@@ -44,6 +53,11 @@ export async function getMovieById(id: string) {
    } as Movie;
 }
 
+/**
+ * Get a movie by its slug
+ * @param slug The movie's slug
+ * @returns The movie object or null if not found
+ */
 export async function getMovieBySlug(slug: string) {
    if (!slug) return null;
 

@@ -12,6 +12,10 @@ import { getCategoryById, getCategoryBySlug } from "../categories/service";
 import { db } from "../firebase";
 import { Post } from "../types";
 
+/**
+ * Get all posts from the database, ordered by creation date (newest first)
+ * @returns An array of post objects with author and category data
+ */
 export async function getPosts() {
    const postsRef = collection(db, "posts");
 
@@ -46,6 +50,11 @@ export async function getPosts() {
    return posts;
 }
 
+/**
+ * Get all posts for a specific category by its slug
+ * @param categorySlug The category's slug
+ * @returns An array of post objects with author and category data, or null if category not found
+ */
 export async function getPostsByCategorySlug(categorySlug: string) {
    const postsRef = collection(db, "posts");
 
@@ -80,6 +89,11 @@ export async function getPostsByCategorySlug(categorySlug: string) {
    return posts;
 }
 
+/**
+ * Get a post by its ID
+ * @param id The post's ID
+ * @returns The post object with author and category data
+ */
 export async function getPostById(id: string) {
    const docRef = doc(db, "posts", id);
 
@@ -104,6 +118,11 @@ export async function getPostById(id: string) {
    return post;
 }
 
+/**
+ * Get a post by its slug
+ * @param slug The post's slug
+ * @returns The post object with author and category data, or null if not found
+ */
 export async function getPostBySlug(slug: string) {
    const postsRef = collection(db, "posts");
 
@@ -141,6 +160,11 @@ export async function getPostBySlug(slug: string) {
    // } as Post;
 }
 
+/**
+ * Get all posts by a specific author
+ * @param authorId The author's ID
+ * @returns An array of post objects with author and category data
+ */
 export async function getPostsByAuthorId(authorId: string) {
    const postsRef = collection(db, "posts");
 

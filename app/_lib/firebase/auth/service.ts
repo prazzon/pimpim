@@ -2,6 +2,12 @@ import bcryptjs from "bcryptjs";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
+/**
+ * Get a user from the database by email and password
+ * @param email The user's email address
+ * @param password The user's password (will be compared with hashed password in DB)
+ * @returns The user object with additional fields or null if not found/invalid
+ */
 export const getUserFromDb = async (email: string, password: string) => {
    const usersRef = collection(db, "users");
    const q = query(usersRef, where("email", "==", email));
