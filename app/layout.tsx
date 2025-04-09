@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "sonner";
 import SessionProvider from "./_components/Providers/SessionProvider";
 import Footer from "./_components/UI/Footer/Footer";
 import Navigation from "./_components/UI/Navigation/Navigation";
@@ -27,6 +28,7 @@ export default function RootLayout({
                <Navigation />
                {children}
                <Footer />
+               <Toaster position="top-right" richColors closeButton />
             </SessionProvider>
          </body>
       </html>
