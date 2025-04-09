@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
+import { OnboardingProvider } from "./_components/Onboarding/OnboardingProvider";
 import SessionProvider from "./_components/Providers/SessionProvider";
 import Footer from "./_components/UI/Footer/Footer";
 import Navigation from "./_components/UI/Navigation/Navigation";
@@ -25,10 +26,12 @@ export default function RootLayout({
       <html lang="en" className={poppins.className}>
          <body>
             <SessionProvider>
-               <Navigation />
-               {children}
-               <Footer />
-               <Toaster position="top-right" richColors closeButton />
+               <OnboardingProvider>
+                  <Navigation />
+                  {children}
+                  <Footer />
+                  <Toaster position="top-right" richColors closeButton />
+               </OnboardingProvider>
             </SessionProvider>
          </body>
       </html>
