@@ -1,6 +1,8 @@
 "use server";
 
 import { uploadImage } from "@/app/_lib/cloudinary/cloudinary";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import { updateUserProfile } from "./service";
 
 /**
@@ -36,7 +38,7 @@ export async function uploadProfileImageToCloudinary(
       }
 
       // Update the profile image URL in Firebase
-      return await updateProfileImage(userId, imageUrl);
+      return await updateUserImage(userId, imageUrl);
    } catch (error) {
       console.error("Error uploading profile image:", error);
       return { success: false, message: "Failed to upload profile image" };
@@ -106,14 +108,18 @@ export async function uploadProfileImageByType(
  * @param imageUrl The URL of the new profile image
  * @returns A success message or error message
  */
-export async function updateProfileImage(
+export async function updateUserImage(
    userId: string,
    imageUrl: string
 ): Promise<{ success: boolean; message: string }> {
    try {
-      return await updateUserProfile(userId, {
-         profileImage: imageUrl,
+      const userRef = doc(db, "users", userId);
+
+      await updateDoc(userRef, {
+         image: imageUrl,
       });
+
+      return { success: true, message: "Profile image updated successfully" };
    } catch (error) {
       console.error("Error updating profile image:", error);
       return { success: false, message: "Failed to update profile image" };

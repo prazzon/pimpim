@@ -26,6 +26,7 @@ export default async function ProfileEditPage() {
       ...profileData,
       username: session.user?.name || "",
       email: session.user?.email || "",
+      profileImage: session.user?.image || "",
    };
 
    return (

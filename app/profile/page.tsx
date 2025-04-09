@@ -36,6 +36,7 @@ export default async function ProfilePage() {
          ...profileData,
          username: session.user?.name || "",
          email: session.user?.email || "",
+         profileImage: session.user?.image || "",
          commentsAndLikes: mockProfile.commentsAndLikes,
       };
    }
