@@ -96,11 +96,11 @@ export async function uploadProfileImageToCloudinary(
          return { success: false, message: "Image is required" };
       }
 
-      // Generate a unique ID for the image
-      const uniqueId = `profile_${userId}_${Date.now()}`;
+      // Generate an ID for the image
+      const id = `profile_${userId}}`;
 
       // Upload the image to Cloudinary
-      const imageUrl = await uploadImage(image, uniqueId);
+      const imageUrl = await uploadImage(image, id);
 
       if (!imageUrl) {
          return {
