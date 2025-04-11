@@ -35,6 +35,7 @@ interface AuthDialogProps {
 export default function AuthDialog({ open, action }: AuthDialogProps) {
    const [activeTab, setActiveTab] = useState(0);
    const [pending, startTransition] = useTransition();
+   const [googlePending, startGoogleTransition] = useTransition();
    const [alert, setAlert] = useState<{
       type: AlertType;
       message: string;
@@ -124,9 +125,10 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
       });
    };
 
-   const handleGoogleLogin = () => {
-      console.log("Google login clicked");
-      // Add your Google login logic here
+   const handleGoogleLogin = async () => {
+      startGoogleTransition(async () => {
+         await signIn("google");
+      });
    };
 
    return (
@@ -179,7 +181,11 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
 
             <DialogDivider />
 
-            <Button variant="secondary" onClick={handleGoogleLogin}>
+            <Button
+               variant="secondary"
+               onClick={handleGoogleLogin}
+               disabled={pending || googlePending}
+            >
                <FcGoogle style={{ fontSize: "20px" }} />
                Login with Google
             </Button>

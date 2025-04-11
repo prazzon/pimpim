@@ -52,3 +52,8 @@ export const registerUser = async (data: SignupFormValues) => {
 
    return { message: "User created successfully", success: true };
 };
+
+export const updateUserVerification = async (userId: string) => {
+   const userRef = doc(db, "users", userId);
+   await setDoc(userRef, { emailVerified: true }, { merge: true });
+};

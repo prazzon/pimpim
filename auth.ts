@@ -3,14 +3,29 @@ import { FirestoreAdapter } from "@auth/firebase-adapter";
 import NextAuth from "next-auth";
 import { encode as defaultEncode } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import { v4 as uuid } from "uuid";
+import { updateUserVerification } from "./app/_lib/firebase/auth/actions";
 import { getUserFromDb } from "./app/_lib/firebase/auth/service";
+import { createUserProfile } from "./app/_lib/firebase/profile/actions";
 
 const adapter = FirestoreAdapter(firestore);
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
    adapter: adapter,
    providers: [
+      Google({
+         profile(profile) {
+            return {
+               id: profile.sub,
+               name: profile.name,
+               email: profile.email,
+               image: profile.picture,
+               emailVerified: profile.email_verified,
+               role: "user",
+            };
+         },
+      }),
       Credentials({
          credentials: {
             email: { label: "Email", type: "email" },
@@ -39,6 +54,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
          },
       }),
    ],
+   events: {
+      async createUser({ user }) {
+         if (user.id && user.email && user.name) {
+            createUserProfile(user.id, {
+               id: user.id,
+               username: user.name,
+               email: user.email,
+            });
+
+            updateUserVerification(user.id);
+         }
+      },
+   },
    callbacks: {
       async jwt({ token, user, account }) {
          if (account?.provider === "credentials") {
