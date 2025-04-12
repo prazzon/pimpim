@@ -5,7 +5,7 @@ type ButtonProps = {
    children: React.ReactNode;
    type?: "normal" | "play";
    size?: "small" | "medium" | "large";
-   onClick?: () => void;
+   onClick?: () => void | Promise<void>;
    btnStyle?: "primary" | "secondary";
 };
 function Button({
@@ -13,6 +13,7 @@ function Button({
    btnStyle = "primary",
    type = "normal",
    size,
+   onClick,
 }: ButtonProps) {
    return (
       <button
@@ -22,6 +23,7 @@ function Button({
             styles[type],
             size && styles[size]
          )}
+         onClick={onClick}
       >
          {children}
       </button>
