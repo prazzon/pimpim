@@ -37,16 +37,20 @@
       .edit_button_container {
          margin-left: auto;
          padding-bottom: 1rem;
+         display: flex;
+         gap: 1rem;
 
          @media (max-width: 768px) {
             margin-left: 0;
             margin-top: 1.5rem;
+            flex-direction: column;
+            width: 100%;
          }
 
          .edit_button {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
             padding: 0.8rem 1.5rem;
             font-size: 1.4rem;
             width: auto;

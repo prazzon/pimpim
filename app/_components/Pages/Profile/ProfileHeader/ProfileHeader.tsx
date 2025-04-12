@@ -1,8 +1,14 @@
+"use client";
+
+import { checkUserHasPassword } from "@/app/_lib/firebase/auth/password-actions";
 import { Profile } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa6";
+import PasswordChangeDialog from "../../../Auth/PasswordChangeDialog";
 import { Button } from "../../../UI/Input/Input";
+import SettingsDropdown from "../../../UI/SettingsDropdown/SettingsDropdown";
 import UserAvatar from "../../../UI/UserAvatar/UserAvatar";
 import styles from "./ProfileHeader.module.scss";
 
@@ -11,6 +17,20 @@ type ProfileHeaderProps = {
 };
 
 export default function ProfileHeader({ profile }: ProfileHeaderProps) {
+   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
+   const [hasPassword, setHasPassword] = useState(false);
+
+   useEffect(() => {
+      // Check if the user has a password when the component mounts
+      const checkPassword = async () => {
+         if (profile.id) {
+            const result = await checkUserHasPassword(profile.id);
+            setHasPassword(result);
+         }
+      };
+
+      checkPassword();
+   }, [profile.id]);
    return (
       <div className={styles.header}>
          <div className={styles.cover}>
@@ -48,7 +68,18 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
                      <FaPen /> Edit Profile
                   </Button>
                </Link>
+               <SettingsDropdown
+                  onChangePassword={() => setIsPasswordDialogOpen(true)}
+               />
             </div>
+
+            {/* Password Change Dialog */}
+            <PasswordChangeDialog
+               open={isPasswordDialogOpen}
+               onOpenChange={setIsPasswordDialogOpen}
+               userId={profile.id}
+               hasPassword={hasPassword}
+            />
          </div>
       </div>
    );
