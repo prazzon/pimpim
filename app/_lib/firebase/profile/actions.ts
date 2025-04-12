@@ -2,6 +2,7 @@
 
 import { uploadImage } from "@/app/_lib/cloudinary/cloudinary";
 import { doc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { updateUsername } from "../auth/actions";
 import { db } from "../firebase";
 import { MediaItem, Profile } from "../types";
 import { getUserProfile } from "./service";
@@ -52,6 +53,10 @@ export async function updateUserProfile(
          },
          { merge: true }
       );
+
+      if (profileData.username) {
+         updateUsername(userId, profileData.username);
+      }
 
       return { success: true, message: "Profile updated successfully" };
    } catch (error) {

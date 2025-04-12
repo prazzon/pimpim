@@ -57,3 +57,8 @@ export const updateUserVerification = async (userId: string) => {
    const userRef = doc(db, "users", userId);
    await setDoc(userRef, { emailVerified: true }, { merge: true });
 };
+
+export const updateUsername = async (userId: string, username: string) => {
+   const userRef = doc(db, "users", userId);
+   await setDoc(userRef, { name: username }, { merge: true });
+};
