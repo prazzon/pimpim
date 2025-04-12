@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
+import Loader from "../Loader/Loader";
 import UserAvatar from "../UserAvatar/UserAvatar";
 import styles from "./UserDropdown.module.scss";
 
@@ -17,6 +18,7 @@ interface UserDropdownProps {
 
 export default function UserDropdown({ name, image }: UserDropdownProps) {
    const [isOpen, setIsOpen] = useState(false);
+   const [isLoggingOut, setIsLoggingOut] = useState(false);
    const ref = useOutsideClick(() => setIsOpen(false));
 
    const handleToggle = () => {
@@ -24,6 +26,7 @@ export default function UserDropdown({ name, image }: UserDropdownProps) {
    };
 
    const handleLogout = async () => {
+      setIsLoggingOut(true);
       await signOut();
    };
 
@@ -54,11 +57,19 @@ export default function UserDropdown({ name, image }: UserDropdownProps) {
                      My Profile
                   </Link>
                   <div
-                     className={`${styles.dropdown_menu_item} ${styles.logout}`}
+                     className={`${styles.dropdown_menu_item} ${
+                        styles.logout
+                     } ${isLoggingOut ? styles.logging_out : ""}`}
                      onClick={handleLogout}
                   >
-                     <IoLogOutOutline />
-                     Logout
+                     {isLoggingOut ? (
+                        <span className={styles.loader_icon}>
+                           <Loader />
+                        </span>
+                     ) : (
+                        <IoLogOutOutline />
+                     )}
+                     {isLoggingOut ? "Logging out" : "Logout"}
                   </div>
                </motion.div>
             )}
