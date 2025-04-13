@@ -80,9 +80,7 @@ export default function ProfileImageEdit({
 
          if (result.success) {
             toast.success(
-               `${
-                  type.charAt(0).toUpperCase() + type.slice(1)
-               } image updated successfully!`
+               `${type.charAt(0).toUpperCase() + type.slice(1)} image updated!`
             );
             setIsDialogOpen(false);
             router.refresh();
@@ -113,7 +111,7 @@ export default function ProfileImageEdit({
             </div>
          ) : (
             <UserAvatar
-               name={profile.username}
+               name={profile.displayName}
                image={profile.profileImage}
                darkBackground={true}
                size="xlarge"
@@ -160,7 +158,7 @@ export default function ProfileImageEdit({
             {type === "profile" ? (
                <div className={styles.profile_image}>
                   <UserAvatar
-                     name={profile.username}
+                     name={profile.displayName}
                      image={profile.profileImage}
                      darkBackground={true}
                      size="xlarge"

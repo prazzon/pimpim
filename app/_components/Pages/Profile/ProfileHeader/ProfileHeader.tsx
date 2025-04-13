@@ -58,7 +58,9 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
 
             <div className={styles.details}>
                <h1 className={styles.name}>{profile.displayName}</h1>
-               <div className={styles.location}>{profile.location}</div>
+               <div className={styles.location}>
+                  {profile.location || profile.email}
+               </div>
                <div className={styles.occupation}>{profile.occupation}</div>
             </div>
 
