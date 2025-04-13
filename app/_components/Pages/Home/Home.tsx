@@ -1,4 +1,5 @@
 import { Category, Post } from "@/app/_lib/firebase/types";
+import { IoChevronDownOutline } from "react-icons/io5";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
@@ -48,7 +49,10 @@ async function Home({ posts, categories }: Props) {
                      <ItemCard key={item.id} item={item} />
                   ))}
                </div>
-               <button className={styles.see_more}>See more</button>
+               <button className={styles.see_more}>
+                  <span>Show more</span>
+                  <IoChevronDownOutline />
+               </button>
             </div>
 
             <div className={styles.sidebar}>
