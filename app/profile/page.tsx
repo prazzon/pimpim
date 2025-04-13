@@ -37,7 +37,7 @@ export default async function ProfilePage() {
          username: session.user?.name || "",
          email: session.user?.email || "",
          profileImage: session.user?.image || "",
-         commentsAndLikes: mockProfile.commentsAndLikes,
+         // commentsAndLikes: mockProfile.commentsAndLikes,
       };
    }
 

@@ -29,14 +29,14 @@ import styles from "./PasswordChangeDialog.module.scss";
 
 interface PasswordChangeDialogProps {
    open: boolean;
-   onOpenChange: (open: boolean) => void;
+   onOpenAction: (open: boolean) => void;
    userId: string;
    hasPassword: boolean;
 }
 
 export default function PasswordChangeDialog({
    open,
-   onOpenChange,
+   onOpenAction,
    userId,
    hasPassword,
 }: PasswordChangeDialogProps) {
@@ -94,11 +94,11 @@ export default function PasswordChangeDialog({
             );
 
             if (result.success) {
-               toast.success("Password changed successfully");
+               toast.success("Password changed");
                resetChange();
                // Close dialog after 1 second
                setTimeout(() => {
-                  onOpenChange(false);
+                  onOpenAction(false);
                }, 1000);
             } else {
                setAlert({
@@ -123,11 +123,11 @@ export default function PasswordChangeDialog({
             const result = await linkUserPassword(userId, data.newPassword);
 
             if (result.success) {
-               toast.success("Password linked successfully");
+               toast.success("Password linked");
                resetLink();
                // Close dialog after 1 second
                setTimeout(() => {
-                  onOpenChange(false);
+                  onOpenAction(false);
                }, 1000);
             } else {
                setAlert({
@@ -146,7 +146,7 @@ export default function PasswordChangeDialog({
    };
 
    return (
-      <Dialog open={open} onOpenChange={onOpenChange} hasBlur={true}>
+      <Dialog open={open} onOpenChange={onOpenAction} hasBlur={true}>
          <DialogContent>
             <DialogHeader>
                <DialogTitle>
@@ -200,7 +200,7 @@ export default function PasswordChangeDialog({
                      <Button
                         type="button"
                         variant="secondary"
-                        onClick={() => onOpenChange(false)}
+                        onClick={() => onOpenAction(false)}
                         disabled={pending}
                      >
                         Cancel
@@ -236,7 +236,7 @@ export default function PasswordChangeDialog({
                      <Button
                         type="button"
                         variant="secondary"
-                        onClick={() => onOpenChange(false)}
+                        onClick={() => onOpenAction(false)}
                         disabled={pending}
                      >
                         Cancel

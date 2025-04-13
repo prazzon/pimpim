@@ -9,11 +9,11 @@ import { Button } from "../Input/Input";
 import styles from "./SettingsDropdown.module.scss";
 
 interface SettingsDropdownProps {
-   onChangePassword: () => void;
+   onChangePasswordAction: () => void;
 }
 
 export default function SettingsDropdown({
-   onChangePassword,
+   onChangePasswordAction,
 }: SettingsDropdownProps) {
    const [isOpen, setIsOpen] = useState(false);
    const ref = useOutsideClick(() => setIsOpen(false));
@@ -24,7 +24,7 @@ export default function SettingsDropdown({
 
    const handleChangePassword = () => {
       setIsOpen(false);
-      onChangePassword();
+      onChangePasswordAction();
    };
 
    return (

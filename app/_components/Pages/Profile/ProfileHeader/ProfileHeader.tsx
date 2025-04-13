@@ -69,14 +69,14 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
                   </Button>
                </Link>
                <SettingsDropdown
-                  onChangePassword={() => setIsPasswordDialogOpen(true)}
+                  onChangePasswordAction={() => setIsPasswordDialogOpen(true)}
                />
             </div>
 
             {/* Password Change Dialog */}
             <PasswordChangeDialog
                open={isPasswordDialogOpen}
-               onOpenChange={setIsPasswordDialogOpen}
+               onOpenAction={setIsPasswordDialogOpen}
                userId={profile.id}
                hasPassword={hasPassword}
             />
