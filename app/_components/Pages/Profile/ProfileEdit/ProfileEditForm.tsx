@@ -42,7 +42,7 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
    } = useForm<ProfileEditFormValues>({
       resolver: zodResolver(profileEditSchema),
       defaultValues: {
-         username: profile.username || "",
+         displayName: profile.displayName || "",
          firstName: profile.firstName || "",
          lastName: profile.lastName || "",
          email: profile.email || "",
@@ -70,7 +70,7 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
          try {
             // Update basic profile information
             const basicProfileData = {
-               username: data.username,
+               displayName: data.displayName,
                firstName: data.firstName,
                lastName: data.lastName,
                phone: data.phone,
@@ -127,7 +127,7 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
                }
             }
 
-            toast.success("Profile updated successfully!");
+            toast.success("Profile updated!");
 
             // Navigate back to profile page after 1 second
             setTimeout(() => {
@@ -156,10 +156,10 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
 
                <div className={styles.form_grid}>
                   <Input
-                     label="Username"
+                     label="Display Name"
                      icon={<FaUser />}
-                     error={errors.username?.message}
-                     {...register("username")}
+                     error={errors.displayName?.message}
+                     {...register("displayName")}
                   />
 
                   <Input

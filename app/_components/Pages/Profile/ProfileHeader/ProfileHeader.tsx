@@ -49,7 +49,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
          <div className={styles.profile_info}>
             <div className={styles.avatar_container}>
                <UserAvatar
-                  name={profile.username}
+                  name={profile.displayName}
                   image={profile.profileImage}
                   darkBackground={true}
                   size="xlarge"
@@ -57,7 +57,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
             </div>
 
             <div className={styles.details}>
-               <h1 className={styles.name}>{profile.username}</h1>
+               <h1 className={styles.name}>{profile.displayName}</h1>
                <div className={styles.location}>{profile.location}</div>
                <div className={styles.occupation}>{profile.occupation}</div>
             </div>

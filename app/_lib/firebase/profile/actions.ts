@@ -1,8 +1,18 @@
 "use server";
 
 import { uploadImage } from "@/app/_lib/cloudinary/cloudinary";
-import { doc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
-import { updateUsername } from "../auth/actions";
+import { slugify } from "@/app/_utils/utils";
+import {
+   collection,
+   doc,
+   getDocs,
+   query,
+   setDoc,
+   Timestamp,
+   updateDoc,
+   where,
+} from "firebase/firestore";
+import { updateName } from "../auth/actions";
 import { db } from "../firebase";
 import { MediaItem, Profile } from "../types";
 import { getUserProfile } from "./service";
@@ -16,12 +26,18 @@ export async function createUserProfile(
    userId: string,
    profileData: Profile
 ): Promise<void> {
+   const { username } = profileData;
+
+   // Generate unique username
+   const uniqueUsername = await generateUniqueUsername(username);
+
    try {
       const profileDocRef = doc(db, "profiles", userId);
       await setDoc(
          profileDocRef,
          {
             ...profileData,
+            username: uniqueUsername,
             createdAt: Timestamp.now(),
             updatedAt: Timestamp.now(),
          },
@@ -54,15 +70,50 @@ export async function updateUserProfile(
          { merge: true }
       );
 
-      if (profileData.username) {
-         updateUsername(userId, profileData.username);
+      if (profileData.displayName) {
+         updateName(userId, profileData.displayName);
       }
 
-      return { success: true, message: "Profile updated successfully" };
+      return { success: true, message: "Profile updated" };
    } catch (error) {
       console.error("Error updating user profile:", error);
       return { success: false, message: "Failed to update profile" };
    }
+}
+
+/**
+ * Checks if a username is already taken in the 'profiles' collection.
+ * @param username The username to check
+ * @returns A boolean indicating whether the username is taken
+ */
+async function isUsernameTaken(username: string): Promise<boolean> {
+   const querySnapshot = await getDocs(
+      query(collection(db, "profiles"), where("username", "==", username))
+   );
+   return !querySnapshot.empty;
+}
+
+/**
+ * Generates a unique username from a display name.
+ * Appends a number if the base slug is already taken.
+ * @param displayName the user's display name
+ * @returns A unique username
+ */
+export async function generateUniqueUsername(
+   displayName: string
+): Promise<string> {
+   // Generate the base slug from the display name
+   const base = slugify(displayName);
+   let username = base;
+   let counter = 1;
+
+   // Check if the base slug is already taken
+   while (await isUsernameTaken(username)) {
+      username = `${base}${counter}`;
+      counter++;
+   }
+
+   return username;
 }
 
 /**

@@ -60,7 +60,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             createUserProfile(user.id, {
                id: user.id,
                username: user.name,
+               displayName: user.name,
                email: user.email,
+               ...(user.image && { profileImage: user.image }),
             });
 
             updateUserVerification(user.id);

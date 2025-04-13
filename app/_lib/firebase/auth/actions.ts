@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
 import { db } from "../firebase";
-import { createUserProfile } from "../profile/actions";
+import { createUserProfile, generateUniqueUsername } from "../profile/actions";
 
 /**
  * Register a new user in Firebase
@@ -42,15 +42,19 @@ export const registerUser = async (data: SignupFormValues) => {
 
    await setDoc(docRef, user);
 
+   // Generate unique username
+   const uniqueUsername = await generateUniqueUsername(username);
+
    await createUserProfile(uniqueId, {
       id: uniqueId,
-      username: username,
+      username: uniqueUsername,
+      displayName: username, // Set the display name to the same as the username
       email: email,
    });
 
    revalidatePath("/");
 
-   return { message: "User created successfully", success: true };
+   return { message: "User created", success: true };
 };
 
 export const updateUserVerification = async (userId: string) => {
@@ -58,7 +62,7 @@ export const updateUserVerification = async (userId: string) => {
    await setDoc(userRef, { emailVerified: true }, { merge: true });
 };
 
-export const updateUsername = async (userId: string, username: string) => {
+export const updateName = async (userId: string, name: string) => {
    const userRef = doc(db, "users", userId);
-   await setDoc(userRef, { name: username }, { merge: true });
+   await setDoc(userRef, { name: name }, { merge: true });
 };

@@ -140,10 +140,11 @@ export type Interaction = {
 
 export type Profile = {
    id: string;
-   username?: string;
+   username: string;
+   displayName?: string;
    firstName?: string;
    lastName?: string;
-   email?: string;
+   email: string;
    phone?: string;
    location?: string;
    occupation?: string;
