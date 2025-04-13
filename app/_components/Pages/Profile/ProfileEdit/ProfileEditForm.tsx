@@ -146,8 +146,10 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
          <h1 className={styles.title}>Edit Profile</h1>
 
          <div className={styles.image_editors}>
-            <ProfileImageEdit profile={profile} type="profile" />
             <ProfileImageEdit profile={profile} type="cover" />
+            <div className={styles.profile_avatar}>
+               <ProfileImageEdit profile={profile} type="profile" />
+            </div>
          </div>
 
          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

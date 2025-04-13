@@ -13,16 +13,36 @@
    }
 
    .image_editors {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-bottom: 2rem;
+      position: relative;
+      width: 100%;
+      margin-bottom: 8rem;
+
+      .profile_avatar {
+         position: absolute;
+         bottom: -60px;
+         left: 2rem;
+         z-index: 100;
+
+         :global(.image_edit) {
+            justify-content: flex-start;
+         }
+
+         @media (max-width: 768px) {
+            left: 50%;
+            transform: translateX(-50%);
+
+            :global(.image_edit) {
+               justify-content: center;
+            }
+         }
+      }
    }
 
    .form {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      margin-top: 2rem;
 
       .form_section {
          background-color: #171717;

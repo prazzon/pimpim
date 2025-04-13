@@ -1,4 +1,8 @@
 .image_edit {
+   display: flex;
+   justify-content: center;
+   width: 100%;
+
    .image_container {
       position: relative;
       cursor: pointer;
@@ -22,12 +26,15 @@
 
       .profile_image {
          position: relative;
-         width: 100%;
-         height: 100%;
+         width: 120px;
+         height: 120px;
+         border-radius: 50%;
+         overflow: hidden;
 
          :global(.avatar) {
             width: 100% !important;
             height: 100% !important;
+            border: 4px solid var(--background);
          }
       }
 
