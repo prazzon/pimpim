@@ -21,6 +21,13 @@
          color: var(--text-secondary);
       }
 
+      .empty_state {
+         font-size: 1.45rem;
+         line-height: 1.6;
+         color: #666;
+         font-style: italic;
+      }
+
       .personal_info {
          display: grid;
          grid-template-columns: repeat(2, 1fr);
