@@ -20,6 +20,7 @@ type DialogContextType = {
    onOpen: () => void;
    onClose: () => void;
    hasBlur?: boolean;
+   closeOnOutsideClick?: boolean;
 };
 
 const DialogContext = createContext<DialogContextType | undefined>(undefined);
@@ -30,6 +31,7 @@ interface DialogProps {
    open?: boolean;
    onOpenChange?: (open: boolean) => void;
    hasBlur?: boolean;
+   closeOnOutsideClick?: boolean;
 }
 
 export function Dialog({
@@ -37,6 +39,7 @@ export function Dialog({
    open,
    onOpenChange,
    hasBlur = false,
+   closeOnOutsideClick = true,
 }: DialogProps) {
    const [isOpen, setIsOpen] = useState(open || false);
 
@@ -69,7 +72,9 @@ export function Dialog({
    };
 
    return (
-      <DialogContext.Provider value={{ isOpen, onOpen, onClose, hasBlur }}>
+      <DialogContext.Provider
+         value={{ isOpen, onOpen, onClose, hasBlur, closeOnOutsideClick }}
+      >
          {children}
       </DialogContext.Provider>
    );
@@ -127,7 +132,7 @@ export function DialogContent({
    }
 
    const handleOverlayClick = (e: React.MouseEvent) => {
-      if (e.target === e.currentTarget) {
+      if (e.target === e.currentTarget && context.closeOnOutsideClick) {
          context.onClose();
          onInteractOutside?.();
       }

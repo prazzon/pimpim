@@ -118,7 +118,12 @@ export default function OnboardingDialog({
    };
 
    return (
-      <Dialog open={open} onOpenChange={onOpenAction} hasBlur={true}>
+      <Dialog
+         open={open}
+         onOpenChange={onOpenAction}
+         hasBlur={true}
+         closeOnOutsideClick={false}
+      >
          <DialogContent>
             {/* Progress indicator */}
             <div className={styles.onboarding_progress}>
