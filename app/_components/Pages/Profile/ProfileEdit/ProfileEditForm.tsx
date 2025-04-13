@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import {
+   FaArrowLeft,
    FaBriefcase,
    FaCalendarAlt,
    FaMapMarkerAlt,
@@ -141,9 +142,18 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
       });
    };
 
+   const handleGoBack = () => {
+      router.push("/profile");
+   };
+
    return (
       <div className={styles.edit_form_container}>
-         <h1 className={styles.title}>Edit Profile</h1>
+         <div className={styles.header}>
+            <h1 className={styles.title}>Edit Profile</h1>
+            <button className={styles.back_button} onClick={handleGoBack}>
+               <FaArrowLeft /> Back to Profile
+            </button>
+         </div>
 
          <div className={styles.image_editors}>
             <ProfileImageEdit profile={profile} type="cover" />
