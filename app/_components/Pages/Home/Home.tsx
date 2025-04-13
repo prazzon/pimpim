@@ -2,7 +2,6 @@ import { Category, Post } from "@/app/_lib/firebase/types";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
-import CategoriesList from "../Categories/CategoriesList/CategoriesList";
 import Featured from "./Featured/Featured";
 import styles from "./Home.module.scss";
 import ItemCard from "./ItemCard/ItemCard";
@@ -30,11 +29,6 @@ async function Home({ posts, categories }: Props) {
             <div className={styles.sidebar}>
                <div>
                   <Trending posts={posts} />
-               </div>
-
-               <div>
-                  <Title type="secondary">Categories</Title>
-                  <CategoriesList categories={categories} />
                </div>
 
                <div className={styles.ads}>Ads</div>
