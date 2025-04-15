@@ -4,7 +4,7 @@ import { uploadProfileImageByType } from "@/app/_lib/firebase/profile/actions";
 import { Profile } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaCamera, FaSpinner } from "react-icons/fa";
 import { toast } from "sonner";
 import {
@@ -13,7 +13,8 @@ import {
    DialogHeader,
    DialogTitle,
 } from "../../../UI/Dialog/Dialog";
-import { Button, Input } from "../../../UI/Input/Input";
+import ImageInput from "../../../UI/ImageInput/ImageInput";
+import { Button } from "../../../UI/Input/Input";
 import UserAvatar from "../../../UI/UserAvatar/UserAvatar";
 import styles from "./ProfileImageEdit.module.scss";
 
@@ -192,7 +193,6 @@ export default function ProfileImageEdit({
                if (!open) {
                   // Reset state when dialog is closed
                   setImageUrl("");
-
                   setSelectedFile(null);
                   setError("");
                }
@@ -214,12 +214,11 @@ export default function ProfileImageEdit({
                   </div>
 
                   <div className={styles.upload_controls}>
-                     <Input
-                        type="file"
-                        accept="image/*"
+                     <ImageInput
                         id={`${type}-image-upload`}
-                        onChange={handleImageChange}
+                        onChangeAction={handleImageChange}
                         error={error}
+                        selectedFileName={selectedFile?.name}
                      />
                   </div>
 
@@ -229,7 +228,6 @@ export default function ProfileImageEdit({
                         onClick={() => {
                            setIsDialogOpen(false);
                            setImageUrl("");
-
                            setSelectedFile(null);
                            setError("");
                         }}
