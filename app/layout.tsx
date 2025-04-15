@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
@@ -34,6 +35,7 @@ export default function RootLayout({
                </OnboardingProvider>
             </SessionProvider>
          </body>
+         <GoogleAnalytics gaId="G-JDWSRKLZZQ" />
       </html>
    );
 }
