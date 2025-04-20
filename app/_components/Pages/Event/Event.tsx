@@ -1,4 +1,5 @@
 import { type Event } from "@/app/_lib/firebase/types";
+import { generateEventAltText } from "@/app/_lib/seo/imageAlt";
 import Image from "next/image";
 import Link from "next/link";
 import { BsFileText } from "react-icons/bs";
@@ -12,10 +13,16 @@ type Props = {
 };
 
 function Event({ event }: Props) {
+   const altText = generateEventAltText(
+      event.title,
+      event.location,
+      event.date
+   );
+
    return (
       <div className={styles.event}>
          <div className={styles.event_img}>
-            <Image src={event.poster} alt={event.title} fill />
+            <Image src={event.poster} alt={altText} fill />
          </div>
 
          <div className={styles.event_content}>

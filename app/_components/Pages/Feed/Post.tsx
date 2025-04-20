@@ -1,4 +1,5 @@
 import { type Post } from "@/app/_lib/firebase/types";
+import { generateArticleAltText } from "@/app/_lib/seo/imageAlt";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 
@@ -42,6 +43,7 @@ async function Post({ post }: Props) {
    };
 
    const authorInitials = getInitials(post.author.name);
+   const altText = generateArticleAltText(post.title, post.category?.name);
 
    return (
       <div className={styles.post}>
@@ -71,7 +73,7 @@ async function Post({ post }: Props) {
 
          {/* Featured image */}
          <div className={styles.poster}>
-            <Image src={post.poster} alt={post.title} fill priority />
+            <Image src={post.poster} alt={altText} fill priority />
          </div>
 
          {/* Summary */}

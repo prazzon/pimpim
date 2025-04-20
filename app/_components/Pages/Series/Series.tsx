@@ -1,4 +1,5 @@
 import { type Series } from "@/app/_lib/firebase/types";
+import { generateShowAltText } from "@/app/_lib/seo/imageAlt";
 import Image from "next/image";
 import Link from "next/link";
 import { FaCirclePlay } from "react-icons/fa6";
@@ -22,18 +23,24 @@ function getVideoId(url: string): string | null {
 }
 
 function Series({ series }: Props) {
+   const altText = generateShowAltText(
+      series.title,
+      series.year,
+      series.genres
+   );
+
    return (
       <main className={styles.series}>
          <Image
             src={series.poster}
-            alt={series.title}
+            alt={altText}
             fill
             className={styles.background_image}
          />
          <title>{series.title}</title>
          <div className={styles.series_info}>
             <div className={styles.series_info_poster}>
-               <ImageLoader src={series.poster} alt={series.title} />
+               <ImageLoader src={series.poster} alt={altText} />
             </div>
             <div className={styles.series_info_content}>
                <Link href="/shows" className={styles.back}>

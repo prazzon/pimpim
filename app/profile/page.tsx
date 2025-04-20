@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Profile from "../_components/Pages/Profile/Profile";
@@ -7,6 +8,19 @@ import { getUserMedia } from "../_lib/firebase/profile/media/service";
 import { getUserProfile } from "../_lib/firebase/profile/service";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+   title: "Your Profile",
+   description: "View and manage your PimPim profile. Access your personal information, media content, comments, and likes in one place.",
+   keywords: ["profile", "user profile", "account", "personal profile", "user account", "media profile"],
+   alternates: {
+      canonical: "/profile",
+   },
+   robots: {
+      index: false,
+      follow: true,
+   },
+};
 
 export default async function ProfilePage() {
    const session = await auth();

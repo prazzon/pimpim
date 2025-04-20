@@ -1,4 +1,20 @@
+import { Metadata } from "next";
 import ComingSoon from "../_components/UI/ComingSoon/ComingSoon";
+
+export const metadata: Metadata = {
+   title: "Events - Coming Soon",
+   description: "Stay tuned for exciting events coming soon to PimPim. We're working on bringing you concerts, festivals, and more entertainment options.",
+   keywords: ["events", "concerts", "festivals", "entertainment events", "upcoming events", "live events"],
+   alternates: {
+      canonical: "/events",
+   },
+   openGraph: {
+      title: "Events - Coming Soon | PimPim",
+      description: "Stay tuned for exciting events coming soon to PimPim. We're working on bringing you concerts, festivals, and more entertainment options.",
+      url: "/events",
+      type: "website",
+   },
+};
 
 function EventsPage() {
    return (

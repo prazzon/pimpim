@@ -1,4 +1,5 @@
 import { type Movie } from "@/app/_lib/firebase/types";
+import { generateMovieAltText } from "@/app/_lib/seo/imageAlt";
 import Image from "next/image";
 import Link from "next/link";
 // import { BiLike } from "react-icons/bi";
@@ -17,11 +18,13 @@ type Props = {
 };
 
 function Movie({ movie }: Props) {
+   const altText = generateMovieAltText(movie.title, movie.year, movie.genres);
+
    return (
       <main className={styles.movie}>
          <Image
             src={movie.poster}
-            alt={movie.title}
+            alt={altText}
             fill
             className={styles.background_image}
          />
@@ -41,7 +44,7 @@ function Movie({ movie }: Props) {
                   </Content>
                </Modal>
 
-               <Image src={movie.poster} alt={movie.title} fill />
+               <Image src={movie.poster} alt={altText} fill />
             </div>
             <div className={styles.movie_info_content}>
                <Link href="/movies" className={styles.back}>
