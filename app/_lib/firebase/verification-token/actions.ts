@@ -53,13 +53,19 @@ export const newVerification = async (token: string) => {
    const existingToken = await getVerificationTokenByToken(token);
 
    if (!existingToken) {
-      return { error: "Invalid token" };
+      return {
+         error: "The verification link is invalid.",
+      };
    }
 
-   const hasExpired = new Date(existingToken.expires) < new Date();
+   const hasExpired = existingToken.expires < new Date();
 
    if (hasExpired) {
-      return { error: "Token has expired" };
+      await deleteVerificationToken(existingToken.id);
+
+      return {
+         error: "The verification link has expired.",
+      };
    }
 
    const existingUser = await getUserByEmail(existingToken.email);
@@ -72,5 +78,7 @@ export const newVerification = async (token: string) => {
 
    await deleteVerificationToken(existingToken.id);
 
-   return { success: "Email verified" };
+   return {
+      success: "Your email has been successfully verified.",
+   };
 };

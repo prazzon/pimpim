@@ -16,9 +16,14 @@ export const getVerificationTokenByEmail = async (email: string) => {
       return null;
    }
 
-   const verificationToken = querySnapshot.docs[0].data();
+   const data = querySnapshot.docs[0].data();
 
-   return verificationToken as VerificationToken;
+   const verificationToken = {
+      ...data,
+      expires: data.expires.toDate(),
+   } as VerificationToken;
+
+   return verificationToken;
 };
 
 /**
@@ -35,7 +40,12 @@ export const getVerificationTokenByToken = async (token: string) => {
       return null;
    }
 
-   const verificationToken = querySnapshot.docs[0].data();
+   const data = querySnapshot.docs[0].data();
 
-   return verificationToken as VerificationToken;
+   const verificationToken = {
+      ...data,
+      expires: data.expires.toDate(),
+   } as VerificationToken;
+
+   return verificationToken;
 };
