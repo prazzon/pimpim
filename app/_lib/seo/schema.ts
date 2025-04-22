@@ -27,8 +27,8 @@ export function generateOrganizationSchema(url: string) {
       logo: `${url}/logo.svg`,
       sameAs: [
          "https://www.facebook.com/pimpim",
-         "https://www.twitter.com/pimpim",
-         "https://www.instagram.com/pimpim",
+         "https://www.twitter.com/pimpim_ng",
+         "https://www.instagram.com/pimpim.ng",
       ],
    };
 }
@@ -40,10 +40,8 @@ export function generateArticleSchema(post: Post, url: string) {
       "@type": "Article",
       headline: post.title,
       image: [post.poster],
-      datePublished: post.createdAt.toISOString(),
-      dateModified: post.updatedAt
-         ? post.updatedAt.toISOString()
-         : post.createdAt.toISOString(),
+      datePublished: post.createdAt,
+      dateModified: post.updatedAt ? post.updatedAt : post.createdAt,
       author: {
          "@type": "Person",
          name: post.author.name,
@@ -90,8 +88,8 @@ export function generateMovieSchema(movie: any, url: string) {
          thumbnailUrl: movie.poster,
          contentUrl: movie.trailerLink || "",
          uploadDate: movie.createdAt
-            ? movie.createdAt.toISOString()
-            : new Date().toISOString(),
+            ? movie.createdAt
+            : new Date().toISOString(), // Assuming createdAt is a string
       },
    };
 }
@@ -121,7 +119,7 @@ export function generateTVSeriesSchema(series: any, url: string) {
          thumbnailUrl: series.poster,
          contentUrl: series.trailerLink || "",
          uploadDate: series.createdAt
-            ? series.createdAt.toISOString()
+            ? series.createdAt
             : new Date().toISOString(),
       },
       numberOfEpisodes: series.episodes ? series.episodes.length : 0,
