@@ -23,12 +23,10 @@ const EmailConfirmation = ({ confirmationLink }: Props) => {
          <Tailwind>
             <Head />
             <Preview>Confirm your email address</Preview>
-            {/* <Body className="bg-white font-sans py-[40px]"> */}
             <Body className="font-sans py-[40px]">
                <Container className="bg-[#f6f8fa] rounded-[16px] mx-auto p-[32px] max-w-[600px]">
                   <Section className="text-center mb-[24px]">
                      <Img
-                        // src="https://res.cloudinary.com/dt5hzczvg/image/upload/v1745339503/pimpim_ynfhb0.png"
                         src="https://www.pimpim.ng/logo.png"
                         width="40"
                         height="40"
