@@ -1,6 +1,7 @@
 "use client";
 
 import { registerUser } from "@/app/_lib/firebase/auth/actions";
+import { sendVerificationEmail } from "@/app/_lib/resend/mail";
 import {
    LoginFormValues,
    SignupFormValues,
@@ -36,6 +37,7 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
    const [activeTab, setActiveTab] = useState(0);
    const [pending, startTransition] = useTransition();
    const [googlePending, startGoogleTransition] = useTransition();
+   const [verificationPending, startVerificationTransition] = useTransition();
    const [alert, setAlert] = useState<{
       type: AlertType;
       message: string;
@@ -97,13 +99,14 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
 
          setAlert({
             type: "success",
-            message: "Account created successfully!",
+            message:
+               "Account created! Please check your email for verification.",
          });
 
-         // Close dialog after 2 seconds
+         // Close dialog after 3 seconds
          setTimeout(() => {
             action(false);
-         }, 2000);
+         }, 3000);
 
          // Automatically log in the user with their credentials
          const loginResult = await signIn("credentials", {
@@ -188,6 +191,21 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
             >
                <FcGoogle style={{ fontSize: "20px" }} />
                Login with Google
+            </Button>
+
+            <Button
+               style={{ marginTop: "20px" }}
+               variant="secondary"
+               onClick={() => {
+                  // sendVerificationEmail("relatedmotion@gmail.com", "token");
+                  // sendVerificationEmail("prazzon2@gmail.com", "token");
+                  startVerificationTransition(async () => {
+                     await sendVerificationEmail("prazzon2@gmail.com", "token");
+                  });
+               }}
+               disabled={pending || verificationPending}
+            >
+               Send Verification email
             </Button>
          </DialogContent>
       </Dialog>
