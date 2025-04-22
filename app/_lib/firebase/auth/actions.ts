@@ -1,5 +1,6 @@
 "use server";
 
+import { sendVerificationEmail } from "@/app/_lib/resend/mail";
 import { SignupFormValues } from "@/app/_lib/zod/schema/auth.schema";
 import bcryptjs from "bcryptjs";
 import {
@@ -11,6 +12,7 @@ import {
    where,
 } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
+import { generateVerificationToken } from "../../token";
 import { db } from "../firebase";
 import { createUserProfile, generateUniqueUsername } from "../profile/actions";
 
@@ -22,8 +24,10 @@ import { createUserProfile, generateUniqueUsername } from "../profile/actions";
 export const registerUser = async (data: SignupFormValues) => {
    const { username, email, password } = data;
 
+   const lowerCaseEmail = email.toLocaleLowerCase();
+
    const existedUser = await getDocs(
-      query(collection(db, "users"), where("email", "==", email))
+      query(collection(db, "users"), where("email", "==", lowerCaseEmail))
    );
    if (!existedUser.empty) {
       return {
@@ -34,7 +38,12 @@ export const registerUser = async (data: SignupFormValues) => {
 
    const hash = await bcryptjs.hash(password, 10);
 
-   const user = { name: username, email, password: hash, role: "user" };
+   const user = {
+      name: username,
+      email: lowerCaseEmail,
+      password: hash,
+      role: "user",
+   };
 
    const uniqueId = doc(collection(db, "users")).id;
 
@@ -49,19 +58,33 @@ export const registerUser = async (data: SignupFormValues) => {
       id: uniqueId,
       username: uniqueUsername,
       displayName: username, // Set the display name to the same as the username
-      email: email,
+      email: lowerCaseEmail,
    });
+
+   // Generate a verification token
+   const verificationToken = await generateVerificationToken(lowerCaseEmail);
+
+   await sendVerificationEmail(lowerCaseEmail, verificationToken.token);
 
    revalidatePath("/");
 
    return { message: "User created", success: true };
 };
 
+/**
+ * Update a user's email verification status in Firebase
+ * @param userId The user's ID
+ */
 export const updateUserVerification = async (userId: string) => {
    const userRef = doc(db, "users", userId);
    await setDoc(userRef, { emailVerified: true }, { merge: true });
 };
 
+/**
+ * Update a user's name in Firebase
+ * @param userId The user's ID
+ * @param name The new name to set
+ */
 export const updateName = async (userId: string, name: string) => {
    const userRef = doc(db, "users", userId);
    await setDoc(userRef, { name: name }, { merge: true });

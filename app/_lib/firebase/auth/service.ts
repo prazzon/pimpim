@@ -27,3 +27,22 @@ export const getUserFromDb = async (email: string, password: string) => {
       role: user.role || "user",
    };
 };
+
+/**
+ * Get a user from the database by email
+ * @param email The user's email address
+ * @returns The user object or null if not found
+ */
+export const getUserByEmail = async (email: string) => {
+   const usersRef = collection(db, "users");
+   const q = query(usersRef, where("email", "==", email));
+   const querySnapshot = await getDocs(q);
+
+   if (querySnapshot.empty) return null;
+
+   const doc = querySnapshot.docs[0];
+
+   const user = { id: doc.id, ...doc.data() };
+
+   return user;
+};
