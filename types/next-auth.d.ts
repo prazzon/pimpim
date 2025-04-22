@@ -15,6 +15,8 @@ declare module "next-auth" {
          phone?: string;
          /** The user's role. */
          role?: string;
+         /** The user's email verification status. */
+         emailVerified?: boolean;
       } & DefaultSession["user"];
    }
 

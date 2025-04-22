@@ -1,5 +1,5 @@
-import { Metadata } from "next";
 import { auth } from "@/auth";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Profile from "../_components/Pages/Profile/Profile";
 import Main from "../_components/UI/Main/Main";
@@ -11,8 +11,16 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
    title: "Your Profile",
-   description: "View and manage your PimPim profile. Access your personal information, media content, comments, and likes in one place.",
-   keywords: ["profile", "user profile", "account", "personal profile", "user account", "media profile"],
+   description:
+      "View and manage your PimPim profile. Access your personal information, media content, comments, and likes in one place.",
+   keywords: [
+      "profile",
+      "user profile",
+      "account",
+      "personal profile",
+      "user account",
+      "media profile",
+   ],
    alternates: {
       canonical: "/profile",
    },
@@ -60,7 +68,11 @@ export default async function ProfilePage() {
 
    return (
       <Main>
-         <Profile profile={profileData} mediaItems={mediaItems} />
+         <Profile
+            profile={profileData}
+            isVerified={session.user?.emailVerified || false}
+            mediaItems={mediaItems}
+         />
       </Main>
    );
 }

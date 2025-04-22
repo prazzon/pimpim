@@ -76,7 +76,14 @@ export default function ProfileOverview({ profile }: ProfileOverviewProps) {
                   <span className={styles.label}>Date of Birth</span>
                   <span className={styles.value}>
                      {profile?.dateOfBirth ? (
-                        new Date(profile.dateOfBirth).toLocaleDateString()
+                        new Date(profile.dateOfBirth).toLocaleDateString(
+                           "en-US",
+                           {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                           }
+                        )
                      ) : (
                         <span className={styles.empty_state}>
                            Not specified

@@ -8,13 +8,19 @@ import ProfileComments from "./ProfileComments/ProfileComments";
 import ProfileHeader from "./ProfileHeader/ProfileHeader";
 import ProfileMedia from "./ProfileMedia/ProfileMedia";
 import ProfileOverview from "./ProfileOverview/ProfileOverview";
+import VerificationBanner from "./VerificationBanner/VerificationBanner";
 
 type ProfileProps = {
    profile: ProfileType;
+   isVerified: boolean;
    mediaItems?: MediaItem[];
 };
 
-export default function Profile({ profile, mediaItems = [] }: ProfileProps) {
+export default function Profile({
+   profile,
+   mediaItems = [],
+   isVerified,
+}: ProfileProps) {
    const [activeTab, setActiveTab] = useState(0);
 
    const tabs = ["Overview", "Media", "Comments & Likes"];
@@ -22,6 +28,8 @@ export default function Profile({ profile, mediaItems = [] }: ProfileProps) {
    return (
       <div className={styles.profile}>
          <ProfileHeader profile={profile} />
+
+         {!isVerified && <VerificationBanner email={profile.email} />}
 
          <div className={styles.tabs_container}>
             <Tabs
