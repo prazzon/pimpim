@@ -29,7 +29,7 @@ const EmailConfirmation = ({ confirmationLink }: Props) => {
                   <Section className="text-center mb-[24px]">
                      <Img
                         // src="https://res.cloudinary.com/dt5hzczvg/image/upload/v1745339503/pimpim_ynfhb0.png"
-                        src="http://localhost:3001/logo.png"
+                        src="https://www.pimpim.ng/logo.png"
                         width="40"
                         height="40"
                         alt="PimPim Logo"
