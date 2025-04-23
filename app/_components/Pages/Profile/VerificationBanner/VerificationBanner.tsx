@@ -2,7 +2,6 @@
 
 import { sendVerificationEmail } from "@/app/_lib/resend/mail";
 import { generateVerificationToken } from "@/app/_lib/token";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { MdOutlineEmail } from "react-icons/md";
@@ -40,13 +39,7 @@ export default function VerificationBanner({ email }: VerificationBannerProps) {
    if (!isVisible) return null;
 
    return (
-      <motion.div
-         className={styles.banner}
-         initial={{ opacity: 0, y: -10 }}
-         animate={{ opacity: 1, y: 0 }}
-         exit={{ opacity: 0, y: -10 }}
-         transition={{ duration: 0.3 }}
-      >
+      <div className={styles.banner}>
          <div className={styles.content}>
             <div className={styles.icon}>
                <MdOutlineEmail />
@@ -74,6 +67,6 @@ export default function VerificationBanner({ email }: VerificationBannerProps) {
                <IoMdClose />
             </button>
          </div>
-      </motion.div>
+      </div>
    );
 }
