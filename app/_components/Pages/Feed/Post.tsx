@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { BiTimeFive } from "react-icons/bi";
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
-// import Button from "../../UI/Button/Button";
+import CommentButton from "../../Comments/CommentButton";
 import CategoryBtn from "../../UI/CategoryBtn/CategoryBtn";
 import styles from "./Post.module.scss";
 
@@ -33,16 +33,6 @@ async function Post({ post }: Props) {
       }
    );
 
-   // Get author initials for avatar fallback
-   const getInitials = (name: string) => {
-      return name
-         .split(" ")
-         .map((part) => part.charAt(0))
-         .join("")
-         .toUpperCase();
-   };
-
-   const authorInitials = getInitials(post.author.name);
    const altText = generateArticleAltText(post.title, post.category?.name);
 
    return (
@@ -88,52 +78,12 @@ async function Post({ post }: Props) {
                   dangerouslySetInnerHTML={{ __html: contentWithIds }}
                />
 
-               {/* Author bio section */}
-               <div className={styles.author_bio_section}>
-                  <div className={styles.author_avatar_large}>
-                     <div
-                        style={{
-                           width: "100%",
-                           height: "100%",
-                           display: "flex",
-                           alignItems: "center",
-                           justifyContent: "center",
-                           backgroundColor: "#222",
-                           fontSize: "3rem",
-                        }}
-                     >
-                        {authorInitials}
-                     </div>
-                  </div>
-                  <div className={styles.author_content}>
-                     <h3 className={styles.author_name}>{post.author.name}</h3>
-                     <p className={styles.author_bio_full}>
-                        {post.author.bio || "Author at PimPim"}
-                     </p>
-                     <div className={styles.author_social}>
-                        <a href="#" className={styles.social_link}>
-                           <FaTwitter />
-                        </a>
-                        <a href="#" className={styles.social_link}>
-                           <FaFacebook />
-                        </a>
-                        <a href="#" className={styles.social_link}>
-                           <FaLinkedin />
-                        </a>
-                     </div>
+               {/* Comments section */}
+               <div className={styles.comments_section}>
+                  <div className={styles.comment_button_container}>
+                     <CommentButton postId={post.id} postTitle={post.title} />
                   </div>
                </div>
-
-               {/* Comments section */}
-               {/* <div className={styles.comments_section}>
-                  <h2>Comments</h2>
-                  <div className={styles.comment_form}>
-                     <textarea placeholder="Write your comment here..."></textarea>
-                     <div className={styles.form_actions}>
-                        <Button btnStyle="primary">Post Comment</Button>
-                     </div>
-                  </div>
-               </div> */}
             </div>
 
             {/* Sidebar */}
