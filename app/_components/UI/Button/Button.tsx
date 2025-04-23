@@ -3,10 +3,11 @@ import styles from "./Button.module.scss";
 
 type ButtonProps = {
    children: React.ReactNode;
-   type?: "normal" | "play";
+   type?: "normal" | "play" | "button";
    size?: "small" | "medium" | "large";
    onClick?: () => void | Promise<void>;
    btnStyle?: "primary" | "secondary";
+   disabled?: boolean;
 };
 function Button({
    children,
@@ -14,6 +15,7 @@ function Button({
    type = "normal",
    size,
    onClick,
+   disabled = false,
 }: ButtonProps) {
    return (
       <button
@@ -21,9 +23,11 @@ function Button({
             styles.button,
             styles[btnStyle],
             styles[type],
-            size && styles[size]
+            size && styles[size],
+            disabled && styles.disabled
          )}
          onClick={onClick}
+         disabled={disabled}
       >
          {children}
       </button>
