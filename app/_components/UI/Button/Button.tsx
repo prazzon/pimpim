@@ -5,7 +5,7 @@ type ButtonProps = {
    children: React.ReactNode;
    type?: "normal" | "play" | "button";
    size?: "small" | "medium" | "large";
-   onClick?: () => void | Promise<void>;
+   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
    btnStyle?: "primary" | "secondary";
    disabled?: boolean;
 };
