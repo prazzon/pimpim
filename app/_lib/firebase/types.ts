@@ -176,3 +176,19 @@ export type VerificationToken = {
    token: string;
    expires: Date;
 };
+
+export type Comment = {
+   id: string;
+   postId: string;
+   userId: string;
+   text: string;
+   createdAt: Date;
+   updatedAt?: Date;
+   likes: string[]; // Array of user IDs who liked the comment
+   parentId?: string; // For replies, references parent comment ID
+   user?: {
+      name: string;
+      profileImage?: string;
+      username?: string;
+   };
+};
