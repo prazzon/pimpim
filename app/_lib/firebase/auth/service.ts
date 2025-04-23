@@ -1,6 +1,14 @@
 import bcryptjs from "bcryptjs";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+   collection,
+   doc,
+   getDoc,
+   getDocs,
+   query,
+   where,
+} from "firebase/firestore";
 import { db } from "../firebase";
+import { getUsername } from "../profile/service";
 
 /**
  * Get a user from the database by email and password
@@ -45,4 +53,36 @@ export const getUserByEmail = async (email: string) => {
    const user = { id: doc.id, ...doc.data() };
 
    return user;
+};
+
+/**
+ * Get a user from the database by ID
+ * @param userId The user's ID
+ * @returns The user object or null if not found
+ */
+export const getUserById = async (userId: string) => {
+   if (!userId) return null;
+
+   try {
+      const userRef = doc(db, "users", userId);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) return null;
+
+      const userData = userSnap.data();
+
+      const username = await getUsername(userId);
+
+      return {
+         id: userId,
+         name: userData.name,
+         email: userData.email,
+         image: userData.image,
+         username,
+         emailVerified: userData.emailVerified || false,
+      };
+   } catch (error) {
+      console.error("Error getting user by ID:", error);
+      return null;
+   }
 };

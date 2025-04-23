@@ -57,3 +57,27 @@ export async function getUserProfile(userId: string): Promise<Profile | null> {
       return null;
    }
 }
+
+/**
+ * Get a user's username from Firestore
+ * @param userId The user's ID from the session
+ * @returns The user's username or null if not found
+ */
+
+export async function getUsername(userId: string): Promise<string | null> {
+   if (!userId) return null;
+
+   try {
+      const profileDocRef = doc(db, "profiles", userId);
+      const profileSnapshot = await getDoc(profileDocRef);
+
+      if (profileSnapshot.exists()) {
+         return profileSnapshot.data().username;
+      }
+
+      return null;
+   } catch (error) {
+      console.error("Error getting username:", error);
+      return null;
+   }
+}
