@@ -1,0 +1,81 @@
+.skeleton {
+   background-color: #333;
+   border-radius: 4px;
+   position: relative;
+   overflow: hidden;
+
+   &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+         90deg,
+         transparent,
+         rgba(255, 255, 255, 0.1),
+         transparent
+      );
+      animation: shimmer 2s infinite ease-in-out;
+   }
+}
+
+@keyframes shimmer {
+   0% {
+      transform: translateX(-100%);
+   }
+   100% {
+      transform: translateX(100%);
+   }
+}
+
+.text {
+   height: 16px;
+   width: 100%;
+   margin-bottom: 8px;
+}
+
+.circle {
+   border-radius: 50%;
+   height: 40px;
+   width: 40px;
+}
+
+.rect {
+   width: 100%;
+   height: 100px;
+}
+
+.skeleton_comment {
+   padding: 16px;
+   border-radius: 8px;
+   width: 100%;
+}
+
+.comment_header {
+   display: flex;
+   align-items: center;
+   margin-bottom: 12px;
+   gap: 12px;
+}
+
+.comment_meta {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+}
+
+.comment_body {
+   margin-left: 52px;
+   margin-bottom: 12px;
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+
+.comment_actions {
+   margin-left: 52px;
+   display: flex;
+   gap: 12px;
+}
