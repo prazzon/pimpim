@@ -1,0 +1,75 @@
+.alert_dialog {
+   padding: 1.5rem;
+
+   &_title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+   }
+
+   &_description {
+      font-size: 1.5rem;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      color: var(--text-secondary);
+   }
+
+   &_actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1.5rem;
+   }
+
+   &_button {
+      padding: 1rem 2rem;
+      border-radius: 0.8rem;
+      font-size: 1.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+
+      &.cancel_button {
+         background-color: #333;
+         color: var(--text-primary);
+
+         &:hover {
+            background-color: #444;
+         }
+      }
+
+      &.confirm_button {
+         background-color: #3a86ff;
+         color: white;
+
+         &:hover {
+            background-color: #2a76ef;
+         }
+
+         &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+         }
+      }
+
+      &.danger_button {
+         background-color: #ff1e1e;
+         color: white;
+
+         &:hover {
+            background-color: #ff5252;
+         }
+
+         &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #ff5252;
+         }
+
+         svg {
+            display: flex;
+         }
+      }
+   }
+}
