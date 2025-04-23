@@ -198,7 +198,7 @@
 
 .comment_actions {
    display: flex;
-   gap: 1.5rem;
+   gap: 1rem;
    margin-top: 0.5rem;
 
    .action_button {
@@ -219,6 +219,18 @@
 
       &.liked {
          color: #3a86ff;
+      }
+
+      &.delete_button {
+         color: #ff5252;
+
+         &:hover {
+            color: #ff1919;
+         }
+
+         svg {
+            font-size: 2rem;
+         }
       }
 
       &.disabled {

@@ -105,6 +105,44 @@ export default function CommentDialog({
       document.dispatchEvent(event);
    };
 
+   // Function to handle comment deletion
+   const handleCommentDeleted = (commentId: string) => {
+      // Remove the comment from the list
+      setComments((prevComments) =>
+         prevComments.filter((comment) => comment.id !== commentId)
+      );
+   };
+
+   // Function to handle reply deletion
+   const handleReplyDeleted = (replyId: string) => {
+      // Find the parent comment and remove the reply from it
+      setComments((prevComments) => {
+         return prevComments.map((comment) => {
+            // Check if this comment has the reply
+            if (
+               comment.replies &&
+               comment.replies.some((reply) => reply.id === replyId)
+            ) {
+               // Remove the reply from this comment
+               return {
+                  ...comment,
+                  replies: comment.replies.filter(
+                     (reply) => reply.id !== replyId
+                  ),
+               };
+            }
+            return comment;
+         });
+      });
+
+      // Dispatch a custom event to notify any parent CommentItem components
+      // This is a fallback in case the direct prop update doesn't work
+      const event = new CustomEvent("replyDeleted", {
+         detail: { replyId },
+      });
+      document.dispatchEvent(event);
+   };
+
    const handleCommentClick = () => {
       if (status === "unauthenticated") {
          setShowAuthDialog(true);
@@ -186,6 +224,18 @@ export default function CommentDialog({
                                  postId={postId}
                                  isLoading={isLoading}
                                  onReplySubmit={handleReplySubmit}
+                                 onCommentDeleted={(commentId) => {
+                                    // Check if it's a top-level comment or a reply
+                                    const isTopLevelComment = comments.some(
+                                       (c) => c.id === commentId
+                                    );
+
+                                    if (isTopLevelComment) {
+                                       handleCommentDeleted(commentId);
+                                    } else {
+                                       handleReplyDeleted(commentId);
+                                    }
+                                 }}
                               />
                            )}
                         </div>

@@ -21,6 +21,7 @@ type DialogContextType = {
    onClose: () => void;
    hasBlur?: boolean;
    closeOnOutsideClick?: boolean;
+   preventFullScreen?: boolean;
 };
 
 const DialogContext = createContext<DialogContextType | undefined>(undefined);
@@ -32,6 +33,7 @@ interface DialogProps {
    onOpenChange?: (open: boolean) => void;
    hasBlur?: boolean;
    closeOnOutsideClick?: boolean;
+   preventFullScreen?: boolean;
 }
 
 export function Dialog({
@@ -40,6 +42,7 @@ export function Dialog({
    onOpenChange,
    hasBlur = false,
    closeOnOutsideClick = true,
+   preventFullScreen = false,
 }: DialogProps) {
    const [isOpen, setIsOpen] = useState(open || false);
 
@@ -73,7 +76,14 @@ export function Dialog({
 
    return (
       <DialogContext.Provider
-         value={{ isOpen, onOpen, onClose, hasBlur, closeOnOutsideClick }}
+         value={{
+            isOpen,
+            onOpen,
+            onClose,
+            hasBlur,
+            closeOnOutsideClick,
+            preventFullScreen,
+         }}
       >
          {children}
       </DialogContext.Provider>
@@ -162,7 +172,7 @@ export function DialogContent({
             <motion.div
                className={`${styles.dialog_overlay} ${
                   context.hasBlur ? styles.blur_overlay : ""
-               }`}
+               } ${context.preventFullScreen ? styles.prevent_fullscreen : ""}`}
                initial="hidden"
                animate="visible"
                exit="hidden"
@@ -170,7 +180,7 @@ export function DialogContent({
                onClick={handleOverlayClick}
             >
                <motion.div
-                  className={styles.dialog_content}
+                  className={`${styles.dialog_content} ${context.preventFullScreen ? styles.prevent_fullscreen : ""}`}
                   variants={contentVariants}
                   initial="hidden"
                   animate="visible"

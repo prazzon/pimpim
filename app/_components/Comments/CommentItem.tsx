@@ -1,6 +1,9 @@
 "use client";
 
-import { toggleLikeComment } from "@/app/_lib/firebase/comments/actions";
+import {
+   deleteComment,
+   toggleLikeComment,
+} from "@/app/_lib/firebase/comments/actions";
 import { Comment } from "@/app/_lib/firebase/types";
 import { formatDistanceToNow } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,8 +11,10 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState, useTransition } from "react";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { FaChevronDown, FaChevronUp, FaReply } from "react-icons/fa";
+import { MdRemoveCircle } from "react-icons/md";
 import { toast } from "sonner";
 import CommentInput from "../Comments/CommentInput";
+import { AlertDialog } from "../UI/AlertDialog/AlertDialog";
 import UserAvatar from "../UI/UserAvatar/UserAvatar";
 import styles from "./Comments.module.scss";
 
@@ -18,6 +23,7 @@ type CommentItemProps = {
    postId: string;
    isReply?: boolean;
    onReplySubmit?: (comment?: Comment) => void;
+   onCommentDeleted?: (commentId: string) => void;
 };
 
 export default function CommentItem({
@@ -25,6 +31,7 @@ export default function CommentItem({
    postId,
    isReply = false,
    onReplySubmit,
+   onCommentDeleted,
 }: CommentItemProps) {
    const [showReplyInput, setShowReplyInput] = useState(false);
    const [showReplies, setShowReplies] = useState(false);
@@ -34,9 +41,14 @@ export default function CommentItem({
       comment.likes || []
    );
    const [pendingReply, setPendingReply] = useState<Comment | null>(null);
+   const [isDeleting, setIsDeleting] = useState(false);
+   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
    const [, startTransition] = useTransition(); // Using only startTransition
    const { data: session } = useSession();
    const userId = session?.user?.id;
+
+   // Check if the current user is the author of the comment
+   const isCommentAuthor = userId === comment.userId;
 
    // Initialize isLiked state based on likes array
    useEffect(() => {
@@ -69,6 +81,41 @@ export default function CommentItem({
          );
       };
    }, [comment.id]);
+
+   // Listen for reply deleted event
+   useEffect(() => {
+      const handleReplyDeleted = (event: CustomEvent) => {
+         if (event.detail.parentId === comment.id) {
+            // If this comment is the parent of the deleted reply,
+            // update the replies list by filtering out the deleted reply
+            if (comment.replies && comment.replies.length > 0) {
+               const updatedReplies = comment.replies.filter(
+                  (reply) => reply.id !== event.detail.replyId
+               );
+
+               // Update the comment's replies array
+               comment.replies = updatedReplies;
+
+               // Force a re-render
+               setCurrentLikes([...currentLikes]);
+            }
+         }
+      };
+
+      // Add event listener
+      document.addEventListener(
+         "replyDeleted",
+         handleReplyDeleted as EventListener
+      );
+
+      // Clean up
+      return () => {
+         document.removeEventListener(
+            "replyDeleted",
+            handleReplyDeleted as EventListener
+         );
+      };
+   }, [comment, comment.id, comment.replies, currentLikes]);
 
    const likeCount = currentLikes.length;
 
@@ -213,6 +260,16 @@ export default function CommentItem({
                      </span>
                   </button>
                )}
+
+               {isCommentAuthor && (
+                  <button
+                     className={`${styles.action_button} ${styles.delete_button} ${isDeleting ? styles.disabled : ""}`}
+                     onClick={() => setShowDeleteDialog(true)}
+                     disabled={isDeleting}
+                  >
+                     <MdRemoveCircle />
+                  </button>
+               )}
             </div>
 
             <AnimatePresence>
@@ -284,6 +341,7 @@ export default function CommentItem({
                                        comment={reply}
                                        postId={postId}
                                        isReply={true}
+                                       onCommentDeleted={onCommentDeleted}
                                     />
                                  </motion.div>
                               ))}
@@ -293,6 +351,57 @@ export default function CommentItem({
                </div>
             )}
          </div>
+
+         {/* Delete Confirmation Dialog */}
+         <AlertDialog
+            open={showDeleteDialog}
+            onOpenChangeAction={setShowDeleteDialog}
+            title="Delete Comment"
+            description="Are you sure you want to delete this comment? This action cannot be undone."
+            cancelText="Cancel"
+            confirmText="Delete"
+            onConfirmAction={handleDeleteComment}
+            isConfirmLoading={isDeleting}
+            isDanger={true}
+         />
       </div>
    );
+
+   // Function to handle comment deletion
+   async function handleDeleteComment() {
+      if (!userId || userId !== comment.userId) {
+         toast.error("You can only delete your own comments");
+         setShowDeleteDialog(false);
+         return;
+      }
+
+      try {
+         setIsDeleting(true);
+
+         // Call the delete comment action
+         await deleteComment(comment.id);
+
+         // Close the dialog
+         setShowDeleteDialog(false);
+
+         // Notify parent component about the deleted comment
+         if (onCommentDeleted) {
+            onCommentDeleted(comment.id);
+         }
+
+         // If this is a reply, dispatch an event to notify the parent comment
+         if (isReply && comment.parentId) {
+            // This will trigger a re-render in the parent CommentItem component
+            const event = new CustomEvent("replyDeleted", {
+               detail: { replyId: comment.id, parentId: comment.parentId },
+            });
+            document.dispatchEvent(event);
+         }
+      } catch (error) {
+         console.error("Error deleting comment:", error);
+         toast.error("Failed to delete comment. Please try again.");
+      } finally {
+         setIsDeleting(false);
+      }
+   }
 }

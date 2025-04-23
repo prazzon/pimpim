@@ -2,6 +2,7 @@
 
 import { Comment } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import Skeleton from "../UI/Skeleton/Skeleton";
 import CommentItem from "./CommentItem";
 import styles from "./Comments.module.scss";
@@ -11,14 +12,30 @@ type CommentListProps = {
    comments: (Comment & { replies: Comment[] })[];
    isLoading?: boolean;
    onReplySubmit?: (reply?: Comment) => void;
+   onCommentDeleted?: (commentId: string) => void;
 };
 
 export default function CommentList({
    postId,
-   comments,
+   comments: initialComments,
    isLoading = false,
    onReplySubmit,
 }: CommentListProps) {
+   // State to manage comments locally for optimistic UI updates
+   const [comments, setComments] = useState(initialComments);
+
+   // Update comments when props change
+   useEffect(() => {
+      setComments(initialComments);
+   }, [initialComments]);
+
+   // Handle comment deletion
+   const handleCommentDeleted = (commentId: string) => {
+      // Update the comments list by removing the deleted comment
+      setComments((prevComments) =>
+         prevComments.filter((comment) => comment.id !== commentId)
+      );
+   };
    // Show loading skeletons
    if (isLoading) {
       return (
@@ -71,6 +88,7 @@ export default function CommentList({
                      comment={comment}
                      postId={postId}
                      onReplySubmit={onReplySubmit}
+                     onCommentDeleted={handleCommentDeleted}
                   />
                </motion.div>
             ))}
