@@ -43,6 +43,7 @@ export const registerUser = async (data: SignupFormValues) => {
       email: lowerCaseEmail,
       password: hash,
       role: "user",
+      emailVerified: false,
    };
 
    const uniqueId = doc(collection(db, "users")).id;
