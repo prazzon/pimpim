@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import styles from "./UserAvatar.module.scss";
 
 type AvatarSize = "small" | "medium" | "large" | "xlarge";
@@ -21,6 +21,7 @@ export default function UserAvatar({
    darkBackground = false,
    size = "medium",
 }: UserAvatarProps) {
+   const [imageError, setImageError] = useState(false);
    const initials = useMemo(() => {
       if (!name) return "U";
 
@@ -43,7 +44,7 @@ export default function UserAvatar({
          }`}
          onClick={onClick}
       >
-         {image ? (
+         {image && !imageError ? (
             <Image
                src={image}
                alt={name || "User"}
@@ -51,21 +52,22 @@ export default function UserAvatar({
                   size === "small"
                      ? 40
                      : size === "medium"
-                     ? 80
-                     : size === "large"
-                     ? 120
-                     : 150
+                       ? 80
+                       : size === "large"
+                         ? 120
+                         : 150
                }
                height={
                   size === "small"
                      ? 40
                      : size === "medium"
-                     ? 80
-                     : size === "large"
-                     ? 120
-                     : 150
+                       ? 80
+                       : size === "large"
+                         ? 120
+                         : 150
                }
                className={styles.image}
+               onError={() => setImageError(true)}
             />
          ) : (
             initials
