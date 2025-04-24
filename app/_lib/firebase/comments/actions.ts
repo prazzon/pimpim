@@ -1,7 +1,15 @@
 "use server";
 
+import {
+   collection,
+   deleteDoc,
+   doc,
+   getDoc,
+   serverTimestamp,
+   setDoc,
+   updateDoc,
+} from "firebase/firestore";
 import { revalidatePath } from "next/cache";
-import { collection, deleteDoc, doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Comment } from "../types";
 import { getCommentById } from "./service";
@@ -22,7 +30,7 @@ export async function createComment(
 ) {
    // Generate a unique ID for the comment
    const commentId = doc(collection(db, "comments")).id;
-   
+
    // Create the comment object
    const comment = {
       id: commentId,
@@ -34,17 +42,17 @@ export async function createComment(
       likes: [],
       ...(parentId && { parentId }),
    };
-   
+
    // Add the comment to Firestore
    await setDoc(doc(db, "comments", commentId), comment);
-   
+
    // Revalidate the post page to show the new comment
    revalidatePath(`/feed/${postId}`);
-   
+
    // Get the comment with user data
    const newComment = await getCommentById(commentId);
-   
-   return newComment;
+
+   return newComment as Comment;
 }
 
 /**
@@ -56,26 +64,26 @@ export async function createComment(
 export async function updateComment(commentId: string, text: string) {
    const commentRef = doc(db, "comments", commentId);
    const commentSnap = await getDoc(commentRef);
-   
+
    if (!commentSnap.exists()) {
       throw new Error(`Comment with id ${commentId} not found`);
    }
-   
+
    // Update the comment
    await updateDoc(commentRef, {
       text,
       updatedAt: serverTimestamp(),
    });
-   
+
    // Get the post ID to revalidate the page
    const { postId } = commentSnap.data();
-   
+
    // Revalidate the post page
    revalidatePath(`/feed/${postId}`);
-   
+
    // Get the updated comment with user data
    const updatedComment = await getCommentById(commentId);
-   
+
    return updatedComment;
 }
 
@@ -87,20 +95,20 @@ export async function updateComment(commentId: string, text: string) {
 export async function deleteComment(commentId: string) {
    const commentRef = doc(db, "comments", commentId);
    const commentSnap = await getDoc(commentRef);
-   
+
    if (!commentSnap.exists()) {
       throw new Error(`Comment with id ${commentId} not found`);
    }
-   
+
    // Get the post ID to revalidate the page
    const { postId } = commentSnap.data();
-   
+
    // Delete the comment
    await deleteDoc(commentRef);
-   
+
    // Revalidate the post page
    revalidatePath(`/feed/${postId}`);
-   
+
    return { success: true, message: "Comment deleted successfully" };
 }
 
@@ -113,17 +121,17 @@ export async function deleteComment(commentId: string) {
 export async function toggleLikeComment(commentId: string, userId: string) {
    const commentRef = doc(db, "comments", commentId);
    const commentSnap = await getDoc(commentRef);
-   
+
    if (!commentSnap.exists()) {
       throw new Error(`Comment with id ${commentId} not found`);
    }
-   
+
    const comment = commentSnap.data() as Comment;
    const likes = comment.likes || [];
-   
+
    // Check if the user already liked the comment
    const userLikedIndex = likes.indexOf(userId);
-   
+
    if (userLikedIndex === -1) {
       // User hasn't liked the comment, add the like
       likes.push(userId);
@@ -131,15 +139,15 @@ export async function toggleLikeComment(commentId: string, userId: string) {
       // User already liked the comment, remove the like
       likes.splice(userLikedIndex, 1);
    }
-   
+
    // Update the comment with the new likes array
    await updateDoc(commentRef, { likes });
-   
+
    // Revalidate the post page
    revalidatePath(`/feed/${comment.postId}`);
-   
+
    // Get the updated comment with user data
    const updatedComment = await getCommentById(commentId);
-   
+
    return updatedComment;
 }

@@ -67,36 +67,20 @@ export default function CommentInput({
       try {
          // Create the comment in the database
          startTransition(async () => {
-            // Create a temporary optimistic comment (optional)
-            const tempComment: Comment = {
-               id: `temp-${Date.now()}`,
-               postId,
-               userId: session.user.id,
-               text: commentText.trim(),
-               createdAt: new Date(),
-               likes: [],
-               ...(parentId && { parentId }),
-               user: {
-                  name: session.user.name || "You",
-                  profileImage: session.user.image,
-               },
-            };
-
-            // Clear the input immediately for better UX
-            setCommentText("");
-
-            // Notify parent component about the new comment for optimistic UI update
-            if (onCommentSubmitted) {
-               // Pass the temp comment for optimistic rendering
-               onCommentSubmitted(tempComment);
-            }
-
-            await createComment(
+            const newComment = await createComment(
                postId,
                session.user.id,
                commentText.trim(),
                parentId
             );
+
+            // Notify parent component about the new comment
+            if (onCommentSubmitted) {
+               onCommentSubmitted(newComment);
+            }
+
+            // Clear the input immediately for better UX
+            setCommentText("");
          });
       } catch (error) {
          console.error("Error posting comment:", error);

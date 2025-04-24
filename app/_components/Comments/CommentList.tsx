@@ -75,13 +75,13 @@ export default function CommentList({
    return (
       <div className={styles.comments_list}>
          <AnimatePresence>
-            {comments.map((comment, index) => (
+            {comments.map((comment) => (
                <motion.div
                   key={comment.id}
                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  transition={{ duration: 0.3 }}
                   layout
                >
                   <CommentItem
