@@ -14,7 +14,7 @@ type Props = {
 
 function MiniCarousel({ items }: Props) {
    const [[page, direction], setPage] = useState([0, 0]);
-   const imageIndex = wrap(0, items.length, page);
+   const imageIndex = wrap(0, items?.length, page);
 
    const paginate = useCallback(
       (newD: number) => setPage([page + newD, newD]),
@@ -26,7 +26,7 @@ function MiniCarousel({ items }: Props) {
       return () => clearInterval(timer);
    }, [paginate]);
 
-   if (!items.length) return null;
+   if (!items?.length) return null;
 
    return (
       <div className={styles.container}>

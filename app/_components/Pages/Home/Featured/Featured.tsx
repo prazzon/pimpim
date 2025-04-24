@@ -10,6 +10,8 @@ type Props = {
 };
 
 async function Featured({ features }: Props) {
+   if (!features) return null;
+
    const main = features[0];
 
    const content = features.slice(1, 5);
