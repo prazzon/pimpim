@@ -20,6 +20,7 @@ export default function CommentList({
    comments: initialComments,
    isLoading = false,
    onReplySubmit,
+   onCommentDeleted,
 }: CommentListProps) {
    // State to manage comments locally for optimistic UI updates
    const [comments, setComments] = useState(initialComments);
@@ -35,6 +36,7 @@ export default function CommentList({
       setComments((prevComments) =>
          prevComments.filter((comment) => comment.id !== commentId)
       );
+      if (onCommentDeleted) onCommentDeleted(commentId);
    };
    // Show loading skeletons
    if (isLoading) {
