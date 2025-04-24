@@ -5,9 +5,12 @@ import {
    deleteDoc,
    doc,
    getDoc,
+   getDocs,
+   query,
    serverTimestamp,
    setDoc,
    updateDoc,
+   where,
 } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
 import { db } from "../firebase";
@@ -88,7 +91,7 @@ export async function updateComment(commentId: string, text: string) {
 }
 
 /**
- * Delete a comment
+ * Delete a comment and all its replies
  * @param commentId The comment's ID
  * @returns Success message
  */
@@ -103,7 +106,20 @@ export async function deleteComment(commentId: string) {
    // Get the post ID to revalidate the page
    const { postId } = commentSnap.data();
 
-   // Delete the comment
+   // Find all replies to this comment
+   const commentsRef = collection(db, "comments");
+   const repliesQuery = query(commentsRef, where("parentId", "==", commentId));
+   const repliesSnapshot = await getDocs(repliesQuery);
+
+   // Delete all replies first
+   const deletePromises = repliesSnapshot.docs.map((replyDoc) => {
+      return deleteDoc(doc(db, "comments", replyDoc.id));
+   });
+
+   // Wait for all replies to be deleted
+   await Promise.all(deletePromises);
+
+   // Now delete the main comment
    await deleteDoc(commentRef);
 
    // Revalidate the post page
