@@ -3,7 +3,7 @@ import Home from "./_components/Pages/Home/Home";
 import JsonLd from "./_components/SEO/JsonLd";
 import Main from "./_components/UI/Main/Main";
 import { getCategories } from "./_lib/firebase/categories/service";
-import { getPosts } from "./_lib/firebase/posts/service";
+import { getPosts, getPostsBySection } from "./_lib/firebase/posts/service";
 import {
    generateOrganizationSchema,
    generateWebsiteSchema,
@@ -32,6 +32,9 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
    const allPosts = await getPosts();
+   const spotlightPosts = await getPostsBySection("spotlight", 5);
+   const mainPosts = await getPostsBySection("main", 5);
+   const featuredPosts = await getPostsBySection("featured", 5);
    const categories = await getCategories();
 
    const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
@@ -42,7 +45,13 @@ export default async function HomePage() {
       <>
          <JsonLd data={[websiteSchema, organizationSchema]} />
          <Main>
-            <Home posts={allPosts} categories={categories} />
+            <Home
+               posts={allPosts}
+               spotlightPosts={spotlightPosts}
+               mainPosts={mainPosts}
+               featuredPosts={featuredPosts}
+               categories={categories}
+            />
          </Main>
       </>
    );

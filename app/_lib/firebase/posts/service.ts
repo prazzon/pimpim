@@ -3,6 +3,7 @@ import {
    doc,
    getDoc,
    getDocs,
+   limit,
    orderBy,
    query,
    where,
@@ -193,4 +194,73 @@ export async function getPostsByAuthorId(authorId: string) {
    );
 
    return posts;
+}
+
+/**
+ * Get posts by section
+ * @param sectionId The ID of the section to filter by
+ * @param limitCount Optional limit on the number of posts to return
+ * @returns Array of posts in the specified section
+ */
+export async function getPostsBySection(
+   sectionId: string,
+   limitCount?: number
+) {
+   const postsRef = collection(db, "posts");
+
+   // Create a query to find posts that have the specified section in their sections array
+   let q = query(
+      postsRef,
+      where("sections", "array-contains", sectionId),
+      orderBy("createdAt", "desc")
+   );
+
+   // If a limitCount is provided, apply it to the query
+   if (limitCount && limitCount > 0) {
+      q = query(q, limit(limitCount));
+   }
+
+   const querySnapshot = await getDocs(q);
+
+   const posts = await Promise.all(
+      querySnapshot.docs.map(async (doc) => {
+         const { authorId, categoryId, createdAt, updatedAt, ...rest } =
+            doc.data();
+
+         return {
+            id: doc.id,
+            ...rest,
+            author: await getAuthorById(authorId),
+            category: await getCategoryById(categoryId),
+            createdAt: createdAt.toDate(),
+            updatedAt: updatedAt.toDate(),
+         } as Post;
+      })
+   );
+
+   return posts;
+}
+
+/**
+ * Get posts from multiple sections
+ * @param sections Array of section IDs to get posts from
+ * @param limit Optional limit on the number of posts to return per section
+ * @returns Object with section IDs as keys and arrays of posts as values
+ */
+export async function getPostsFromMultipleSections(
+   sections: string[],
+   limit?: number
+) {
+   // Create an object to store posts by section
+   const postsBySection: Record<string, Post[]> = {};
+
+   // Get posts for each section
+   await Promise.all(
+      sections.map(async (sectionId) => {
+         const posts = await getPostsBySection(sectionId, limit);
+         postsBySection[sectionId] = posts;
+      })
+   );
+
+   return postsBySection;
 }

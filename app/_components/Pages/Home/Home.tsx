@@ -10,20 +10,29 @@ import Trending from "./Trending/Trending";
 
 type Props = {
    posts: Post[];
+   mainPosts: Post[];
+   spotlightPosts: Post[];
+   featuredPosts: Post[];
    categories: Category[];
 };
 
-async function Home({ posts, categories }: Props) {
+async function Home({
+   posts,
+   spotlightPosts,
+   mainPosts,
+   featuredPosts,
+   categories,
+}: Props) {
    return (
       <section className={styles.home}>
          <div className={styles.grid}>
             <div className={styles.main}>
-               <MiniCarousel items={posts} />
+               <MiniCarousel items={mainPosts} />
                <div>
                   <Title type="secondary">Spotlight</Title>
-                  {posts.slice(0, 7).map((item) => (
-                     <ItemCard key={item.id} item={item} />
-                  ))}
+                  {spotlightPosts
+                     ?.slice(0, 7)
+                     .map((item) => <ItemCard key={item.id} item={item} />)}
                </div>
             </div>
 
@@ -36,7 +45,7 @@ async function Home({ posts, categories }: Props) {
             </div>
          </div>
 
-         <Featured features={posts} />
+         <Featured features={featuredPosts} />
 
          <CategoriesGroup categories={categories} />
 
