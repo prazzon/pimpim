@@ -23,6 +23,7 @@ import {
    FaUser,
 } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
+import { MdPublic } from "react-icons/md";
 import { toast } from "sonner";
 import { Button, Input, Textarea } from "../../../UI/Input/Input";
 import styles from "./ProfileEditForm.module.scss";
@@ -169,19 +170,21 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
                <div className={styles.form_grid}>
                   <Input
                      label="Display Name"
-                     icon={<FaUser />}
+                     icon={<MdPublic />}
                      error={errors.displayName?.message}
                      {...register("displayName")}
                   />
 
                   <Input
                      label="First Name"
+                     icon={<FaUser />}
                      error={errors.firstName?.message}
                      {...register("firstName")}
                   />
 
                   <Input
                      label="Last Name"
+                     icon={<FaUser />}
                      error={errors.lastName?.message}
                      {...register("lastName")}
                   />
