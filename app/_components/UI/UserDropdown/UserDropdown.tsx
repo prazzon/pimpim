@@ -14,9 +14,14 @@ import styles from "./UserDropdown.module.scss";
 interface UserDropdownProps {
    name?: string | null;
    image?: string | null;
+   isScrolled?: boolean;
 }
 
-export default function UserDropdown({ name, image }: UserDropdownProps) {
+export default function UserDropdown({
+   name,
+   image,
+   isScrolled = false,
+}: UserDropdownProps) {
    const [isOpen, setIsOpen] = useState(false);
    const [isLoggingOut, setIsLoggingOut] = useState(false);
    const ref = useOutsideClick(() => setIsOpen(false));
@@ -37,6 +42,7 @@ export default function UserDropdown({ name, image }: UserDropdownProps) {
             image={image}
             onClick={handleToggle}
             darkBackground={true}
+            size={isScrolled ? "small" : "medium"}
          />
 
          <AnimatePresence>

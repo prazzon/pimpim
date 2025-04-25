@@ -17,6 +17,7 @@ import styles from "./NavigationMenu.module.scss";
 type Props = {
    navLinks: { name: string; href: string; icon?: React.ReactNode }[];
    onRegisterClick?: () => void;
+   isScrolled?: boolean;
 };
 
 const listVariants = {
@@ -31,7 +32,11 @@ const listVariants = {
    },
 };
 
-function NavigationMenu({ navLinks, onRegisterClick }: Props) {
+function NavigationMenu({
+   navLinks,
+   onRegisterClick,
+   isScrolled = false,
+}: Props) {
    const [menuOpen, setMenuOpen] = useState(false);
    const { data: session, status } = useSession();
 
@@ -70,6 +75,7 @@ function NavigationMenu({ navLinks, onRegisterClick }: Props) {
                      name={session.user.name}
                      image={session.user.image}
                      darkBackground={true}
+                     size={isScrolled ? "small" : "medium"}
                   />
                </div>
             )}

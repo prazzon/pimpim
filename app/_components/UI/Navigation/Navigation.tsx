@@ -24,6 +24,7 @@ const navLinks = [
 function Navigation() {
    const pathname = usePathname();
    const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+   const [isScrolled, setIsScrolled] = useState(false);
    const { data: session, status } = useSession();
 
    function isActivePath(href: string) {
@@ -45,8 +46,10 @@ function Navigation() {
 
          if (window.scrollY > 0) {
             navRef.current.classList.add(styles.scrolled);
+            setIsScrolled(true);
          } else {
             navRef.current.classList.remove(styles.scrolled);
+            setIsScrolled(false);
          }
       };
 
@@ -90,6 +93,7 @@ function Navigation() {
                <UserDropdown
                   name={session.user.name}
                   image={session.user.image}
+                  isScrolled={isScrolled}
                />
             ) : (
                <div onClick={handleOpenAuthDialog}>
@@ -109,6 +113,7 @@ function Navigation() {
             onRegisterClick={
                status === "authenticated" ? undefined : handleOpenAuthDialog
             }
+            isScrolled={isScrolled}
          />
 
          <AuthDialog

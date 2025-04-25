@@ -2,7 +2,6 @@
    display: flex;
    gap: 1rem;
    align-items: center;
-   padding: 3rem 6rem;
    padding: 2.5rem 6rem;
    position: sticky;
    top: 0;
@@ -20,13 +19,14 @@
    &.scrolled {
       backdrop-filter: blur(10px);
       background: rgba(0, 0, 0, 0.5);
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
    }
 
    &_btn_secondary {
       padding: 0.6rem 2.5rem;
       font-size: 1.5rem;
       border-radius: 1rem;
-      // color: #000;
       font-weight: 500;
       background: transparent;
       border: 2px solid #868686;
@@ -34,6 +34,20 @@
 
    &_logo {
       margin-bottom: -1rem;
+      transition: all 0.2s ease-in-out;
+
+      img {
+         transition: all 0.2s ease-in-out;
+      }
+   }
+
+   &.scrolled &_logo {
+      margin-bottom: -0.5rem;
+
+      img {
+         width: 100px !important;
+         height: auto !important;
+      }
    }
 
    &_links {
@@ -50,8 +64,6 @@
    &_link {
       font-size: 1.4rem;
       position: relative;
-      // font-size: 1.2rem;
-      // text-transform: uppercase;
 
       a {
          padding: 1rem 0;
@@ -59,13 +71,10 @@
 
       .active {
          position: absolute;
-         // left: 50%;
-         // transform: translateX(-50%);
          bottom: -0.2rem;
          left: 0;
          height: 2px;
          width: 100%;
-         // width: 120%;
          margin: 0 auto;
          background: linear-gradient(to right, #ff0000 50%, #f5eb0c);
          border-radius: 2rem;
@@ -76,13 +85,21 @@
       padding: 0.8rem 3rem;
       font-size: 1.5rem;
       border-radius: 0.7rem;
+      transition: all 0.2s ease-in-out;
 
       @media (max-width: 1024px) {
          margin-left: auto;
       }
    }
 
+   &.scrolled &_btn {
+      padding: 0.7rem 2.7rem;
+      font-size: 1.4rem;
+   }
+
    .desktop_auth {
+      transition: all 0.2s ease-in-out;
+
       @media (max-width: 850px) {
          display: none;
       }
