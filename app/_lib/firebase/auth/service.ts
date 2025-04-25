@@ -52,7 +52,15 @@ export const getUserByEmail = async (email: string) => {
 
    const user = { id: doc.id, ...doc.data() };
 
-   return user;
+   return user as {
+      id: string;
+      name: string;
+      email: string;
+      password: string;
+      image: string;
+      username: string;
+      emailVerified: boolean;
+   };
 };
 
 /**

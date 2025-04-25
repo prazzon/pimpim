@@ -177,6 +177,13 @@ export type VerificationToken = {
    expires: Date;
 };
 
+export type ResetToken = {
+   id: string;
+   email: string;
+   token: string;
+   expires: Date;
+};
+
 export type Comment = {
    id: string;
    postId: string;

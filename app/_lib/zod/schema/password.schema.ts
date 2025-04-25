@@ -38,3 +38,31 @@ export const passwordLinkSchema = z
    });
 
 export type PasswordLinkFormValues = z.infer<typeof passwordLinkSchema>;
+
+// Forgot password schema (email only)
+export const forgotPasswordSchema = z.object({
+   email: z
+      .string()
+      .min(1, { message: "Email is required" })
+      .email({ message: "Invalid email address" }),
+});
+
+export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
+
+// Reset password schema (new password and confirmation)
+export const resetPasswordSchema = z
+   .object({
+      newPassword: z
+         .string()
+         .min(1, { message: "New password is required" })
+         .min(6, { message: "Password must be at least 6 characters" }),
+      confirmPassword: z
+         .string()
+         .min(1, { message: "Please confirm your new password" }),
+   })
+   .refine((data) => data.newPassword === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+   });
+
+export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;

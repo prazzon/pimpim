@@ -192,14 +192,16 @@ Textarea.displayName = "Textarea";
 interface ForgotPasswordProps {
    href?: string;
    children?: React.ReactNode;
+   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 export function ForgotPassword({
    href = "#",
    children = "Forgot password?",
+   onClick,
 }: ForgotPasswordProps) {
    return (
-      <a href={href} className={styles.forgot_password}>
+      <a href={href} className={styles.forgot_password} onClick={onClick}>
          {children}
       </a>
    );

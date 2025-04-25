@@ -14,9 +14,14 @@ import Loader from "../UI/Loader/Loader";
 interface LoginFormProps {
    onSubmitAction: (data: LoginFormValues) => void;
    pending?: boolean;
+   onForgotPasswordClick?: () => void;
 }
 
-export default function LoginForm({ onSubmitAction, pending }: LoginFormProps) {
+export default function LoginForm({
+   onSubmitAction,
+   pending,
+   onForgotPasswordClick,
+}: LoginFormProps) {
    const {
       register,
       handleSubmit,
@@ -61,7 +66,15 @@ export default function LoginForm({ onSubmitAction, pending }: LoginFormProps) {
             }}
          >
             <Checkbox label="Remember me" {...register("rememberMe")} />
-            <ForgotPassword />
+            <ForgotPassword
+               href="#"
+               onClick={(e) => {
+                  e.preventDefault();
+                  if (onForgotPasswordClick) {
+                     onForgotPasswordClick();
+                  }
+               }}
+            />
          </div>
          <Button type="submit" disabled={pending}>
             {pending && <Loader />}
