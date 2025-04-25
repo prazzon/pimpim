@@ -6,12 +6,11 @@
    padding: 2rem;
 
    &_card {
-      background-color: #131313;
       background-color: rgba(19, 19, 19, 0.8);
-      border-radius: 2rem;
+      border-radius: 1.5rem;
       overflow: hidden;
       width: 100%;
-      max-width: 50rem;
+      max-width: 45rem;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       position: relative;
 
@@ -27,8 +26,9 @@
       }
 
       &_header {
-         padding: 3rem 3rem 1.5rem;
+         padding: 3rem;
          text-align: center;
+         background-color: #131313;
 
          &_title {
             font-size: 2.4rem;
@@ -50,13 +50,14 @@
          align-items: center;
          justify-content: center;
          min-height: 20rem;
+         background-color: #131313;
       }
 
       &_footer {
          padding: 2rem 3rem;
          display: flex;
          justify-content: center;
-         border-top: 1px solid rgba(255, 255, 255, 0.1);
+         border-top: 1px solid #1f1f1f;
 
          button {
             background-color: transparent;
@@ -156,7 +157,6 @@
 
       &_card {
          max-width: 40rem;
-         border-radius: 1.5rem;
 
          &_header {
             padding: 2.5rem 2rem 1rem;
