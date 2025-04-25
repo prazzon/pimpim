@@ -46,7 +46,7 @@ export const generateVerificationToken = async (email: string) => {
 export const generatePasswordResetToken = async (email: string) => {
    // Generate a random token
    const token = uuidv4();
-   const expires = new Date().getTime() + 1000 * 60 * 60 * 24; // 24 hours
+   const expires = new Date().getTime() + 1000 * 60 * 15; // 15 minutes
 
    // Check if a token already exists for the user
    const existingToken = await getResetTokenByEmail(email);

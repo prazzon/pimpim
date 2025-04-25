@@ -157,6 +157,7 @@ export default function ResetPasswordPage() {
             <h2>Reset Your Password</h2>
             <p className={styles.subtitle}>
                Enter your new password below to reset your account password.
+               Please note that this link is only valid for 15 minutes.
             </p>
 
             {resetStatus && !resetStatus.success && (

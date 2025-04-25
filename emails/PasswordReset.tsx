@@ -58,7 +58,7 @@ const PasswordReset = ({ resetLink }: Props) => {
 
                   <Section className="mb-[24px] border-t border-[#dde5f0] pt-[24px]">
                      <Text className="text-[14px] text-center leading-[22px] text-[#666] m-0">
-                        This link will expire in 24 hours. If you did not
+                        This link will expire in 15 minutes. If you did not
                         request a password reset, you can safely ignore this
                         email.
                      </Text>
