@@ -48,7 +48,6 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
    }, [activeTab, open]);
 
    const handleLoginSubmit = (data: LoginFormValues) => {
-      console.log("Login form submitted:", data);
       setAlert(null);
 
       startTransition(async () => {
@@ -58,7 +57,6 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
             redirect: false,
          });
 
-         console.log(result);
          if (result?.error) {
             setAlert({
                type: "error",
@@ -79,12 +77,10 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
    };
 
    const handleSignupSubmit = (data: SignupFormValues) => {
-      console.log("Signup form submitted:", data);
       setAlert(null);
 
       startTransition(async () => {
          const result = await registerUser(data);
-         console.log(result);
          if (!result.success) {
             setAlert({
                type: "error",

@@ -32,8 +32,6 @@ export async function getAuthorById(id: string) {
       throw new Error(`Author with id ${id} not found`);
    }
 
-   console.log(docSnap.data());
-
    return {
       id: docSnap.id,
       ...docSnap.data(),

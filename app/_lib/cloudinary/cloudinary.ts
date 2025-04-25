@@ -43,7 +43,6 @@ export async function uploadImage(
          overwrite: true,
       });
 
-      console.log("Image uploaded to Cloudinary:", result.secure_url);
       return result.secure_url;
    } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
