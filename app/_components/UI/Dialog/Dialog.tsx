@@ -251,8 +251,13 @@ export function DialogDivider({ children = "Or" }: DialogDividerProps) {
 // Dialog Logo Component
 interface DialogLogoProps {
    children: ReactNode;
+   variant?: "default" | "rounded";
 }
 
-export function DialogLogo({ children }: DialogLogoProps) {
-   return <div className={styles.dialog_logo}>{children}</div>;
+export function DialogLogo({ children, variant = "default" }: DialogLogoProps) {
+   return (
+      <div className={`${styles.dialog_logo} ${styles[variant]}`}>
+         {children}
+      </div>
+   );
 }

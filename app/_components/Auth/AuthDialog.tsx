@@ -136,7 +136,7 @@ export default function AuthDialog({ open, action }: AuthDialogProps) {
                   <Image
                      src={Logo || "/placeholder.svg"}
                      alt="PimPim Logo"
-                     width={40}
+                     width={100}
                      height={40}
                   />
                </DialogLogo>

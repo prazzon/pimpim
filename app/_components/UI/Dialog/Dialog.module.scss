@@ -142,18 +142,22 @@
 }
 
 .dialog_logo {
-   width: 60px;
-   height: 60px;
-   border-radius: 50%;
-   background-color: #222;
    display: flex;
    align-items: center;
    justify-content: center;
    margin-bottom: 8px;
    padding: 4px;
 
-   svg {
-      width: 40px;
-      height: 40px;
+   &.rounded {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #222;
+
+      svg,
+      img {
+         width: 40px;
+         height: 40px;
+      }
    }
 }
