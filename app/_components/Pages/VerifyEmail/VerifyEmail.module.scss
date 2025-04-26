@@ -2,11 +2,11 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   min-height: 80vh;
+   min-height: calc(80svh - 4rem);
    padding: 2rem;
 
    &_card {
-      background-color: rgba(19, 19, 19, 0.8);
+      background-color: #080808;
       border-radius: 1.5rem;
       overflow: hidden;
       width: 100%;
@@ -28,7 +28,6 @@
       &_header {
          padding: 3rem;
          text-align: center;
-         background-color: #131313;
 
          &_title {
             font-size: 2.4rem;
@@ -50,7 +49,6 @@
          align-items: center;
          justify-content: center;
          min-height: 20rem;
-         background-color: #131313;
       }
 
       &_footer {
