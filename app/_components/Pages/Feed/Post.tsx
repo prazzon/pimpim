@@ -4,9 +4,9 @@ import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 
 import { BiTimeFive } from "react-icons/bi";
-import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import CommentButton from "../../Comments/CommentButton";
 import CategoryBtn from "../../UI/CategoryBtn/CategoryBtn";
+import SocialShare from "../../UI/SocialShare/SocialShare";
 import styles from "./Post.module.scss";
 
 type Props = {
@@ -105,32 +105,10 @@ async function Post({ post }: Props) {
                {/* Social sharing */}
                <div className={styles.social_sharing}>
                   <h3>Share this article</h3>
-                  <div className={styles.social_icons}>
-                     <a
-                        href="#"
-                        className={`${styles.social_icon} ${styles.twitter}`}
-                     >
-                        <FaTwitter />
-                     </a>
-                     <a
-                        href="#"
-                        className={`${styles.social_icon} ${styles.facebook}`}
-                     >
-                        <FaFacebook />
-                     </a>
-                     <a
-                        href="#"
-                        className={`${styles.social_icon} ${styles.linkedin}`}
-                     >
-                        <FaLinkedin />
-                     </a>
-                     <a
-                        href="#"
-                        className={`${styles.social_icon} ${styles.whatsapp}`}
-                     >
-                        <FaWhatsapp />
-                     </a>
-                  </div>
+                  <SocialShare
+                     title={post.title}
+                     authorName={post.author.name}
+                  />
                </div>
             </div>
          </div>

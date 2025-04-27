@@ -1,0 +1,44 @@
+.social_icons {
+   display: flex;
+   gap: 1.5rem;
+   flex-wrap: wrap;
+}
+
+.social_icon {
+   width: 4.5rem;
+   height: 4.5rem;
+   border-radius: 50%;
+   background-color: #222;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 2rem;
+   color: var(--text-secondary);
+   transition: all 0.2s;
+   border: none;
+   cursor: pointer;
+
+   &:hover {
+      color: var(--text-primary);
+   }
+
+   &.link:hover {
+      background-color: #333;
+      color: white;
+   }
+
+   &.twitter:hover {
+      background-color: #000000;
+      color: white;
+   }
+
+   &.linkedin:hover {
+      background-color: #0077b5;
+      color: white;
+   }
+
+   &.whatsapp:hover {
+      background-color: #25d366;
+      color: white;
+   }
+}
