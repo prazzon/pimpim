@@ -66,7 +66,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
 
             <div className={styles.edit_button_container}>
                <Link href="/profile/edit">
-                  <Button variant="secondary" className={styles.edit_button}>
+                  <Button variant="primary" className={styles.edit_button}>
                      <FaPen /> Edit Profile
                   </Button>
                </Link>

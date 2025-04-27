@@ -129,7 +129,9 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
                }
             }
 
-            toast.success("Profile updated!");
+            toast.success("Profile updated!", {
+               description: "Your profile has been updated successfully",
+            });
 
             // Navigate back to profile page after 1 second
             setTimeout(() => {
