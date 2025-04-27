@@ -97,3 +97,81 @@ button {
       }
    }
 }
+
+/* Custom styling for Sonner toast component */
+
+/* Toast container */
+[data-sonner-toaster] {
+   font-family: inherit !important;
+   --front-color: var(--text-primary) !important;
+   --normal-bg: #171717 !important;
+   --normal-border: rgba(255, 255, 255, 0.1) !important;
+   --error-bg: #2d0607 !important;
+   --error-border: #4d0408 !important;
+   --success-bg: #001f0f !important;
+   --success-border: #003d1c !important;
+}
+
+/* Base toast styling */
+[data-sonner-toast] {
+   background: #171717 !important;
+   border-radius: 12px !important;
+   color: var(--text-primary) !important;
+}
+
+/* Toast title styling */
+[data-sonner-toast] [data-title] {
+   font-weight: 600 !important;
+   font-size: 1.5rem !important;
+   margin-bottom: 4px !important;
+}
+
+/* Toast description styling */
+[data-sonner-toast] [data-description] {
+   font-size: 1.3rem !important;
+   color: var(--text-secondary) !important;
+   line-height: 1.4 !important;
+}
+
+/* Toast icon styling */
+[data-sonner-toast] [data-icon] {
+   display: flex !important;
+   align-items: center !important;
+   margin-right: 10px !important;
+   font-size: 1.8rem !important;
+}
+
+/* Success toast styling */
+[data-sonner-toast][data-type="success"] {
+   background: #001f0f !important;
+   border-color: #003d1c !important;
+   color: #59f3a6 !important;
+}
+
+[data-sonner-toast][data-type="success"] [data-description] {
+   color: #59f3a6 !important;
+}
+
+[data-sonner-toast][data-type="success"] [data-icon] {
+   color: #59f3a6 !important;
+}
+
+/* Error toast styling */
+[data-sonner-toast][data-type="error"] {
+   background: #2d0607 !important;
+   border-color: #4d0408 !important;
+   color: #ff9ea1 !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-description] {
+   color: #ff9ea1 !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-icon] {
+   color: #ff9ea1 !important;
+}
+
+[data-sonner-toast].custom-toast button {
+   color: #000 !important;
+   background-color: #fff !important;
+}
