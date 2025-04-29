@@ -30,7 +30,7 @@ function MiniCarousel({ items }: Props) {
 
    return (
       <div className={styles.container}>
-         <AnimatePresence>
+         <AnimatePresence initial={false}>
             <motion.img
                key={page}
                src={items[imageIndex].poster}
