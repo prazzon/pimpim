@@ -30,9 +30,9 @@ async function Home({
                <MiniCarousel items={mainPosts} />
                <div>
                   <Title type="secondary">Spotlight</Title>
-                  {spotlightPosts
-                     ?.slice(0, 7)
-                     .map((item) => <ItemCard key={item.id} item={item} />)}
+                  {spotlightPosts.map((item) => (
+                     <ItemCard key={item.id} item={item} />
+                  ))}
                </div>
             </div>
 
@@ -54,7 +54,7 @@ async function Home({
                <div>
                   <Title type="secondary">Latest</Title>
 
-                  {posts.slice(0, 5).map((item) => (
+                  {posts.map((item) => (
                      <ItemCard key={item.id} item={item} />
                   ))}
                </div>
