@@ -9,6 +9,7 @@ import {
    query,
    where,
 } from "firebase/firestore";
+import { getUserById } from "../auth/service";
 import { db } from "../firebase";
 import { createUserProfile } from "./actions";
 
@@ -114,11 +115,15 @@ export async function getUserProfileByUsername(
       // Format dates
       const { createdAt, updatedAt } = profileData;
 
+      // Get the user's Image
+      const { image } = await getUserById(profileDoc.id);
+
       return {
          id: profileDoc.id,
          ...profileData,
          createdAt: createdAt?.toDate(),
          updatedAt: updatedAt?.toDate(),
+         profileImage: image,
       } as Profile;
    } catch (error) {
       console.error("Error getting user profile by username:", error);
