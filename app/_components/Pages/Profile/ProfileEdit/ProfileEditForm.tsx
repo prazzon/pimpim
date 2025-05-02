@@ -26,6 +26,7 @@ import { IoMail } from "react-icons/io5";
 import { MdPublic } from "react-icons/md";
 import { toast } from "sonner";
 import { Button, Input, Textarea } from "../../../UI/Input/Input";
+import { Toggle } from "../../../UI/Toggle/Toggle";
 import styles from "./ProfileEditForm.module.scss";
 import ProfileImageEdit from "./ProfileImageEdit";
 
@@ -53,6 +54,7 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
          occupation: profile.occupation || "",
          bio: profile.bio || "",
          dateOfBirth: profile.dateOfBirth || "",
+         isPrivate: profile.isPrivate || false,
          // Social links
          instagram: profile.socialLinks?.instagram || "",
          facebook: profile.socialLinks?.facebook || "",
@@ -80,6 +82,7 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
                occupation: data.occupation,
                bio: data.bio,
                dateOfBirth: data.dateOfBirth,
+               isPrivate: data.isPrivate,
             };
 
             const result = await updateUserProfile(
@@ -168,6 +171,12 @@ export default function ProfileEditForm({ profile }: ProfileEditFormProps) {
          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.form_section}>
                <h2 className={styles.section_title}>Basic Information</h2>
+
+               <Toggle
+                  label="Private Profile"
+                  description="When enabled, your profile will only be visible to you"
+                  {...register("isPrivate")}
+               />
 
                <div className={styles.form_grid}>
                   <Input
