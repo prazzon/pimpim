@@ -5,7 +5,7 @@ import { Profile } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaPen } from "react-icons/fa6";
+import { FaLock, FaPen } from "react-icons/fa6";
 import PasswordChangeDialog from "../../../Auth/PasswordChangeDialog";
 import { Button } from "../../../UI/Input/Input";
 import SettingsDropdown from "../../../UI/SettingsDropdown/SettingsDropdown";
@@ -57,7 +57,17 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
             </div>
 
             <div className={styles.details}>
-               <h1 className={styles.name}>{profile.displayName}</h1>
+               <div className={styles.name_container}>
+                  <h1 className={styles.name}>{profile.displayName}</h1>
+                  {profile.isPrivate && (
+                     <div
+                        className={styles.private_badge}
+                        title="Private Profile"
+                     >
+                        <FaLock /> Private
+                     </div>
+                  )}
+               </div>
                <div className={styles.location}>
                   {profile.location || profile.email}
                </div>
