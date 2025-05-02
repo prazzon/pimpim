@@ -1,7 +1,14 @@
 "use server";
 
 import { Profile } from "@/app/_lib/firebase/types";
-import { doc, getDoc } from "firebase/firestore";
+import {
+   collection,
+   doc,
+   getDoc,
+   getDocs,
+   query,
+   where,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import { createUserProfile } from "./actions";
 
@@ -78,6 +85,43 @@ export async function getUsername(userId: string): Promise<string | null> {
       return null;
    } catch (error) {
       console.error("Error getting username:", error);
+      return null;
+   }
+}
+
+/**
+ * Get a user's profile data by username
+ * @param username The username to look up
+ * @returns The user's profile data or null if not found
+ */
+export async function getUserProfileByUsername(
+   username: string
+): Promise<Profile | null> {
+   if (!username) return null;
+
+   try {
+      // Query the profiles collection for the username
+      const profilesRef = collection(db, "profiles");
+      const q = query(profilesRef, where("username", "==", username));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) return null;
+
+      // Get the first matching profile
+      const profileDoc = querySnapshot.docs[0];
+      const profileData = profileDoc.data();
+
+      // Format dates
+      const { createdAt, updatedAt } = profileData;
+
+      return {
+         id: profileDoc.id,
+         ...profileData,
+         createdAt: createdAt?.toDate(),
+         updatedAt: updatedAt?.toDate(),
+      } as Profile;
+   } catch (error) {
+      console.error("Error getting user profile by username:", error);
       return null;
    }
 }

@@ -152,6 +152,7 @@ export type Profile = {
    dateOfBirth?: string;
    profileImage?: string | null;
    coverImage?: string | null;
+   isPrivate?: boolean;
    socialLinks?: {
       instagram?: string;
       facebook?: string;

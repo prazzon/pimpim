@@ -11,6 +11,7 @@ export const profileEditSchema = z.object({
    occupation: z.string().optional(),
    bio: z.string().optional(),
    dateOfBirth: z.string().optional(),
+   isPrivate: z.boolean().optional().default(false),
    // Social links
    instagram: z
       .string()
