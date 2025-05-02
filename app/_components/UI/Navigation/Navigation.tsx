@@ -37,8 +37,7 @@ function Navigation() {
 
    const navRef = useRef<HTMLElement | null>(null);
 
-   const activePath =
-      navLinks.find((link) => isActivePath(link.href))?.href || "/";
+   const activePath = navLinks.find((link) => isActivePath(link.href))?.href;
 
    useEffect(() => {
       const handleScroll = () => {
