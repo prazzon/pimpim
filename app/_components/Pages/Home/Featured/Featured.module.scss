@@ -5,6 +5,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       gap: 4rem;
+      align-items: center;
       // margin-top: 2rem;
       padding: 2rem 0;
       border-top: 1px solid #1b1b1b;
@@ -107,6 +108,11 @@
 
          .summary {
             font-size: 1.4rem;
+            display: -webkit-box;
+            line-clamp: 3;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
          }
       }
 
