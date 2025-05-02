@@ -35,6 +35,7 @@ export default async function HomePage() {
    const spotlightPosts = await getPostsBySection("spotlight");
    const mainPosts = await getPostsBySection("main");
    const featuredPosts = await getPostsBySection("featured", 5);
+   const creativeSpotlightPosts = await getPostsBySection("creative-spotlight");
    const categories = await getCategories();
 
    const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
@@ -50,6 +51,7 @@ export default async function HomePage() {
                spotlightPosts={spotlightPosts}
                mainPosts={mainPosts}
                featuredPosts={featuredPosts}
+               creativeSpotlightPosts={creativeSpotlightPosts}
                categories={categories}
             />
          </Main>

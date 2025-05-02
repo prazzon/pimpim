@@ -1,12 +1,13 @@
 "use client";
 
+import CategoryBtn from "@/app/_components/UI/CategoryBtn/CategoryBtn";
+import GradientText from "@/app/_components/UI/GradientText/GradientText";
 import { Post } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
-import CategoryBtn from "../../../UI/CategoryBtn/CategoryBtn";
 import styles from "./CreativeSpotlight.module.scss";
 import PreviewCard from "./PreviewCard";
 
@@ -73,17 +74,53 @@ const CreativeSpotlight = ({ posts }: CreativeSpotlightProps) => {
    // Animation variants
    const slideVariants = {
       enter: (direction: number) => ({
-         x: direction > 0 ? "100%" : "-100%",
+         x: direction > 0 ? "20px" : "-20px",
          opacity: 0,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.85 },
       }),
       center: {
          x: 0,
          opacity: 1,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.75 },
       },
       exit: (direction: number) => ({
-         x: direction < 0 ? "100%" : "-100%",
+         x: direction < 0 ? "-20px" : "20px",
          opacity: 0,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.3 },
       }),
+   };
+
+   const slideDownVariants = {
+      enter: {
+         y: "100%",
+         opacity: 0,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.85 },
+      },
+      center: {
+         y: 0,
+         opacity: 1,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.75 },
+      },
+      exit: {
+         y: "100%",
+         opacity: 0,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.3 },
+      },
+   };
+
+   const opacityVariants = {
+      enter: {
+         opacity: 0,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.85 },
+      },
+      center: {
+         opacity: 1,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.75 },
+      },
+      exit: {
+         opacity: 0,
+         transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.3 },
+      },
    };
 
    // If no posts, don't render anything
@@ -98,32 +135,55 @@ const CreativeSpotlight = ({ posts }: CreativeSpotlightProps) => {
                <motion.div
                   key={currentPost.id}
                   className={styles.content}
-                  custom={direction}
-                  variants={slideVariants}
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  transition={{
-                     x: { type: "spring", stiffness: 300, damping: 30 },
-                     opacity: { duration: 0.2 },
-                  }}
                >
-                  <div className={styles.categories}>
-                     {currentPost.category && (
-                        <CategoryBtn
-                           href={`/categories/${currentPost.category.slug}`}
-                           text={currentPost.category.name}
-                        />
-                     )}
+                  <div className={styles.content_header}>
+                     <GradientText
+                        animationSpeed={500}
+                        showBorder={false}
+                        className={styles.title}
+                     >
+                        Creative&apos;s Spotlight
+                     </GradientText>
+                     <motion.div
+                        variants={opacityVariants}
+                        className={styles.categories}
+                     >
+                        {currentPost.category && (
+                           <CategoryBtn
+                              href={`/categories/${currentPost.category.slug}`}
+                              text={currentPost.category.name}
+                           />
+                        )}
+                     </motion.div>
                   </div>
                   <Link
                      href={`/feed/${currentPost.slug}`}
                      className={styles.content_info}
                   >
-                     <h2 className={styles.title}>
-                        <span>{currentPost.title}</span>
-                     </h2>
-                     <p className={styles.description}>{currentPost.summary}</p>
+                     <span
+                        style={{ overflow: "hidden", display: "inline-block" }}
+                     >
+                        <motion.h2
+                           variants={slideDownVariants}
+                           className={styles.title}
+                        >
+                           <span>{currentPost.title}</span>
+                        </motion.h2>
+                     </span>
+
+                     <span
+                        style={{ overflow: "hidden", display: "inline-block" }}
+                     >
+                        <motion.p
+                           variants={slideDownVariants}
+                           className={styles.description}
+                        >
+                           {currentPost.summary}
+                        </motion.p>
+                     </span>
                   </Link>
 
                   {/* Navigation and Preview Card */}
@@ -146,9 +206,12 @@ const CreativeSpotlight = ({ posts }: CreativeSpotlightProps) => {
                            </button>
                         </div>
 
-                        <div className={styles.preview_section}>
+                        <motion.div
+                           variants={opacityVariants}
+                           className={styles.preview_section}
+                        >
                            <PreviewCard post={nextPost} progress={progress} />
-                        </div>
+                        </motion.div>
                      </>
                   )}
                </motion.div>

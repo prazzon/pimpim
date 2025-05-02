@@ -3,6 +3,7 @@ import { IoChevronDownOutline } from "react-icons/io5";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
+import CreativeSpotlight from "./CreativeSpotlight/CreativeSpotlight";
 import Featured from "./Featured/Featured";
 import styles from "./Home.module.scss";
 import ItemCard from "./ItemCard/ItemCard";
@@ -13,6 +14,7 @@ type Props = {
    mainPosts: Post[];
    spotlightPosts: Post[];
    featuredPosts: Post[];
+   creativeSpotlightPosts: Post[];
    categories: Category[];
 };
 
@@ -21,6 +23,7 @@ async function Home({
    spotlightPosts,
    mainPosts,
    featuredPosts,
+   creativeSpotlightPosts,
    categories,
 }: Props) {
    return (
@@ -46,6 +49,10 @@ async function Home({
          </div>
 
          <Featured features={featuredPosts} />
+
+         {creativeSpotlightPosts.length > 0 && (
+            <CreativeSpotlight posts={creativeSpotlightPosts} />
+         )}
 
          <CategoriesGroup categories={categories} />
 

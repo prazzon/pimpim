@@ -1,7 +1,6 @@
 .creative_spotlight {
    position: relative;
    width: 100%;
-   margin: 4rem 0;
    overflow: hidden;
    box-shadow:
       rgba(0, 0, 0, 0.25) 0px 14px 28px,
@@ -9,6 +8,23 @@
    background-color: #111111;
    padding: 4rem;
    border-radius: 3rem;
+
+   @media (max-width: 768px) {
+      padding: 2.5rem;
+   }
+
+   @media (max-width: 435px) {
+      padding: 2rem;
+      border-radius: 2rem;
+   }
+
+   .title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.2rem;
+      cursor: auto;
+   }
 
    .container {
       display: grid;
@@ -30,8 +46,15 @@
       z-index: 2;
 
       @media (max-width: 768px) {
-         padding: 3rem 2rem;
+         padding: 0;
+         padding-top: 2.5rem;
          order: 2;
+      }
+
+      .content_header {
+         display: flex;
+         align-items: center;
+         gap: 3rem;
       }
    }
 
@@ -100,8 +123,12 @@
       overflow: hidden;
 
       @media (max-width: 768px) {
-         min-height: 30rem;
+         height: 30rem;
          order: 1;
+      }
+
+      @media (max-width: 425px) {
+         height: 25rem;
       }
 
       img {
