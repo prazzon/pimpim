@@ -9,7 +9,7 @@ interface ToggleProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
    ({ label, description, className, ...props }, ref) => {
       return (
-         <div className={styles.toggle_group}>
+         <label className={styles.toggle_group}>
             <div className={styles.toggle_label_container}>
                <label className={styles.toggle_label}>{label}</label>
                {description && (
@@ -25,7 +25,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
                />
                <span className={styles.toggle_slider}></span>
             </label>
-         </div>
+         </label>
       );
    }
 );
