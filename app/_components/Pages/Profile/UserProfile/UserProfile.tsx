@@ -3,28 +3,31 @@
 import { MediaItem, Profile as ProfileType } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import { useState } from "react";
-import { FaGlobe, FaMapMarkerAlt } from "react-icons/fa";
+import { FaGlobe, FaLock, FaMapMarkerAlt } from "react-icons/fa";
 import { MdWork } from "react-icons/md";
 import UserAvatar from "../../../UI/UserAvatar/UserAvatar";
 import ProfileMedia from "../ProfileMedia/ProfileMedia";
 import ProfileOverview from "../ProfileOverview/ProfileOverview";
-import styles from "./PublicProfile.module.scss";
+import styles from "./UserProfile.module.scss";
 
-type PublicProfileProps = {
+type UserProfileProps = {
    profile: ProfileType;
    mediaItems?: MediaItem[];
 };
 
-export default function PublicProfile({
+export default function UserProfile({
    profile,
    mediaItems = [],
-}: PublicProfileProps) {
+}: UserProfileProps) {
    const [activeSection, setActiveSection] = useState<"overview" | "media">(
       "overview"
    );
 
+   // Check if the profile is private
+   const isPrivate = profile.isPrivate === true;
+
    return (
-      <div className={styles.public_profile}>
+      <div className={styles.user_profile}>
          <div className={styles.header}>
             <div className={styles.cover}>
                {profile.coverImage ? (
@@ -50,26 +53,50 @@ export default function PublicProfile({
                </div>
 
                <div className={styles.user_details}>
-                  <h1 className={styles.name}>
-                     {profile.displayName || profile.username}
-                  </h1>
+                  <div className={styles.name_container}>
+                     <h1 className={styles.name}>
+                        {profile.displayName || profile.username}
+                     </h1>
+                     {isPrivate && (
+                        <div
+                           className={styles.private_badge}
+                           title="Private Profile"
+                        >
+                           <FaLock /> Private Profile
+                        </div>
+                     )}
+                  </div>
 
                   <div className={styles.meta_info}>
-                     {profile.location && (
+                     {!isPrivate && profile.location && (
                         <div className={styles.meta_item}>
                            <FaMapMarkerAlt />
                            <span>{profile.location}</span>
                         </div>
                      )}
 
-                     {profile.occupation && (
+                     {isPrivate && (
+                        <div className={`${styles.meta_item} ${styles.masked}`}>
+                           <FaMapMarkerAlt />
+                           <span className={styles.masked_content}></span>
+                        </div>
+                     )}
+
+                     {!isPrivate && profile.occupation && (
                         <div className={styles.meta_item}>
                            <MdWork />
                            <span>{profile.occupation}</span>
                         </div>
                      )}
 
-                     {profile.portfolioLinks?.website && (
+                     {isPrivate && (
+                        <div className={`${styles.meta_item} ${styles.masked}`}>
+                           <MdWork />
+                           <span className={styles.masked_content}></span>
+                        </div>
+                     )}
+
+                     {!isPrivate && profile.portfolioLinks?.website && (
                         <div className={styles.meta_item}>
                            <FaGlobe />
                            <a
@@ -82,6 +109,13 @@ export default function PublicProfile({
                                  ""
                               )}
                            </a>
+                        </div>
+                     )}
+
+                     {isPrivate && (
+                        <div className={`${styles.meta_item} ${styles.masked}`}>
+                           <FaGlobe />
+                           <span className={styles.masked_content}></span>
                         </div>
                      )}
                   </div>
@@ -107,13 +141,35 @@ export default function PublicProfile({
          <div className={styles.content}>
             {activeSection === "overview" && (
                <div className={styles.overview_section}>
-                  <ProfileOverview profile={profile} profileViewer="other" />
+                  {isPrivate ? (
+                     <div className={styles.private_content}>
+                        <div className={styles.private_message}>
+                           <FaLock className={styles.lock_icon} />
+                           <p>
+                              This profile is private. You cannot view their
+                              content.
+                           </p>
+                        </div>
+                     </div>
+                  ) : (
+                     <ProfileOverview profile={profile} profileViewer="other" />
+                  )}
                </div>
             )}
 
             {activeSection === "media" && (
                <div className={styles.media_section}>
-                  {mediaItems.length > 0 ? (
+                  {isPrivate ? (
+                     <div className={styles.private_content}>
+                        <div className={styles.private_message}>
+                           <FaLock className={styles.lock_icon} />
+                           <p>
+                              This profile is private. You cannot view their
+                              media content.
+                           </p>
+                        </div>
+                     </div>
+                  ) : mediaItems.length > 0 ? (
                      <ProfileMedia media={mediaItems} />
                   ) : (
                      <div className={styles.no_media}>
