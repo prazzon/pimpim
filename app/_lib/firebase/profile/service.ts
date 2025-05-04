@@ -116,14 +116,14 @@ export async function getUserProfileByUsername(
       const { createdAt, updatedAt } = profileData;
 
       // Get the user's Image
-      const { image } = await getUserById(profileDoc.id);
+      const user = await getUserById(profileDoc.id);
 
       return {
          id: profileDoc.id,
          ...profileData,
          createdAt: createdAt?.toDate(),
          updatedAt: updatedAt?.toDate(),
-         profileImage: image,
+         profileImage: user?.image,
       } as Profile;
    } catch (error) {
       console.error("Error getting user profile by username:", error);
