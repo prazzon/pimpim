@@ -5,11 +5,12 @@ import { Profile } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaLock, FaPen } from "react-icons/fa6";
+import { FaLock, FaPen, FaShare } from "react-icons/fa6";
 import PasswordChangeDialog from "../../../Auth/PasswordChangeDialog";
 import { Button } from "../../../UI/Input/Input";
 import SettingsDropdown from "../../../UI/SettingsDropdown/SettingsDropdown";
 import UserAvatar from "../../../UI/UserAvatar/UserAvatar";
+import ProfileShareDialog from "../ProfileShareDialog/ProfileShareDialog";
 import styles from "./ProfileHeader.module.scss";
 
 type ProfileHeaderProps = {
@@ -18,6 +19,7 @@ type ProfileHeaderProps = {
 
 export default function ProfileHeader({ profile }: ProfileHeaderProps) {
    const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
+   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
    const [hasPassword, setHasPassword] = useState(false);
 
    useEffect(() => {
@@ -80,6 +82,13 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
                      <FaPen /> Edit Profile
                   </Button>
                </Link>
+               <Button
+                  variant="primary"
+                  className={styles.share_button}
+                  onClick={() => setIsShareDialogOpen(true)}
+               >
+                  <FaShare /> Share Profile
+               </Button>
                <SettingsDropdown
                   onChangePasswordAction={() => setIsPasswordDialogOpen(true)}
                />
@@ -91,6 +100,13 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
                onOpenAction={setIsPasswordDialogOpen}
                userId={profile.id}
                hasPassword={hasPassword}
+            />
+
+            {/* Profile Share Dialog */}
+            <ProfileShareDialog
+               open={isShareDialogOpen}
+               onOpenChangeAction={setIsShareDialogOpen}
+               username={profile.username}
             />
          </div>
       </div>

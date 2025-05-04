@@ -30,7 +30,7 @@ export default function SettingsDropdown({
    return (
       <div className={styles.dropdown} ref={ref}>
          <Button
-            variant="secondary"
+            variant="primary"
             className={styles.settings_button}
             onClick={handleToggle}
          >
