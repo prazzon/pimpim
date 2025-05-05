@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-export function useOutsideClick(handler: () => void) {
-   const ref = useRef<HTMLDivElement | null>(null);
+export function useOutsideClick<T extends HTMLElement = HTMLDivElement>(
+   handler: () => void
+) {
+   const ref = useRef<T | null>(null);
    const listenCapturing = true;
 
    useEffect(() => {
