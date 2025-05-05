@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { IoMdClose } from "react-icons/io";
+import { MdRefresh } from "react-icons/md";
 import { toast } from "sonner";
 import AuthDialog from "../Auth/AuthDialog";
 import CommentInput from "./CommentInput";
@@ -37,7 +38,7 @@ export default function CommentDialog({
    const [error, setError] = useState<string | null>(null);
    const { data: session, status } = useSession();
 
-   // Fetch comments when dialog opens
+   // Fetch comments when dialog opens or refresh button is clicked
    const fetchComments = useCallback(async () => {
       if (!isOpen) return;
 
@@ -46,7 +47,7 @@ export default function CommentDialog({
          setError(null);
 
          const fetchedComments = await getCommentsByPostId(postId);
-         if (fetchedComments) setComments(fetchedComments);
+         setComments(fetchedComments || []);
       } catch (err) {
          console.error("Error fetching comments:", err);
          setError("Failed to load comments. Please try again.");
@@ -54,6 +55,11 @@ export default function CommentDialog({
          setIsLoading(false);
       }
    }, [isOpen, postId, setComments, setIsLoading, setError]);
+
+   // Handle refresh button click
+   const handleRefresh = () => {
+      fetchComments();
+   };
 
    // Handle client-side mounting for portal
    useEffect(() => {
@@ -197,13 +203,22 @@ export default function CommentDialog({
                   >
                      <div className={styles.dialog_header}>
                         <h2>Comments on &quot;{postTitle}&quot;</h2>
-                        <button
-                           className={styles.close_button}
-                           onClick={onCloseAction}
-                           aria-label="Close"
-                        >
-                           <IoMdClose />
-                        </button>
+                        <div className={styles.header_buttons}>
+                           <button
+                              className={`${styles.action_button} ${styles.refresh_button}`}
+                              onClick={handleRefresh}
+                              aria-label="Refresh comments"
+                           >
+                              <MdRefresh />
+                           </button>
+                           <button
+                              className={styles.action_button}
+                              onClick={onCloseAction}
+                              aria-label="Close"
+                           >
+                              <IoMdClose />
+                           </button>
+                        </div>
                      </div>
 
                      <div className={styles.dialog_content}>
@@ -213,7 +228,7 @@ export default function CommentDialog({
                                  <p>{error}</p>
                                  <button
                                     className={styles.retry_button}
-                                    onClick={fetchComments}
+                                    onClick={() => fetchComments()}
                                  >
                                     Try Again
                                  </button>
