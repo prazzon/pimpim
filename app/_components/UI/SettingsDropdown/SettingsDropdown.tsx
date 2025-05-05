@@ -3,8 +3,8 @@
 import { useOutsideClick } from "@/app/_hooks/useOutsideClick";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { AiFillSetting } from "react-icons/ai";
 import { FaKey } from "react-icons/fa";
-import { IoSettingsOutline } from "react-icons/io5";
 import { Button } from "../Input/Input";
 import styles from "./SettingsDropdown.module.scss";
 
@@ -16,7 +16,7 @@ export default function SettingsDropdown({
    onChangePasswordAction,
 }: SettingsDropdownProps) {
    const [isOpen, setIsOpen] = useState(false);
-   const ref = useOutsideClick(() => setIsOpen(false));
+   const ref = useOutsideClick<HTMLButtonElement>(() => setIsOpen(false));
 
    const handleToggle = () => {
       setIsOpen((prev) => !prev);
@@ -28,13 +28,9 @@ export default function SettingsDropdown({
    };
 
    return (
-      <div className={styles.dropdown} ref={ref}>
-         <Button
-            variant="primary"
-            className={styles.settings_button}
-            onClick={handleToggle}
-         >
-            <IoSettingsOutline />
+      <>
+         <Button variant="primary" onClick={handleToggle} ref={ref}>
+            <AiFillSetting />
             Settings
          </Button>
 
@@ -57,6 +53,6 @@ export default function SettingsDropdown({
                </motion.div>
             )}
          </AnimatePresence>
-      </div>
+      </>
    );
 }

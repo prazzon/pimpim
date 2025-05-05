@@ -78,13 +78,12 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
 
             <div className={styles.edit_button_container}>
                <Link href="/profile/edit">
-                  <Button variant="primary" className={styles.edit_button}>
+                  <Button variant="primary">
                      <FaPen /> Edit Profile
                   </Button>
                </Link>
                <Button
                   variant="primary"
-                  className={styles.share_button}
                   onClick={() => setIsShareDialogOpen(true)}
                >
                   <FaShare /> Share Profile
