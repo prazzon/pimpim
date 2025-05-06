@@ -2,6 +2,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
+import AdSense from "./_components/AdSense";
 import { OnboardingProvider } from "./_components/Onboarding/OnboardingProvider";
 import SessionProvider from "./_components/Providers/SessionProvider";
 import Footer from "./_components/UI/Footer/Footer";
@@ -92,6 +93,9 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en" className={poppins.className}>
+         <head>
+            <AdSense pId={"7227150050392511"} />
+         </head>
          <body>
             <SessionProvider>
                <OnboardingProvider>
