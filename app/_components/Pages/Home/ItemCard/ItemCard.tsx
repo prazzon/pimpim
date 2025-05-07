@@ -4,6 +4,7 @@ import CategoryBtn from "@/app/_components/UI/CategoryBtn/CategoryBtn";
 import { Post } from "@/app/_lib/firebase/types";
 import clsx from "clsx";
 import { formatDistanceToNow } from "date-fns";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ItemCard.module.scss";
@@ -14,9 +15,14 @@ type Props = {
    layout?: "horizontal" | "vertical";
 };
 
-async function ItemCard({ item, position, layout = "horizontal" }: Props) {
+function ItemCard({ item, position, layout = "horizontal" }: Props) {
    return (
-      <div className={clsx(styles.item, styles[layout])}>
+      <motion.div
+         className={clsx(styles.item, styles[layout])}
+         initial={{ opacity: 0, y: 10 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ duration: 0.25 }}
+      >
          <Link href={`/feed/${item.slug}`} className={styles.overlay} />
 
          <div className={styles.poster}>
@@ -65,7 +71,7 @@ async function ItemCard({ item, position, layout = "horizontal" }: Props) {
                />
             )}
          </div>
-      </div>
+      </motion.div>
    );
 }
 
