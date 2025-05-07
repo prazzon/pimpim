@@ -1,4 +1,4 @@
-import Post from "@/app/_components/Pages/Feed/Post";
+import Post from "@/app/_components/Pages/Feed/Post/Post";
 import JsonLd from "@/app/_components/SEO/JsonLd";
 import { getPostBySlug } from "@/app/_lib/firebase/posts/service";
 import { generateArticleSchema } from "@/app/_lib/seo/schema";

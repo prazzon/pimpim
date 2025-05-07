@@ -1,0 +1,125 @@
+.fixed_action_bar {
+   position: fixed;
+   bottom: 2rem;
+   left: 0;
+   right: 0;
+   z-index: 100;
+   display: flex;
+   justify-content: center;
+   pointer-events: none;
+
+   .action_buttons {
+      display: flex;
+      gap: 0.5rem;
+      background-color: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 3rem;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      pointer-events: auto;
+   }
+
+   .action_button {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      font-weight: 500;
+      padding: 0.8rem 1.8rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+         color: var(--text-primary);
+      }
+
+      &.active {
+         color: var(--text-primary);
+         background-color: rgba(255, 255, 255, 0.08);
+      }
+
+      svg {
+         font-size: 1.8rem;
+      }
+   }
+
+   .share_container {
+      position: relative;
+   }
+
+   .share_dropdown {
+      position: absolute;
+      bottom: calc(100% + 1rem);
+      right: 0;
+      width: 25rem;
+      background-color: #121212;
+      border-radius: 1.2rem;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      z-index: 10;
+
+      .dropdown_header {
+         padding: 1.5rem;
+         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+         h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary);
+         }
+      }
+
+      .dropdown_content {
+         padding: 1.5rem;
+      }
+
+      .social_share {
+         justify-content: center;
+      }
+   }
+
+   // Media queries for responsive design
+   // @media (max-width: 768px) {
+   //    bottom: 1.5rem;
+
+   //    .action_buttons {
+   //       padding: 0.8rem 1.5rem;
+   //    }
+
+   //    .action_button {
+   //       padding: 0.6rem 1.2rem;
+   //       font-size: 1.4rem;
+
+   //       svg {
+   //          font-size: 1.6rem;
+   //       }
+   //    }
+   // }
+
+   // @media (max-width: 480px) {
+   //    .share_dropdown {
+   //       width: 22rem;
+   //       right: -5rem;
+
+   //       &::after {
+   //          content: "";
+   //          position: absolute;
+   //          bottom: -0.8rem;
+   //          right: 7rem;
+   //          width: 1.5rem;
+   //          height: 1.5rem;
+   //          background-color: #121212;
+   //          transform: rotate(45deg);
+   //          border-right: 1px solid rgba(255, 255, 255, 0.1);
+   //          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+   //       }
+   //    }
+   // }
+}
