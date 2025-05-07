@@ -1,5 +1,4 @@
 import { Category, Post } from "@/app/_lib/firebase/types";
-import { IoChevronDownOutline } from "react-icons/io5";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
@@ -7,6 +6,7 @@ import CreativeSpotlight from "./CreativeSpotlight/CreativeSpotlight";
 import Featured from "./Featured/Featured";
 import styles from "./Home.module.scss";
 import ItemCard from "./ItemCard/ItemCard";
+import LatestPosts from "./LatestPosts/LatestPosts";
 import Trending from "./Trending/Trending";
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
    categories: Category[];
 };
 
-async function Home({
+function Home({
    posts,
    spotlightPosts,
    mainPosts,
@@ -58,17 +58,7 @@ async function Home({
 
          <div className={styles.grid}>
             <div className={styles.main}>
-               <div>
-                  <Title type="secondary">Latest</Title>
-
-                  {posts.map((item) => (
-                     <ItemCard key={item.id} item={item} />
-                  ))}
-               </div>
-               <button className={styles.see_more}>
-                  <span>Show more</span>
-                  <IoChevronDownOutline />
-               </button>
+               <LatestPosts />
             </div>
 
             <div className={styles.sidebar}>

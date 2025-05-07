@@ -6,6 +6,7 @@ import {
    limit,
    orderBy,
    query,
+   startAfter,
    where,
 } from "firebase/firestore";
 import { getAuthorById } from "../authors/service";
@@ -49,6 +50,67 @@ export async function getPosts() {
    );
 
    return posts;
+}
+
+/**
+ * Get paginated posts from the database, ordered by creation date (newest first)
+ * @param pageSize Number of posts to fetch per page
+ * @param lastPostId ID of the last post from the previous page (for pagination)
+ * @returns An array of post objects with author and category data and a flag indicating if more posts are available
+ */
+export async function getPaginatedPosts(
+   pageSize: number = 2,
+   lastPostId?: string
+) {
+   const postsRef = collection(db, "posts");
+   let q;
+
+   // If we have a lastPostId, use it as a cursor for pagination
+   if (lastPostId) {
+      // Get the last document as a reference point
+      const lastPostDoc = await getDoc(doc(db, "posts", lastPostId));
+
+      if (!lastPostDoc.exists()) {
+         throw new Error(`Post with id ${lastPostId} not found`);
+      }
+
+      // Create a query that starts after the last document
+      q = query(
+         postsRef,
+         orderBy("createdAt", "desc"),
+         startAfter(lastPostDoc),
+         limit(pageSize)
+      );
+   } else {
+      // Initial query without a starting point
+      q = query(postsRef, orderBy("createdAt", "desc"), limit(pageSize));
+   }
+
+   const querySnapshot = await getDocs(q);
+
+   // Check if there are more posts to load
+   const hasMore = querySnapshot.docs.length === pageSize;
+
+   const posts = await Promise.all(
+      querySnapshot.docs.map(async (doc) => {
+         const { authorId, categoryId, createdAt, updatedAt, ...rest } =
+            doc.data();
+
+         return {
+            id: doc.id,
+            ...rest,
+            author: await getAuthorById(authorId),
+            category: await getCategoryById(categoryId),
+            createdAt: createdAt.toDate(),
+            updatedAt: updatedAt.toDate(),
+         } as Post;
+      })
+   );
+
+   return {
+      posts,
+      hasMore,
+   };
 }
 
 /**
