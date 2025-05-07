@@ -21,12 +21,6 @@ async function Post({ post }: Props) {
 
    return (
       <div className={styles.post}>
-         <PostActionBar
-            postId={post.id}
-            postTitle={post.title}
-            authorName={post.author.name}
-         />
-
          {/* Header with category and metadata */}
          <div className={styles.header}>
             {post.category && (
@@ -63,6 +57,13 @@ async function Post({ post }: Props) {
             <div
                className={styles.content}
                dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+
+            {/* Action bar - sticky to the post content */}
+            <PostActionBar
+               postId={post.id}
+               postTitle={post.title}
+               authorName={post.author.name}
             />
          </div>
       </div>

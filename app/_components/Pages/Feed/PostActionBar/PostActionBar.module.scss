@@ -1,12 +1,11 @@
-.fixed_action_bar {
-   position: fixed;
+.sticky_action_bar {
+   position: sticky;
    bottom: 2rem;
-   left: 0;
-   right: 0;
    z-index: 100;
    display: flex;
    justify-content: center;
    pointer-events: none;
+   margin-top: 3rem;
 
    .action_buttons {
       display: flex;

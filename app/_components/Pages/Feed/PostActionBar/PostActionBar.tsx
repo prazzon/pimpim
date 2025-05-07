@@ -88,7 +88,7 @@ export default function PostActionBar({
 
    return (
       <>
-         <div className={styles.fixed_action_bar}>
+         <div className={styles.sticky_action_bar}>
             <div className={styles.action_buttons}>
                <button
                   className={styles.action_button}
