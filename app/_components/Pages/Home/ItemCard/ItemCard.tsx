@@ -1,10 +1,10 @@
-// import { getAuthorById } from "@/app/_lib/firebase/authors/service";
-// import { getCategoryById } from "@/app/_lib/firebase/categories/service";
+"use client";
+
 import CategoryBtn from "@/app/_components/UI/CategoryBtn/CategoryBtn";
 import { Post } from "@/app/_lib/firebase/types";
 import clsx from "clsx";
 import { formatDistanceToNow } from "date-fns";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ItemCard.module.scss";
