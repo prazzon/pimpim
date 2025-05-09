@@ -14,7 +14,7 @@ import CommentInput from "./CommentInput";
 import CommentList from "./CommentList";
 import styles from "./Comments.module.scss";
 
-const COMMENTS_PER_PAGE = 2;
+const COMMENTS_PER_PAGE = 10;
 
 type CommentDialogProps = {
    postId: string;

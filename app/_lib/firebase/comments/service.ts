@@ -43,7 +43,8 @@ export async function getCommentsByPostId(
          where("postId", "==", postId),
          orderBy("createdAt", "desc"),
          startAfter(lastCommentDoc),
-         limitFirestore(limit)
+         // Request one more document than needed to check if there are more
+         limitFirestore(limit + 1)
       );
    } else {
       // Initial query without a starting point
@@ -51,7 +52,8 @@ export async function getCommentsByPostId(
          commentsRef,
          where("postId", "==", postId),
          orderBy("createdAt", "desc"),
-         limitFirestore(limit)
+         // Request one more document than needed to check if there are more
+         limitFirestore(limit + 1)
       );
    }
 
@@ -67,11 +69,11 @@ export async function getCommentsByPostId(
       return !data.parentId;
    });
 
-   // Check if there are more comments to load
-   const hasMore = topLevelDocs.length === limit;
+   const commentsToReturn = topLevelDocs.slice(0, limit);
+   const hasMore = topLevelDocs.length > limit;
 
    const comments = await Promise.all(
-      topLevelDocs.map(async (doc) => {
+      commentsToReturn.map(async (doc) => {
          const data = doc.data();
          const userId = data.userId;
 
