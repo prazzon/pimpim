@@ -14,6 +14,8 @@ import CommentInput from "./CommentInput";
 import CommentList from "./CommentList";
 import styles from "./Comments.module.scss";
 
+const COMMENTS_PER_PAGE = 2;
+
 type CommentDialogProps = {
    postId: string;
    postTitle: string;
@@ -35,6 +37,8 @@ export default function CommentDialog({
       (Comment & { replies: Comment[] })[]
    >([]);
    const [isLoading, setIsLoading] = useState(true);
+   const [isLoadingMore, setIsLoadingMore] = useState(false);
+   const [hasMore, setHasMore] = useState(false);
    const [error, setError] = useState<string | null>(null);
    const { data: session, status } = useSession();
 
@@ -46,15 +50,54 @@ export default function CommentDialog({
          setIsLoading(true);
          setError(null);
 
-         const fetchedComments = await getCommentsByPostId(postId);
-         setComments(fetchedComments || []);
+         const result = await getCommentsByPostId(postId, COMMENTS_PER_PAGE);
+
+         if (result) {
+            setComments(result.comments || []);
+            setHasMore(result.hasMore);
+         } else {
+            setComments([]);
+            setHasMore(false);
+         }
       } catch (err) {
          console.error("Error fetching comments:", err);
          setError("Failed to load comments. Please try again.");
       } finally {
          setIsLoading(false);
       }
-   }, [isOpen, postId, setComments, setIsLoading, setError]);
+   }, [isOpen, postId]);
+
+   // Load more comments
+   const loadMoreComments = async () => {
+      if (!comments.length || isLoadingMore) return;
+
+      try {
+         setIsLoadingMore(true);
+
+         // Get the last comment's ID for pagination
+         const lastCommentId = comments[comments.length - 1].id;
+
+         const result = await getCommentsByPostId(
+            postId,
+            COMMENTS_PER_PAGE,
+            lastCommentId
+         );
+
+         if (result) {
+            // Append new comments to existing ones
+            setComments((prevComments) => [
+               ...prevComments,
+               ...result.comments,
+            ]);
+            setHasMore(result.hasMore);
+         }
+      } catch (err) {
+         console.error("Error loading more comments:", err);
+         toast.error("Failed to load more comments. Please try again.");
+      } finally {
+         setIsLoadingMore(false);
+      }
+   };
 
    // Handle refresh button click
    const handleRefresh = () => {
@@ -238,6 +281,9 @@ export default function CommentDialog({
                                  comments={comments}
                                  postId={postId}
                                  isLoading={isLoading}
+                                 isLoadingMore={isLoadingMore}
+                                 hasMore={hasMore}
+                                 onLoadMore={loadMoreComments}
                                  onReplySubmit={handleReplySubmit}
                                  onCommentDeleted={(commentId) => {
                                     // Check if it's a top-level comment or a reply

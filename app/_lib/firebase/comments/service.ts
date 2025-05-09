@@ -3,8 +3,10 @@ import {
    doc,
    getDoc,
    getDocs,
+   limit as limitFirestore,
    orderBy,
    query,
+   startAfter,
    where,
 } from "firebase/firestore";
 import { getUserById } from "../auth/service";
@@ -12,31 +14,61 @@ import { db } from "../firebase";
 import { Comment } from "../types";
 
 /**
- * Get all comments for a specific post
+ * Get comments for a specific post with pagination
  * @param postId The post's ID
- * @returns An array of comment objects with user data
+ * @param limit Number of comments to fetch per page (default: 5)
+ * @param lastCommentId Optional ID of the last comment for pagination
+ * @returns An object containing comments array and hasMore flag
  */
-export async function getCommentsByPostId(postId: string) {
+export async function getCommentsByPostId(
+   postId: string,
+   limit: number = 5,
+   lastCommentId?: string
+) {
    const commentsRef = collection(db, "comments");
+   let q;
 
-   // Get all comments for the post
-   const q = query(
-      commentsRef,
-      where("postId", "==", postId),
-      orderBy("createdAt", "desc")
-   );
+   // Base query for top-level comments (no parentId)
+   if (lastCommentId) {
+      // Get the last document as a reference point
+      const lastCommentDoc = await getDoc(doc(db, "comments", lastCommentId));
+
+      if (!lastCommentDoc.exists()) {
+         throw new Error(`Comment with id ${lastCommentId} not found`);
+      }
+
+      // Create a query that starts after the last document
+      q = query(
+         commentsRef,
+         where("postId", "==", postId),
+         orderBy("createdAt", "desc"),
+         startAfter(lastCommentDoc),
+         limitFirestore(limit)
+      );
+   } else {
+      // Initial query without a starting point
+      q = query(
+         commentsRef,
+         where("postId", "==", postId),
+         orderBy("createdAt", "desc"),
+         limitFirestore(limit)
+      );
+   }
 
    const querySnapshot = await getDocs(q);
 
    if (querySnapshot.empty) {
-      return null;
+      return { comments: [], hasMore: false };
    }
 
-   // Filter for top-level comments (no parentId or parentId is null)
+   // Filter out replies (comments with parentId)
    const topLevelDocs = querySnapshot.docs.filter((doc) => {
       const data = doc.data();
-      return data.parentId === undefined || data.parentId === null;
+      return !data.parentId;
    });
+
+   // Check if there are more comments to load
+   const hasMore = topLevelDocs.length === limit;
 
    const comments = await Promise.all(
       topLevelDocs.map(async (doc) => {
@@ -66,7 +98,7 @@ export async function getCommentsByPostId(postId: string) {
       })
    );
 
-   return comments;
+   return { comments, hasMore };
 }
 
 /**

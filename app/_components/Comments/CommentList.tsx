@@ -3,6 +3,7 @@
 import { Comment } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import LoadingDots from "../UI/LoadingDots/LoadingDots";
 import Skeleton from "../UI/Skeleton/Skeleton";
 import CommentItem from "./CommentItem";
 import styles from "./Comments.module.scss";
@@ -11,6 +12,9 @@ type CommentListProps = {
    postId: string;
    comments: (Comment & { replies: Comment[] })[];
    isLoading?: boolean;
+   isLoadingMore?: boolean;
+   hasMore?: boolean;
+   onLoadMore?: () => void;
    onReplySubmit?: (reply?: Comment) => void;
    onCommentDeleted?: (commentId: string) => void;
 };
@@ -19,6 +23,9 @@ export default function CommentList({
    postId,
    comments: initialComments,
    isLoading = false,
+   isLoadingMore = false,
+   hasMore = false,
+   onLoadMore,
    onReplySubmit,
    onCommentDeleted,
 }: CommentListProps) {
@@ -38,6 +45,7 @@ export default function CommentList({
       );
       if (onCommentDeleted) onCommentDeleted(commentId);
    };
+
    // Show loading skeletons
    if (isLoading) {
       return (
@@ -95,6 +103,24 @@ export default function CommentList({
                </motion.div>
             ))}
          </AnimatePresence>
+
+         {/* View More Comments Button */}
+         {hasMore && (
+            <motion.div
+               initial={{ opacity: 0, y: 10 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.3 }}
+               className={styles.load_more_container}
+            >
+               <button
+                  className={`${styles.load_more_button} ${isLoadingMore ? styles.loading : ""}`}
+                  onClick={onLoadMore}
+                  disabled={isLoadingMore}
+               >
+                  {isLoadingMore ? <LoadingDots /> : "View more comments"}
+               </button>
+            </motion.div>
+         )}
       </div>
    );
 }

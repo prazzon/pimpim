@@ -158,6 +158,42 @@
    gap: 1.5rem;
 }
 
+// Load more button styles
+.load_more_container {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 1rem;
+}
+
+.load_more_button {
+   background: transparent;
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   color: var(--text-secondary);
+   padding: 1rem 2rem;
+   border-radius: 3rem;
+   font-size: 1.4rem;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   min-width: 19.5rem;
+   min-height: 4.5rem;
+   position: relative;
+   overflow: hidden;
+
+   &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+   }
+
+   &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+   }
+
+   &.loading {
+      background-color: rgba(255, 255, 255, 0.03);
+   }
+}
+
 // Comment item styles
 .comment_item {
    display: flex;
