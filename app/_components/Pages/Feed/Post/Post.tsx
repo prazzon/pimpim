@@ -58,14 +58,12 @@ async function Post({ post }: Props) {
                className={styles.content}
                dangerouslySetInnerHTML={{ __html: post.content }}
             />
-
-            {/* Action bar - sticky to the post content */}
-            <PostActionBar
-               postId={post.id}
-               postTitle={post.title}
-               authorName={post.author.name}
-            />
          </div>
+         <PostActionBar
+            postId={post.id}
+            postTitle={post.title}
+            authorName={post.author.name}
+         />
       </div>
    );
 }
