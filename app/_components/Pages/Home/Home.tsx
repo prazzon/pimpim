@@ -46,7 +46,7 @@ function Home({
                </div>
 
                <Image
-                  src="/ads/ad.png"
+                  src="/images/ads/ad.png"
                   alt="Ad"
                   width={325}
                   height={500}
@@ -70,7 +70,7 @@ function Home({
 
             <div className={styles.sidebar}>
                <Image
-                  src="/ads/ad2.png"
+                  src="/images/ads/ad2.png"
                   alt="Ad"
                   width={325}
                   height={500}
