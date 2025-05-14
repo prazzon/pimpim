@@ -1,4 +1,5 @@
 import { Category, Post } from "@/app/_lib/firebase/types";
+import Image from "next/image";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
@@ -44,7 +45,13 @@ function Home({
                   <Trending posts={posts} />
                </div>
 
-               <div className={styles.ads}>Ads</div>
+               <Image
+                  src="/ads/ad.png"
+                  alt="Ad"
+                  width={325}
+                  height={500}
+                  className={styles.ads}
+               />
             </div>
          </div>
 
@@ -62,7 +69,13 @@ function Home({
             </div>
 
             <div className={styles.sidebar}>
-               <div className={styles.ads}>Ads</div>
+               <Image
+                  src="/ads/ad2.png"
+                  alt="Ad"
+                  width={325}
+                  height={500}
+                  className={styles.ads}
+               />
             </div>
          </div>
       </section>
