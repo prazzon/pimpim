@@ -1,9 +1,12 @@
+"use client";
+
 import { type Post } from "@/app/_lib/firebase/types";
 import { generateArticleAltText } from "@/app/_lib/seo/imageAlt";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import { BiTimeFive } from "react-icons/bi";
 import CategoryBtn from "../../../UI/CategoryBtn/CategoryBtn";
+import PostContent from "../../../UI/PostContent/PostContent";
 import PostActionBar from "../PostActionBar/PostActionBar";
 import styles from "./Post.module.scss";
 
@@ -11,7 +14,7 @@ type Props = {
    post: Post;
 };
 
-async function Post({ post }: Props) {
+function Post({ post }: Props) {
    // Calculate estimated reading time
    const wordsPerMinute = 200;
    const wordCount = post.content.split(/\s+/).length;
@@ -54,10 +57,7 @@ async function Post({ post }: Props) {
          <p className={styles.summary}>{post.summary}</p>
 
          <div className={styles.post_layout}>
-            <div
-               className={styles.content}
-               dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <PostContent content={post.content} className={styles.content} />
          </div>
          <PostActionBar
             postId={post.id}
