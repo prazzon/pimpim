@@ -71,10 +71,6 @@
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 
-      @media (max-width: 768px) {
-         aspect-ratio: auto;
-      }
-
       img {
          object-fit: cover;
          object-position: center 20%;
