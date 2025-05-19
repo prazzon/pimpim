@@ -48,7 +48,7 @@ export default function LatestPosts() {
       setIsLoadingMore(true);
 
       try {
-         const result = await getPaginatedPosts(2, lastPostId);
+         const result = await getPaginatedPosts(10, lastPostId);
 
          if (result.posts.length > 0) {
             setPosts((prevPosts) => [...prevPosts, ...result.posts]);
