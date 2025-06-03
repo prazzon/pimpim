@@ -47,8 +47,13 @@
    }
 }
 
+.ads_container {
+   display: flex;
+   justify-content: center;
+}
+
 .ads {
-   width: 100%;
+   margin: 0 auto;
    position: sticky;
    top: 12rem;
    border-radius: 1rem;
