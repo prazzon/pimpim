@@ -18,9 +18,9 @@ function SlideInfo({ transitionData, currentSlideData }: Props) {
    const page =
       data.category === "movie"
          ? "movies"
-         : data.category === "show"
-         ? "shows"
-         : data.category;
+         : data.category === "show" || data.category === "series"
+           ? "shows"
+           : data.category;
 
    return (
       <div className={styles.slide_info}>

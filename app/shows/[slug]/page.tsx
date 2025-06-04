@@ -1,6 +1,7 @@
 import Series from "@/app/_components/Pages/Series/Series";
 import JsonLd from "@/app/_components/SEO/JsonLd";
-import { shows } from "@/app/_data/data-shows";
+import { getSeriesBySlug } from "@/app/_lib/firebase/series/service";
+// import { shows } from "@/app/_data/data-shows";
 import { generateTVSeriesSchema } from "@/app/_lib/seo/schema";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -11,7 +12,8 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
    const { slug } = await params;
-   const show = shows.find((show) => show.slug === slug);
+
+   const show = await getSeriesBySlug(slug);
 
    if (!show) {
       return {
@@ -58,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 async function ShowPage({ params }: Props) {
    const { slug } = await params;
 
-   const show = shows.find((show) => show.slug === slug);
+   const show = await getSeriesBySlug(slug);
 
    if (!show) notFound();
 

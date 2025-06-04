@@ -66,30 +66,32 @@ function Carousel({ sliderData }: Props) {
                   </div>
 
                   {/* Slider right carousel content */}
-                  <div className={styles.slider_right}>
-                     {/* Slides */}
-                     <div
-                        className={styles.slides}
-                        style={{
-                           gridTemplateColumns: `repeat(${data.length}, 22rem)`,
-                        }}
-                     >
-                        {data.map((item) => (
-                           <SliderCard key={item.id} data={item} />
-                        ))}
-                     </div>
+                  {sliderData.length > 1 && (
+                     <div className={styles.slider_right}>
+                        {/* Slides */}
+                        <div
+                           className={styles.slides}
+                           style={{
+                              gridTemplateColumns: `repeat(${data.length}, 22rem)`,
+                           }}
+                        >
+                           {data.map((item) => (
+                              <SliderCard key={item.id} data={item} />
+                           ))}
+                        </div>
 
-                     <Controls
-                        currentSlideData={currentSlideData}
-                        transitionData={transitionData}
-                        data={data}
-                        initData={initData}
-                        handleData={setData}
-                        handleTransitionData={setTransitionData}
-                        handleCurrentSlideData={setCurrentSlideData}
-                        sliderData={sliderData}
-                     />
-                  </div>
+                        <Controls
+                           currentSlideData={currentSlideData}
+                           transitionData={transitionData}
+                           data={data}
+                           initData={initData}
+                           handleData={setData}
+                           handleTransitionData={setTransitionData}
+                           handleCurrentSlideData={setCurrentSlideData}
+                           sliderData={sliderData}
+                        />
+                     </div>
+                  )}
                </div>
             </div>
          </AnimatePresence>
