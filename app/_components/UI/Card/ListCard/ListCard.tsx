@@ -18,10 +18,10 @@ function ListCard({ item, position }: Props) {
          pageLink = `/movies/${item.slug}`;
          break;
       case "series":
-         pageLink = `/series/${item.id}`;
+         pageLink = `/shows/${item.slug}`;
          break;
       case "show":
-         pageLink = `/shows/${item.id}`;
+         pageLink = `/shows/${item.slug}`;
          break;
       default:
          pageLink = "/";
