@@ -86,21 +86,31 @@
       height: 16rem;
       height: 17rem;
       height: 20rem;
-      aspect-ratio: 16 / 9;
+      height: 18rem;
+      // aspect-ratio: 16 / 9;
+      width: 32.5rem;
       border-radius: 1rem;
       // border-radius: 0.5rem;
       overflow: hidden;
 
       @media (max-width: 1024px) {
-         height: 15rem;
+         width: 35rem;
       }
 
       @media (max-width: 768px) {
-         height: 15rem;
-         // width: 25rem;
-         width: 100%;
-         aspect-ratio: auto;
+         width: 30rem;
       }
+
+      // @media (max-width: 1024px) {
+      //    height: 15rem;
+      // }
+
+      // @media (max-width: 768px) {
+      //    height: 15rem;
+      //    // width: 25rem;
+      //    width: 100%;
+      //    aspect-ratio: auto;
+      // }
 
       @media (max-width: 425px) {
          height: 13rem;
@@ -166,6 +176,7 @@
          color: var(--color-primary);
          font-size: 1.8rem;
          font-size: 2rem;
+         font-weight: 500;
          line-height: 1.5;
          display: -webkit-box;
          line-clamp: 2;

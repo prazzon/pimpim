@@ -4,7 +4,6 @@ import Logo from "@/public/logo.svg";
 import clsx from "clsx";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { FaInstagram, FaTiktok, FaXTwitter } from "react-icons/fa6";
 import AuthDialog from "../../Auth/AuthDialog";
@@ -38,9 +37,9 @@ function Footer() {
          aria-label="Site footer"
       >
          <div className={styles.footer_top}>
-            <Link href="/" className={styles.footer_logo}>
+            <div className={styles.footer_logo}>
                <Image src={Logo} alt="logo" fill />
-            </Link>
+            </div>
             <div className={styles.footer_btns}>
                {status === "authenticated" && session?.user ? (
                   <Button btnStyle="secondary" onClick={handleLogout}>

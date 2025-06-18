@@ -1,5 +1,6 @@
 import { Category, Post } from "@/app/_lib/firebase/types";
 import Image from "next/image";
+import Link from "next/link";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
@@ -11,7 +12,7 @@ import LatestPosts from "./LatestPosts/LatestPosts";
 import Trending from "./Trending/Trending";
 
 type Props = {
-   posts: Post[];
+   trendingPosts: Post[];
    mainPosts: Post[];
    spotlightPosts: Post[];
    featuredPosts: Post[];
@@ -20,7 +21,7 @@ type Props = {
 };
 
 function Home({
-   posts,
+   trendingPosts,
    spotlightPosts,
    mainPosts,
    featuredPosts,
@@ -42,16 +43,22 @@ function Home({
 
             <div className={styles.sidebar}>
                <div>
-                  <Trending posts={posts} />
+                  <Trending posts={trendingPosts} />
                </div>
 
-               <Image
-                  src="/images/ads/ad.png"
-                  alt="Ad"
-                  width={325}
-                  height={500}
+               <Link
+                  href="https://www.relatedmotion.com/"
                   className={styles.ads}
-               />
+                  target="_blank"
+               >
+                  <Image
+                     src="/images/ads/ad.png"
+                     alt="Ad"
+                     width={325}
+                     height={500}
+                     className={styles.ads}
+                  />
+               </Link>
             </div>
          </div>
 
@@ -69,13 +76,19 @@ function Home({
             </div>
 
             <div className={styles.sidebar}>
-               <Image
-                  src="/images/ads/ad2.png"
-                  alt="Ad"
-                  width={325}
-                  height={500}
+               <Link
+                  href="https://www.relatedmotion.com/legacy-film"
                   className={styles.ads}
-               />
+                  target="_blank"
+               >
+                  <Image
+                     src="/images/ads/ad2.png"
+                     alt="Ad"
+                     width={325}
+                     height={500}
+                     className={styles.ads}
+                  />
+               </Link>
             </div>
          </div>
       </section>

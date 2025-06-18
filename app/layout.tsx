@@ -79,7 +79,7 @@ export const metadata: Metadata = {
       google: process.env.GOOGLE_VERIFICATION,
    },
    alternates: {
-      canonical: "/",
+      canonical: "https://pimpim.ng",
       languages: {
          "en-US": "/en-US",
       },

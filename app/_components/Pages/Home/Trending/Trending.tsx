@@ -16,42 +16,40 @@ function Trending({ posts }: Props) {
          <Title type="secondary">Trending</Title>
 
          <div className={styles.trending_content}>
-            {posts
-               .slice(0, 5)
-               .map((item, index) => (
-                  <div className={styles.trending_item} key={item.id}>
-                     <Link
-                        href={`/feed/${item.slug}`}
-                        className={styles.overlay}
-                     />
+            {posts.slice(0, 5).map((item, index) => (
+               <div className={styles.trending_item} key={item.id}>
+                  <Link
+                     href={`/feed/${item.slug}`}
+                     className={styles.overlay}
+                  />
 
-                     <div className={styles.poster}>
-                        <span className={styles.position}>{index + 1}</span>
+                  <div className={styles.poster}>
+                     <span className={styles.position}>{index + 1}</span>
 
-                        <Image src={item.poster} alt={item.title} fill />
-                     </div>
-
-                     <div className={styles.info}>
-                        <p className={styles.info_date}>
-                           {formatDistanceToNow(item.createdAt, {
-                              addSuffix: true,
-                           })}
-                        </p>
-
-                        <p className={styles.info_title}>
-                           <span>{item.title}</span>
-                        </p>
-
-                        {item.category && (
-                           <CategoryBtn
-                              href={`/categories/${item.category.slug}`}
-                              className={styles.info_category}
-                              text={item.category.name}
-                           />
-                        )}
-                     </div>
+                     <Image src={item.poster} alt={item.title} fill />
                   </div>
-               ))}
+
+                  <div className={styles.info}>
+                     <p className={styles.info_date}>
+                        {formatDistanceToNow(item.createdAt, {
+                           addSuffix: true,
+                        })}
+                     </p>
+
+                     <h1 className={styles.info_title}>
+                        <span>{item.title}</span>
+                     </h1>
+
+                     {item.category && (
+                        <CategoryBtn
+                           href={`/categories/${item.category.slug}`}
+                           className={styles.info_category}
+                           text={item.category.name}
+                        />
+                     )}
+                  </div>
+               </div>
+            ))}
          </div>
       </div>
    );

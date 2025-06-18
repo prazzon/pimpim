@@ -18,20 +18,18 @@ import { Post } from "../types";
  * Get all posts from the database, ordered by creation date (newest first)
  * @returns An array of post objects with author and category data
  */
-export async function getPosts() {
+export async function getPosts(numberOfPosts?: number) {
    const postsRef = collection(db, "posts");
 
-   const q = query(postsRef, orderBy("createdAt", "desc"));
+   // Create base query ordered by creation date
+   let q = query(postsRef, orderBy("createdAt", "desc"));
+
+   // If numberOfPosts is specified, add limit to query
+   if (numberOfPosts) {
+      q = query(q, limit(numberOfPosts));
+   }
 
    const querySnapshot = await getDocs(q);
-
-   // const posts = querySnapshot.docs.map((doc) => ({
-   //    id: doc.id,
-   //    ...doc.data(),
-   //    authorId: await getAuthorById(doc.data().authorId),
-   //    createdAt: doc.data().createdAt.toDate(),
-   //    updatedAt: doc.data().updatedAt.toDate(),
-   // } as Post));
 
    const posts = await Promise.all(
       querySnapshot.docs.map(async (doc) => {

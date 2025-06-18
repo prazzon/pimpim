@@ -30,12 +30,12 @@ export const metadata: Metadata = {
       "pimpim network",
    ],
    alternates: {
-      canonical: "/",
+      canonical: "https://pimpim.ng",
    },
 };
 
 export default async function HomePage() {
-   const allPosts = await getPosts();
+   const trendingPosts = await getPosts(5);
    const spotlightPosts = await getPostsBySection("spotlight");
    const mainPosts = await getPostsBySection("main");
    const featuredPosts = await getPostsBySection("featured", 5);
@@ -51,7 +51,7 @@ export default async function HomePage() {
          <JsonLd data={[websiteSchema, organizationSchema]} />
          <Main>
             <Home
-               posts={allPosts}
+               trendingPosts={trendingPosts}
                spotlightPosts={spotlightPosts}
                mainPosts={mainPosts}
                featuredPosts={featuredPosts}
