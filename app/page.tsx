@@ -24,6 +24,9 @@ export const metadata: Metadata = {
       "trending",
       "news",
       "home",
+      "pimpim",
+      "pim pim",
+      "pimpim network",
    ],
    alternates: {
       canonical: "/",
