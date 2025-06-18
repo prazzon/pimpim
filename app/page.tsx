@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "trending",
       "news",
       "home",
+      "pim",
       "pimpim",
       "pim pim",
       "pimpim network",
