@@ -37,9 +37,9 @@ function Footer() {
          aria-label="Site footer"
       >
          <div className={styles.footer_top}>
-            <div className={styles.footer_logo}>
+            <h1 className={styles.footer_logo}>
                <Image src={Logo} alt="logo" fill />
-            </div>
+            </h1>
             <div className={styles.footer_btns}>
                {status === "authenticated" && session?.user ? (
                   <Button btnStyle="secondary" onClick={handleLogout}>
