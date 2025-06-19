@@ -7,11 +7,7 @@ type Props = {
 };
 
 function Title({ children, type = "primary" }: Props) {
-   return (
-      <h2 className={clsx(styles.title, styles[type])}>
-         {children}
-      </h2>
-   );
+   return <h1 className={clsx(styles.title, styles[type])}>{children}</h1>;
 }
 
 export default Title;
