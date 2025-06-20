@@ -54,7 +54,6 @@ function MiniCarousel({ items }: Props) {
             >
                <Image
                   fill
-                  placeholder="blur"
                   src={items[imageIndex].poster}
                   alt={items[imageIndex].title}
                   style={{ objectFit: "cover" }}
