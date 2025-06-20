@@ -2,6 +2,7 @@
 
 import { Post } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion, wrap } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { GrFormNextLink } from "react-icons/gr";
@@ -31,11 +32,10 @@ function MiniCarousel({ items }: Props) {
    return (
       <div className={styles.container}>
          <AnimatePresence initial={false}>
-            <motion.img
+            <motion.div
                key={page}
-               src={items[imageIndex].poster}
                custom={direction}
-               alt={items[imageIndex].title}
+               className={styles.image_wrapper}
                variants={{
                   enter: (dir) => ({
                      x: dir > 0 ? 1000 : -1000,
@@ -51,7 +51,15 @@ function MiniCarousel({ items }: Props) {
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                }}
-            />
+            >
+               <Image
+                  fill
+                  placeholder="blur"
+                  src={items[imageIndex].poster}
+                  alt={items[imageIndex].title}
+                  style={{ objectFit: "cover" }}
+               />
+            </motion.div>
          </AnimatePresence>
 
          {/* <Link
