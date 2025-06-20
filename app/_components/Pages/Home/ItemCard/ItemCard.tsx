@@ -23,7 +23,11 @@ function ItemCard({ item, position, layout = "horizontal" }: Props) {
          animate={{ opacity: 1, y: 0 }}
          transition={{ duration: 0.25 }}
       >
-         <Link href={`/feed/${item.slug}`} className={styles.overlay} />
+         <Link
+            href={`/feed/${item.slug}`}
+            className={styles.overlay}
+            aria-label={`Read more about ${item.title}`}
+         />
 
          <div className={styles.poster}>
             {position && <span className={styles.position}>{position}</span>}

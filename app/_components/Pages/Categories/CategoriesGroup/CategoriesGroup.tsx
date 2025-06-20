@@ -46,7 +46,11 @@ function CategoriesGroup({ categories }: { categories: Category[] }) {
    return (
       <div className={styles.container}>
          {showLeft && (
-            <button className={styles.left_handle} onClick={handleLeftClick}>
+            <button
+               className={styles.left_handle}
+               onClick={handleLeftClick}
+               aria-label="Scroll left"
+            >
                <MdOutlineNavigateBefore />
             </button>
          )}
@@ -66,7 +70,14 @@ function CategoriesGroup({ categories }: { categories: Category[] }) {
                   key={category.name}
                >
                   <div className={styles.category_img}>
-                     <Image src={category.image} alt={category.name} fill />
+                     <Image
+                        src={category.image}
+                        alt={
+                           category.description ||
+                           `pimpim ${category.name} category image`
+                        }
+                        fill
+                     />
                   </div>
                   <h2 className={styles.category_name}>{category.name}</h2>
                </Link>
@@ -74,7 +85,11 @@ function CategoriesGroup({ categories }: { categories: Category[] }) {
          </div>
 
          {showRight && (
-            <button className={styles.right_handle} onClick={handleRightClick}>
+            <button
+               className={styles.right_handle}
+               onClick={handleRightClick}
+               aria-label="Scroll right"
+            >
                <MdOutlineNavigateNext />
             </button>
          )}

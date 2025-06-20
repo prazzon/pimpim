@@ -35,6 +35,7 @@ function MiniCarousel({ items }: Props) {
                key={page}
                src={items[imageIndex].poster}
                custom={direction}
+               alt={items[imageIndex].title}
                variants={{
                   enter: (dir) => ({
                      x: dir > 0 ? 1000 : -1000,
