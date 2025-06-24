@@ -53,9 +53,9 @@ function ItemCard({ item, position, layout = "horizontal" }: Props) {
                ))}
             </p> */}
 
-            <h1 className={styles.info_title}>
+            <h3 className={styles.info_title}>
                <span>{item.title}</span>
-            </h1>
+            </h3>
 
             {/* <p className={styles.info_date}>By {item.author?.name}</p> */}
 
