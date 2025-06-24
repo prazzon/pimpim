@@ -1,6 +1,6 @@
 import Post from "@/app/_components/Pages/Feed/Post/Post";
 import JsonLd from "@/app/_components/SEO/JsonLd";
-import { getPostBySlug } from "@/app/_lib/firebase/posts/service";
+import { getPostBySlug, getPosts } from "@/app/_lib/firebase/posts/service";
 import { generateArticleSchema } from "@/app/_lib/seo/schema";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -64,6 +64,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
          images: [post.poster],
       },
    };
+}
+
+export async function generateStaticParams() {
+   const posts = await getPosts(20);
+
+   return posts.map((post) => ({
+      params: { slug: post.slug },
+   }));
 }
 
 async function PostPage({ params }: Props) {
