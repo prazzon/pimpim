@@ -22,6 +22,8 @@ function Post({ post }: Props) {
 
    const altText = generateArticleAltText(post.title, post.category?.name);
 
+   const hasBeenModified = post.updatedAt > post.createdAt;
+
    return (
       <div className={styles.post}>
          {/* Header with category and metadata */}
@@ -38,6 +40,17 @@ function Post({ post }: Props) {
                   addSuffix: true,
                })}
             </p>
+
+            {hasBeenModified && (
+               <p className={styles.modified}>
+                  <span>
+                     edited{" "}
+                     {formatDistanceToNow(post.updatedAt, {
+                        addSuffix: true,
+                     })}
+                  </span>
+               </p>
+            )}
 
             <div className={styles.reading_time}>
                <BiTimeFive />
