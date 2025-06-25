@@ -88,13 +88,15 @@ function Navigation() {
          </ul>
 
          <div className={styles.desktop_auth}>
-            {status === "authenticated" && session?.user ? (
+            {status === "authenticated" && session?.user && (
                <UserDropdown
                   name={session.user.name}
                   image={session.user.image}
                   isScrolled={isScrolled}
                />
-            ) : (
+            )}
+
+            {status === "unauthenticated" && (
                <div onClick={handleOpenAuthDialog}>
                   <GradientText
                      animationSpeed={40}
