@@ -34,6 +34,11 @@ function Home({
          <div className={styles.grid}>
             <div className={styles.main}>
                <MiniCarousel items={mainPosts} />
+               <AdBanner
+                  dataAdSlot="5010019560"
+                  dataAdClient="ca-pub-7227150050392511"
+                  className={styles.ads}
+               />
                <div>
                   <Title type="secondary">Spotlight</Title>
                   {spotlightPosts.map((item) => (
