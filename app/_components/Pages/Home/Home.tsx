@@ -37,7 +37,7 @@ function Home({
                <AdBanner
                   dataAdSlot="5010019560"
                   dataAdClient="ca-pub-7227150050392511"
-                  className={styles.ads}
+                  // className={styles.ads}
                />
                <div>
                   <Title type="secondary">Spotlight</Title>
@@ -56,7 +56,7 @@ function Home({
                <AdBanner
                   dataAdSlot="5010019560"
                   dataAdClient="ca-pub-7227150050392511"
-                  className={styles.ads}
+                  // className={styles.ads}
                />
                {/* </div> */}
 
