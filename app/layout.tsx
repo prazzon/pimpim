@@ -2,7 +2,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
-import AdSense from "./_components/AdSense";
+import AdSense from "./_components/Ads/AdSense";
 import { OnboardingProvider } from "./_components/Onboarding/OnboardingProvider";
 import SessionProvider from "./_components/Providers/SessionProvider";
 import Footer from "./_components/UI/Footer/Footer";
