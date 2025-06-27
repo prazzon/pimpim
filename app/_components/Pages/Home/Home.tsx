@@ -47,15 +47,13 @@ function Home({
                   <Trending posts={trendingPosts} />
                </div>
 
-               <div className={styles.ads_container}>
-                  <AdBanner
-                     dataAdSlot="5010019560"
-                     dataAdFormat="auto"
-                     dataAdClient="ca-pub-7227150050392511"
-                     dataFullWidthResponsive={true}
-                     className={styles.ads}
-                  />
-               </div>
+               {/* <div className={styles.ads_container}> */}
+               <AdBanner
+                  dataAdSlot="5010019560"
+                  dataAdClient="ca-pub-7227150050392511"
+                  className={styles.ads}
+               />
+               {/* </div> */}
 
                {/* <Link
                   href="https://www.relatedmotion.com/"
