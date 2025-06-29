@@ -13,6 +13,16 @@
       gap: 1.5rem;
       margin: 1rem 0;
 
+      @media (max-width: 435px) {
+         flex-direction: column;
+      }
+
+      .metadata {
+         display: flex;
+         align-items: center;
+         gap: 1.5rem;
+      }
+
       .date {
          font-size: 1.3rem;
          font-weight: 500;

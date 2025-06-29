@@ -35,26 +35,26 @@ function Post({ post }: Props) {
                />
             )}
 
-            <p className={styles.date}>
-               {formatDistanceToNow(post.createdAt, {
-                  addSuffix: true,
-               })}
-            </p>
-
-            {hasBeenModified && (
-               <p className={styles.modified}>
-                  <span>
-                     edited{" "}
-                     {formatDistanceToNow(post.updatedAt, {
-                        addSuffix: true,
-                     })}
-                  </span>
+            <div className={styles.metadata}>
+               <p className={styles.date}>
+                  {formatDistanceToNow(post.createdAt, {
+                     addSuffix: true,
+                  })}
                </p>
-            )}
-
-            <div className={styles.reading_time}>
-               <BiTimeFive />
-               {readingTime} min read
+               {hasBeenModified && (
+                  <p className={styles.modified}>
+                     <span>
+                        edited{" "}
+                        {formatDistanceToNow(post.updatedAt, {
+                           addSuffix: true,
+                        })}
+                     </span>
+                  </p>
+               )}
+               <div className={styles.reading_time}>
+                  <BiTimeFive />
+                  {readingTime} min read
+               </div>
             </div>
          </div>
 
