@@ -50,9 +50,8 @@
 .ads_container {
    display: flex;
    justify-content: center;
-   // min-height: 50rem;
-   // width: 100%;
-   // width: 300px;
+   width: 100%;
+   max-width: 32.5rem;
 }
 
 .ads {
@@ -61,7 +60,5 @@
    top: 12rem;
    border-radius: 1rem;
    margin-bottom: 4rem;
-
-   width: 300px;
-   height: 500px;
+   width: 100%;
 }

@@ -1,7 +1,7 @@
 import { Category, Post } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
-// import AdBanner from "../../Ads/AdBanner";
+import AdBanner from "../../Ads/AdBanner";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
@@ -73,6 +73,14 @@ function Home({
                      className={styles.ads}
                   />
                </Link>
+
+               <div className={styles.ads_container}>
+                  <AdBanner
+                     dataAdSlot="5010019560"
+                     dataAdClient="ca-pub-7227150050392511"
+                     className={styles.ads}
+                  />
+               </div>
             </div>
          </div>
 
