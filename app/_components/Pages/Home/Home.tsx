@@ -1,7 +1,7 @@
 import { Category, Post } from "@/app/_lib/firebase/types";
 import Image from "next/image";
 import Link from "next/link";
-import AdBanner from "../../Ads/AdBanner";
+// import AdBanner from "../../Ads/AdBanner";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
 import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
@@ -34,11 +34,11 @@ function Home({
          <div className={styles.grid}>
             <div className={styles.main}>
                <MiniCarousel items={mainPosts} />
-               <AdBanner
+               {/* <AdBanner
                   dataAdSlot="5010019560"
                   dataAdClient="ca-pub-7227150050392511"
-                  // className={styles.ads}
-               />
+                  className={styles.ads}
+               /> */}
                <div>
                   <Title type="secondary">Spotlight</Title>
                   {spotlightPosts.map((item) => (
@@ -52,15 +52,15 @@ function Home({
                   <Trending posts={trendingPosts} />
                </div>
 
-               {/* <div className={styles.ads_container}> */}
-               <AdBanner
-                  dataAdSlot="5010019560"
-                  dataAdClient="ca-pub-7227150050392511"
-                  // className={styles.ads}
-               />
-               {/* </div> */}
+               {/* <div className={styles.ads_container}>
+                  <AdBanner
+                     dataAdSlot="5010019560"
+                     dataAdClient="ca-pub-7227150050392511"
+                     className={styles.ads}
+                  />
+               </div> */}
 
-               {/* <Link
+               <Link
                   href="https://www.relatedmotion.com/"
                   className={styles.ads}
                   target="_blank"
@@ -72,7 +72,7 @@ function Home({
                      height={500}
                      className={styles.ads}
                   />
-               </Link> */}
+               </Link>
             </div>
          </div>
 
