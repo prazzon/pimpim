@@ -1,7 +1,7 @@
 "use client";
 
 import { type Post } from "@/app/_lib/firebase/types";
-import { incrementViewCount } from "@/app/_lib/firebase/views/actions";
+import { trackPostView } from "@/app/_lib/firebase/views/client-actions";
 import { generateArticleAltText } from "@/app/_lib/seo/imageAlt";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
@@ -32,7 +32,7 @@ function Post({ post, viewCount }: Props) {
    useEffect(() => {
       const trackView = async () => {
          try {
-            await incrementViewCount(post.id);
+            await trackPostView(post.id);
          } catch (error) {
             // Silently fail - view tracking shouldn't break the user experience
             console.error("Failed to track view for post:", post.id, error);
