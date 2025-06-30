@@ -58,6 +58,20 @@
             font-size: 1.6rem;
          }
       }
+
+      .view_count {
+         font-size: 1.3rem;
+         font-weight: 500;
+         line-height: 1;
+         color: var(--text-secondary);
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+
+         svg {
+            font-size: 1.6rem;
+         }
+      }
    }
 
    // Title styling

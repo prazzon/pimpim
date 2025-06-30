@@ -1,10 +1,13 @@
 "use client";
 
 import { type Post } from "@/app/_lib/firebase/types";
+import { incrementViewCount } from "@/app/_lib/firebase/views/actions";
 import { generateArticleAltText } from "@/app/_lib/seo/imageAlt";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
+import { useEffect } from "react";
 import { BiTimeFive } from "react-icons/bi";
+import { FiEye } from "react-icons/fi";
 import CategoryBtn from "../../../UI/CategoryBtn/CategoryBtn";
 import PostContent from "../../../UI/PostContent/PostContent";
 import PostActionBar from "../PostActionBar/PostActionBar";
@@ -12,9 +15,10 @@ import styles from "./Post.module.scss";
 
 type Props = {
    post: Post;
+   viewCount: number;
 };
 
-function Post({ post }: Props) {
+function Post({ post, viewCount }: Props) {
    // Calculate estimated reading time
    const wordsPerMinute = 200;
    const wordCount = post.content.split(/\s+/).length;
@@ -23,6 +27,20 @@ function Post({ post }: Props) {
    const altText = generateArticleAltText(post.title, post.category?.name);
 
    const hasBeenModified = post.updatedAt > post.createdAt;
+
+   // Track view count when component mounts
+   useEffect(() => {
+      const trackView = async () => {
+         try {
+            await incrementViewCount(post.id);
+         } catch (error) {
+            // Silently fail - view tracking shouldn't break the user experience
+            console.error("Failed to track view for post:", post.id, error);
+         }
+      };
+
+      trackView();
+   }, [post.id]);
 
    return (
       <div className={styles.post}>
@@ -55,6 +73,12 @@ function Post({ post }: Props) {
                   <BiTimeFive />
                   {readingTime} min read
                </div>
+               {viewCount !== undefined && viewCount > 0 && (
+                  <div className={styles.view_count}>
+                     <FiEye />
+                     {viewCount.toLocaleString()} views
+                  </div>
+               )}
             </div>
          </div>
 

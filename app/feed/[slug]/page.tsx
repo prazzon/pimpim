@@ -1,6 +1,7 @@
 import Post from "@/app/_components/Pages/Feed/Post/Post";
 import JsonLd from "@/app/_components/SEO/JsonLd";
 import { getPostBySlug, getPosts } from "@/app/_lib/firebase/posts/service";
+import { getViewCount } from "@/app/_lib/firebase/views/service";
 import { generateArticleSchema } from "@/app/_lib/seo/schema";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -81,13 +82,15 @@ async function PostPage({ params }: Props) {
 
    if (!post) notFound();
 
+   const viewCount = await getViewCount(post.id);
+
    const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
    const articleSchema = generateArticleSchema(post, baseUrl);
 
    return (
       <>
          <JsonLd data={articleSchema} />
-         <Post post={post} />
+         <Post post={post} viewCount={viewCount} />
       </>
    );
 }

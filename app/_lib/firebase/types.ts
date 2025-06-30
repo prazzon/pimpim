@@ -200,3 +200,9 @@ export type Comment = {
       username?: string;
    };
 };
+
+export type PostView = {
+   id: string;
+   viewCount: number;
+   lastUpdated: Date;
+};
