@@ -7,7 +7,6 @@ import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import { useEffect } from "react";
 import { BiTimeFive } from "react-icons/bi";
-import { FiEye } from "react-icons/fi";
 import CategoryBtn from "../../../UI/CategoryBtn/CategoryBtn";
 import PostContent from "../../../UI/PostContent/PostContent";
 import PostActionBar from "../PostActionBar/PostActionBar";
@@ -15,10 +14,9 @@ import styles from "./Post.module.scss";
 
 type Props = {
    post: Post;
-   viewCount: number;
 };
 
-function Post({ post, viewCount }: Props) {
+function Post({ post }: Props) {
    // Calculate estimated reading time
    const wordsPerMinute = 200;
    const wordCount = post.content.split(/\s+/).length;
@@ -73,12 +71,6 @@ function Post({ post, viewCount }: Props) {
                   <BiTimeFive />
                   {readingTime} min read
                </div>
-               {viewCount !== undefined && viewCount > 0 && (
-                  <div className={styles.view_count}>
-                     <FiEye />
-                     {viewCount.toLocaleString()} views
-                  </div>
-               )}
             </div>
          </div>
 
