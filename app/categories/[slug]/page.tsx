@@ -1,3 +1,4 @@
+import NotFound from "@/app/_components/Pages/Categories/NotFound/NotFound";
 import ItemCard from "@/app/_components/Pages/Home/ItemCard/ItemCard";
 import { getPostsByCategorySlug } from "@/app/_lib/firebase/posts/service";
 import { Metadata } from "next";
@@ -59,12 +60,7 @@ async function CategoryPage({ params }: Props) {
             <ItemCard key={item.id} item={item} />
          ))}
 
-         {posts.length === 0 && (
-            <div>
-               <h1>No posts found</h1>
-               <p>There are no posts in this category</p>
-            </div>
-         )}
+         {posts.length === 0 && <NotFound />}
       </>
    );
 }
