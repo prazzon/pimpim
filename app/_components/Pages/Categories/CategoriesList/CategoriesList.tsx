@@ -1,13 +1,13 @@
 "use client";
 
+import { Category } from "@/app/_lib/firebase/types";
+import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./CategoriesList.module.scss";
-import clsx from "clsx";
-import { Category } from "@/app/_lib/firebase/types";
 
 type Props = {
-   categories: Category[];
+   categories: (Category & { count: number })[];
    showTitle?: boolean;
    showDescription?: boolean;
 };
@@ -19,36 +19,41 @@ function CategoriesList({ categories, showTitle, showDescription }: Props) {
       pathname.startsWith(`/categories/${category.slug}`)
    );
 
-   // function isActivePath(href: string) {
-   //    if (href === "/" && pathname !== href) {
-   //       return false;
-   //    }
-
-   //    return pathname.startsWith(href);
-   // }
-
    return (
       <>
-         <div className={styles.categories}>
-            <Link href={"/categories"} className={styles.category}>
-               <h3>All</h3>
-            </Link>
-            {categories.map((category) => (
+         <div className={styles.categories_container}>
+            <h4 className={styles.filter_title}>Filter by Category</h4>
+            <div className={styles.categories_grid}>
                <Link
-                  href={`/categories/${category.slug}`}
-                  key={category.id}
-                  // className={styles.category}
-                  // className={
-                  //    category.slug === activeCategory?.slug ? styles.active : ""
-                  // }
-                  className={clsx(styles.category, {
-                     [styles.active]: category.slug === activeCategory?.slug,
+                  href="/categories"
+                  className={clsx(styles.category_btn, styles.all_category, {
+                     [styles.active]: !activeCategory,
                   })}
                >
-                  <h3>{category.name}</h3>
+                  <span className={styles.category_label}>All Categories</span>
+                  <span className={styles.category_count}>
+                     {categories.reduce((acc, c) => acc + (c.count ?? 0), 0)}
+                  </span>
                </Link>
-            ))}
+               {categories.map((category) => (
+                  <Link
+                     href={`/categories/${category.slug}`}
+                     key={category.id}
+                     className={clsx(styles.category_btn, {
+                        [styles.active]: category.slug === activeCategory?.slug,
+                     })}
+                  >
+                     <span className={styles.category_label}>
+                        {category.name}
+                     </span>
+                     <span className={styles.category_count}>
+                        {category.count ?? 0}
+                     </span>
+                  </Link>
+               ))}
+            </div>
          </div>
+
          {showTitle && (
             <h1 className={styles.title}>{activeCategory?.name ?? "All"}</h1>
          )}

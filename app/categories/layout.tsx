@@ -1,10 +1,10 @@
 import CategoriesList from "../_components/Pages/Categories/CategoriesList/CategoriesList";
 import List from "../_components/UI/List/List";
 import Main from "../_components/UI/Main/Main";
-import { getCategories } from "../_lib/firebase/categories/service";
+import { getCategoriesWithPostCount } from "../_lib/firebase/categories/service";
 
 async function Layout({ children }: { children: React.ReactNode }) {
-   const categories = await getCategories();
+   const categories = await getCategoriesWithPostCount();
 
    return (
       <Main>
