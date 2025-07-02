@@ -3,7 +3,8 @@ import Home from "./_components/Pages/Home/Home";
 import JsonLd from "./_components/SEO/JsonLd";
 import Main from "./_components/UI/Main/Main";
 import { getCategories } from "./_lib/firebase/categories/service";
-import { getPosts, getPostsBySection } from "./_lib/firebase/posts/service";
+import { getPostsBySection } from "./_lib/firebase/posts/service";
+import { getTrendingPosts } from "./_lib/firebase/trending/service";
 import {
    generateOrganizationSchema,
    generateWebsiteSchema,
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-   const trendingPosts = await getPosts(5);
+   const trendingPosts = await getTrendingPosts(5);
    const spotlightPosts = await getPostsBySection("spotlight");
    const mainPosts = await getPostsBySection("main");
    const featuredPosts = await getPostsBySection("featured", 5);

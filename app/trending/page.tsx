@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ItemCard from "../_components/Pages/Home/ItemCard/ItemCard";
 import { getTrendingPosts } from "../_lib/firebase/trending/service";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 21600; // 6 hours in seconds
 
 export const metadata: Metadata = {
    title: "Trending Content",
