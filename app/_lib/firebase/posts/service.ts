@@ -324,3 +324,15 @@ export async function getPostsFromMultipleSections(
 
    return postsBySection;
 }
+
+/**
+ * Get the count of posts for a specific category
+ * @param categoryId The category's ID
+ * @returns The number of posts in the category
+ */
+export async function getPostCountByCategoryId(categoryId: string) {
+   const postsRef = collection(db, "posts");
+   const q = query(postsRef, where("categoryId", "==", categoryId));
+   const querySnapshot = await getDocs(q);
+   return querySnapshot.size;
+}

@@ -8,6 +8,7 @@ import {
    where,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { getPostCountByCategoryId } from "../posts/service";
 import { Category } from "../types";
 
 /**
@@ -24,10 +25,23 @@ export async function getCategories() {
          ({
             id: doc.id,
             ...doc.data(),
-         } as Category)
+         }) as Category
    );
 
    return categories;
+}
+
+export async function getCategoriesWithPostCount() {
+   const categories = await getCategories();
+
+   const categoriesWithCount = await Promise.all(
+      categories.map(async (category) => {
+         const postCount = await getPostCountByCategoryId(category.id);
+         return { ...category, count: postCount };
+      })
+   );
+
+   return categoriesWithCount;
 }
 
 /**

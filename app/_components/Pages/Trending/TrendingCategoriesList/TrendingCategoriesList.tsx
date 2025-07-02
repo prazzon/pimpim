@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import styles from "./TrendingCategoriesList.module.scss";
 
 type Props = {
-   categories: Category[];
+   categories: (Category & { count: number })[];
    showTitle?: boolean;
    showDescription?: boolean;
 };
@@ -19,7 +19,6 @@ function TrendingCategoriesList({
 }: Props) {
    const pathname = usePathname();
 
-   // Extract category slug from pathname (e.g., "/trending/sports" -> "sports")
    const activeCategory = pathname.startsWith("/trending/")
       ? pathname.split("/trending/")[1]
       : null;
@@ -30,26 +29,37 @@ function TrendingCategoriesList({
 
    return (
       <>
-         <div className={styles.categories}>
-            <Link
-               href="/trending"
-               className={clsx(styles.category, {
-                  [styles.active]: !activeCategory,
-               })}
-            >
-               <h3>All</h3>
-            </Link>
-            {categories.map((category) => (
+         <div className={styles.categories_container}>
+            <h4 className={styles.filter_title}>Filter by Category</h4>
+            <div className={styles.categories_grid}>
                <Link
-                  href={`/trending/${category.slug}`}
-                  key={category.id}
-                  className={clsx(styles.category, {
-                     [styles.active]: category.slug === activeCategory,
+                  href="/trending"
+                  className={clsx(styles.category_btn, styles.all_category, {
+                     [styles.active]: !activeCategory,
                   })}
                >
-                  <h3>{category.name}</h3>
+                  <span className={styles.category_label}>All Categories</span>
+                  <span className={styles.category_count}>
+                     {categories.reduce((acc, c) => acc + (c.count ?? 0), 0)}
+                  </span>
                </Link>
-            ))}
+               {categories.map((category) => (
+                  <Link
+                     href={`/trending/${category.slug}`}
+                     key={category.id}
+                     className={clsx(styles.category_btn, {
+                        [styles.active]: category.slug === activeCategory,
+                     })}
+                  >
+                     <span className={styles.category_label}>
+                        {category.name}
+                     </span>
+                     <span className={styles.category_count}>
+                        {category.count ?? 0}
+                     </span>
+                  </Link>
+               ))}
+            </div>
          </div>
          {showTitle && (
             <h1 className={styles.title}>
@@ -62,7 +72,7 @@ function TrendingCategoriesList({
          {showDescription && (
             <p className={styles.description}>
                {activeCategoryData?.description ??
-                  "Discover the most popular and trending posts based on view counts across all categories"}
+                  "Discover the most popular and trending posts based on views across all categories"}
             </p>
          )}
       </>
