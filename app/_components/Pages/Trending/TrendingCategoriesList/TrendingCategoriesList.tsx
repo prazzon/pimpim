@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import styles from "./TrendingCategoriesList.module.scss";
-import clsx from "clsx";
 import { Category } from "@/app/_lib/firebase/types";
+import clsx from "clsx";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import styles from "./TrendingCategoriesList.module.scss";
 
 type Props = {
    categories: Category[];
@@ -12,19 +12,27 @@ type Props = {
    showDescription?: boolean;
 };
 
-function TrendingCategoriesList({ categories, showTitle, showDescription }: Props) {
-   const searchParams = useSearchParams();
-   const activeCategory = searchParams.get("category");
+function TrendingCategoriesList({
+   categories,
+   showTitle,
+   showDescription,
+}: Props) {
+   const pathname = usePathname();
 
-   const activeCategoryData = categories.find((category: Category) =>
-      category.slug === activeCategory
+   // Extract category slug from pathname (e.g., "/trending/sports" -> "sports")
+   const activeCategory = pathname.startsWith("/trending/")
+      ? pathname.split("/trending/")[1]
+      : null;
+
+   const activeCategoryData = categories.find(
+      (category: Category) => category.slug === activeCategory
    );
 
    return (
       <>
          <div className={styles.categories}>
-            <Link 
-               href="/trending" 
+            <Link
+               href="/trending"
                className={clsx(styles.category, {
                   [styles.active]: !activeCategory,
                })}
@@ -33,7 +41,7 @@ function TrendingCategoriesList({ categories, showTitle, showDescription }: Prop
             </Link>
             {categories.map((category) => (
                <Link
-                  href={`/trending?category=${category.slug}`}
+                  href={`/trending/${category.slug}`}
                   key={category.id}
                   className={clsx(styles.category, {
                      [styles.active]: category.slug === activeCategory,
@@ -45,7 +53,9 @@ function TrendingCategoriesList({ categories, showTitle, showDescription }: Prop
          </div>
          {showTitle && (
             <h1 className={styles.title}>
-               {activeCategoryData?.name ? `Trending in ${activeCategoryData.name}` : "Trending"}
+               {activeCategoryData?.name
+                  ? `Trending in ${activeCategoryData.name}`
+                  : "Trending"}
             </h1>
          )}
 

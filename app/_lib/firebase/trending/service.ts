@@ -1,27 +1,20 @@
-import {
-   collection,
-   doc,
-   getDoc,
-   getDocs,
-   limit,
-   orderBy,
-   query,
-} from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { getAuthorById } from "../authors/service";
-import { getCategoryById } from "../categories/service";
+import { getCategoryById, getCategoryBySlug } from "../categories/service";
 import { db } from "../firebase";
+import { getPostById } from "../posts/service";
 import { Post } from "../types";
 import { getAllViewCounts } from "../views/service";
 
 /**
  * Get trending posts based on view counts with fallback logic
  * @param count Number of posts to return
- * @param categoryId Optional category filter
+ * @param categorySlug Optional category filter
  * @returns Array of trending posts ordered by view count (highest first)
  */
 export async function getTrendingPosts(
    count: number = 10,
-   categoryId?: string
+   categorySlug?: string
 ): Promise<Post[]> {
    try {
       // Get all view counts from the postViews collection
@@ -44,7 +37,7 @@ export async function getTrendingPosts(
             if (!post) continue;
 
             // Apply category filter if specified
-            if (categoryId && post.category.id !== categoryId) {
+            if (categorySlug && post.category.slug !== categorySlug) {
                continue;
             }
 
@@ -59,11 +52,11 @@ export async function getTrendingPosts(
       // Fallback logic
       if (trendingPosts.length < count) {
          const remainingCount = count - trendingPosts.length;
-         if (categoryId) {
+         if (categorySlug) {
             // Category-specific fallback: fill with latest posts from the same category only
             const latestCategoryPosts = await getLatestPostsByCategory(
                remainingCount * 2,
-               categoryId,
+               categorySlug,
                processedPostIds
             ); // Get more to account for filtering
 
@@ -102,13 +95,13 @@ export async function getTrendingPosts(
 /**
  * Get latest posts for a specific category for fallback when insufficient trending data
  * @param count Number of posts to return
- * @param categoryId The category ID to filter by
+ * @param categorySlug The category ID to filter by
  * @param excludeIds Set of post IDs to exclude
  * @returns Array of latest posts in the category
  */
 async function getLatestPostsByCategory(
    count: number,
-   categoryId: string,
+   categorySlug: string,
    excludeIds: Set<string> = new Set()
 ): Promise<Post[]> {
    try {
@@ -132,6 +125,10 @@ async function getLatestPostsByCategory(
                ...rest
             } = docSnap.data();
 
+            const categoryId = (await getCategoryBySlug(categorySlug))?.id;
+
+            if (!categoryId) continue;
+
             if (postCategoryId !== categoryId) continue;
 
             const post = {
@@ -154,37 +151,6 @@ async function getLatestPostsByCategory(
    } catch (error) {
       console.error("Error getting latest posts by category:", error);
       return [];
-   }
-}
-
-/**
- * Get a post by its ID with full author and category data
- * @param postId The post's ID
- * @returns The post object or null if not found
- */
-async function getPostById(postId: string): Promise<Post | null> {
-   try {
-      const docRef = doc(db, "posts", postId);
-      const docSnap = await getDoc(docRef);
-
-      if (!docSnap.exists()) {
-         return null;
-      }
-
-      const { authorId, categoryId, createdAt, updatedAt, ...rest } =
-         docSnap.data();
-
-      return {
-         id: docSnap.id,
-         ...rest,
-         author: await getAuthorById(authorId),
-         category: await getCategoryById(categoryId),
-         createdAt: createdAt.toDate(),
-         updatedAt: updatedAt.toDate(),
-      } as Post;
-   } catch (error) {
-      console.error(`Error getting post by ID ${postId}:`, error);
-      return null;
    }
 }
 
@@ -241,17 +207,4 @@ async function getLatestPosts(
       console.error("Error getting latest posts:", error);
       return [];
    }
-}
-
-/**
- * Get trending posts for a specific category
- * @param categoryId The category ID to filter by
- * @param count Number of posts to return
- * @returns Array of trending posts for the category
- */
-export async function getTrendingPostsByCategory(
-   categoryId: string,
-   count: number = 10
-): Promise<Post[]> {
-   return getTrendingPosts(count, categoryId);
 }
