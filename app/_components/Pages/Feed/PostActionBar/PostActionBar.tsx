@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaRegComment } from "react-icons/fa";
 import { FaShareNodes } from "react-icons/fa6";
 import CommentDialog from "../../../Comments/CommentDialog";
+import LikeButton from "../../../UI/LikeButton/LikeButton";
 import SocialShare from "../../../UI/SocialShare/SocialShare";
 import styles from "./PostActionBar.module.scss";
 
@@ -12,12 +13,16 @@ type PostActionBarProps = {
    postId: string;
    postTitle: string;
    authorName: string;
+   initialLikeCount?: number;
+   initialIsLiked?: boolean;
 };
 
 export default function PostActionBar({
    postId,
    postTitle,
    authorName,
+   initialLikeCount = 0,
+   initialIsLiked = false,
 }: PostActionBarProps) {
    const [isCommentDialogOpen, setIsCommentDialogOpen] = useState(false);
    const [isShareDropdownOpen, setIsShareDropdownOpen] = useState(false);
@@ -90,6 +95,15 @@ export default function PostActionBar({
       <>
          <div className={styles.sticky_action_bar}>
             <div className={styles.action_buttons}>
+               <LikeButton
+                  postId={postId}
+                  initialLikeCount={initialLikeCount}
+                  initialIsLiked={initialIsLiked}
+                  className={styles.action_button}
+                  size="medium"
+                  showCount={false}
+               />
+
                <button
                   className={styles.action_button}
                   onClick={handleOpenCommentDialog}

@@ -1,7 +1,12 @@
 import Post from "@/app/_components/Pages/Feed/Post/Post";
 import JsonLd from "@/app/_components/SEO/JsonLd";
+import {
+   // getLikeCount,
+   hasUserLikedPost,
+} from "@/app/_lib/firebase/likes/service";
 import { getPostBySlug, getPosts } from "@/app/_lib/firebase/posts/service";
 import { generateArticleSchema } from "@/app/_lib/seo/schema";
+import { auth } from "@/auth";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -76,10 +81,16 @@ export async function generateStaticParams() {
 
 async function PostPage({ params }: Props) {
    const { slug } = await params;
+   const session = await auth();
 
    const post = await getPostBySlug(slug);
 
    if (!post) notFound();
+
+   // const likeCount = await getLikeCount(post.id);
+   const isLikedByUser = session?.user?.id
+      ? await hasUserLikedPost(session.user.id, post.id)
+      : false;
 
    const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
    const articleSchema = generateArticleSchema(post, baseUrl);
@@ -87,7 +98,11 @@ async function PostPage({ params }: Props) {
    return (
       <>
          <JsonLd data={articleSchema} />
-         <Post post={post} />
+         <Post
+            post={post}
+            // initialLikeCount={likeCount}
+            initialIsLiked={isLikedByUser}
+         />
       </>
    );
 }

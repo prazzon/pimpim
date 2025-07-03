@@ -206,3 +206,16 @@ export type PostView = {
    viewCount: number;
    lastUpdated: Date;
 };
+
+export type PostLike = {
+   id: string;
+   userId: string;
+   postId: string;
+   createdAt: Date;
+};
+
+export type PostLikeData = {
+   id: string;
+   likeCount: number;
+   lastUpdated: Date;
+};

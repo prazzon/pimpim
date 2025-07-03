@@ -14,9 +14,11 @@ import styles from "./Post.module.scss";
 
 type Props = {
    post: Post;
+   initialLikeCount?: number;
+   initialIsLiked?: boolean;
 };
 
-function Post({ post }: Props) {
+function Post({ post, initialLikeCount, initialIsLiked }: Props) {
    // Calculate estimated reading time
    const wordsPerMinute = 200;
    const wordCount = post.content.split(/\s+/).length;
@@ -92,6 +94,8 @@ function Post({ post }: Props) {
             postId={post.id}
             postTitle={post.title}
             authorName={post.author.name}
+            initialLikeCount={initialLikeCount}
+            initialIsLiked={initialIsLiked}
          />
       </div>
    );
