@@ -9,7 +9,6 @@ import {
    serverTimestamp,
    where,
 } from "firebase/firestore";
-import { revalidatePath } from "next/cache";
 import { db } from "../firebase";
 
 /**
@@ -89,9 +88,6 @@ export async function togglePostLike(userId: string, postId: string) {
             likeCount: newLikeCount,
          };
       });
-
-      // Revalidate the post page to reflect changes
-      revalidatePath(`/feed/${postId}`);
 
       return {
          success: true,
@@ -175,9 +171,6 @@ export async function addPostLike(userId: string, postId: string) {
          return newLikeCount;
       });
 
-      // Revalidate the post page
-      revalidatePath(`/feed/${postId}`);
-
       return {
          success: true,
          message: "Post liked successfully",
@@ -252,9 +245,6 @@ export async function removePostLike(userId: string, postId: string) {
 
          return newLikeCount;
       });
-
-      // Revalidate the post page
-      revalidatePath(`/feed/${postId}`);
 
       return {
          success: true,
