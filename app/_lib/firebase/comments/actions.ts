@@ -12,7 +12,6 @@ import {
    updateDoc,
    where,
 } from "firebase/firestore";
-import { revalidatePath } from "next/cache";
 import { db } from "../firebase";
 import { Comment } from "../types";
 import { getCommentById } from "./service";
@@ -49,9 +48,6 @@ export async function createComment(
    // Add the comment to Firestore
    await setDoc(doc(db, "comments", commentId), comment);
 
-   // Revalidate the post page to show the new comment
-   revalidatePath(`/feed/${postId}`);
-
    // Get the comment with user data
    const newComment = await getCommentById(commentId);
 
@@ -78,12 +74,6 @@ export async function updateComment(commentId: string, text: string) {
       updatedAt: serverTimestamp(),
    });
 
-   // Get the post ID to revalidate the page
-   const { postId } = commentSnap.data();
-
-   // Revalidate the post page
-   revalidatePath(`/feed/${postId}`);
-
    // Get the updated comment with user data
    const updatedComment = await getCommentById(commentId);
 
@@ -103,9 +93,6 @@ export async function deleteComment(commentId: string) {
       throw new Error(`Comment with id ${commentId} not found`);
    }
 
-   // Get the post ID to revalidate the page
-   const { postId } = commentSnap.data();
-
    // Find all replies to this comment
    const commentsRef = collection(db, "comments");
    const repliesQuery = query(commentsRef, where("parentId", "==", commentId));
@@ -121,9 +108,6 @@ export async function deleteComment(commentId: string) {
 
    // Now delete the main comment
    await deleteDoc(commentRef);
-
-   // Revalidate the post page
-   revalidatePath(`/feed/${postId}`);
 
    return { success: true, message: "Comment deleted successfully" };
 }
@@ -158,9 +142,6 @@ export async function toggleLikeComment(commentId: string, userId: string) {
 
    // Update the comment with the new likes array
    await updateDoc(commentRef, { likes });
-
-   // Revalidate the post page
-   revalidatePath(`/feed/${comment.postId}`);
 
    // Get the updated comment with user data
    const updatedComment = await getCommentById(commentId);
