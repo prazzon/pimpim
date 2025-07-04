@@ -1,5 +1,6 @@
 import ItemCard from "@/app/_components/Pages/Home/ItemCard/ItemCard";
 import NotFound from "@/app/_components/Pages/Trending/NotFound/NotFound";
+import { getCategories } from "@/app/_lib/firebase/categories/service";
 import { getTrendingPosts } from "@/app/_lib/firebase/trending/service";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -7,6 +8,8 @@ import { notFound } from "next/navigation";
 type Props = {
    params: Promise<{ slug: string }>;
 };
+
+export const revalidate = 3600; // 1 hour in seconds
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
    const { slug } = await params;
@@ -47,6 +50,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
          type: "website",
       },
    };
+}
+
+export async function generateStaticParams() {
+   const categories = await getCategories();
+
+   return categories.map((category) => ({
+      params: { slug: category.slug },
+   }));
 }
 
 async function TrendingCategoryPage({ params }: Props) {
