@@ -13,16 +13,12 @@ type PostActionBarProps = {
    postId: string;
    postTitle: string;
    authorName: string;
-   initialLikeCount?: number;
-   initialIsLiked?: boolean;
 };
 
 export default function PostActionBar({
    postId,
    postTitle,
    authorName,
-   initialLikeCount = 0,
-   initialIsLiked = false,
 }: PostActionBarProps) {
    const [isCommentDialogOpen, setIsCommentDialogOpen] = useState(false);
    const [isShareDropdownOpen, setIsShareDropdownOpen] = useState(false);
@@ -97,8 +93,6 @@ export default function PostActionBar({
             <div className={styles.action_buttons}>
                <LikeButton
                   postId={postId}
-                  initialLikeCount={initialLikeCount}
-                  initialIsLiked={initialIsLiked}
                   className={styles.action_button}
                   size="medium"
                   showCount={false}

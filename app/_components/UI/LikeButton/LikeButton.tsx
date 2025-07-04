@@ -2,6 +2,7 @@
 
 import { togglePostLikeOptimistic } from "@/app/_lib/firebase/likes/client-actions";
 import {
+   hasUserLikedPost,
    subscribeLikeCount,
    subscribeUserLikeStatus,
 } from "@/app/_lib/firebase/likes/service";
@@ -16,7 +17,6 @@ import styles from "./LikeButton.module.scss";
 type LikeButtonProps = {
    postId: string;
    initialLikeCount?: number;
-   initialIsLiked?: boolean;
    className?: string;
    showCount?: boolean;
    size?: "small" | "medium" | "large";
@@ -25,16 +25,39 @@ type LikeButtonProps = {
 export default function LikeButton({
    postId,
    initialLikeCount = 0,
-   initialIsLiked = false,
    className = "",
    showCount = true,
    size = "medium",
 }: LikeButtonProps) {
    const [likeCount, setLikeCount] = useState(initialLikeCount);
-   const [isLiked, setIsLiked] = useState(initialIsLiked);
+   const [isLiked, setIsLiked] = useState(false);
    const [isLoading, setIsLoading] = useState(false);
    const [showAuthDialog, setShowAuthDialog] = useState(false);
+   const [hasInitializedLikeStatus, setHasInitializedLikeStatus] =
+      useState(false);
    const { data: session, status } = useSession();
+
+   // Fetch initial like status when user session becomes available
+   useEffect(() => {
+      const fetchInitialLikeStatus = async () => {
+         if (session?.user?.id && !hasInitializedLikeStatus) {
+            try {
+               const userLikedPost = await hasUserLikedPost(
+                  session.user.id,
+                  postId
+               );
+               setIsLiked(userLikedPost);
+               setHasInitializedLikeStatus(true);
+            } catch (error) {
+               console.error("Failed to fetch initial like status:", error);
+               // Keep the default false state if fetch fails
+               setHasInitializedLikeStatus(true);
+            }
+         }
+      };
+
+      fetchInitialLikeStatus();
+   }, [session?.user?.id, postId, hasInitializedLikeStatus]);
 
    // Subscribe to real-time updates
    useEffect(() => {
