@@ -13,7 +13,7 @@ interface QRCodeProps {
 
 export default function QRCode({
    value,
-   size = 200,
+   size = 250,
    logoSize = 50,
 }: QRCodeProps) {
    const [mounted, setMounted] = useState(false);

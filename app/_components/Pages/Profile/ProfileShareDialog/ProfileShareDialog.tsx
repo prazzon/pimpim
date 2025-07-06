@@ -88,7 +88,7 @@ export default function ProfileShareDialog({
 
             <div className={styles.share_content}>
                <div className={styles.qr_section} ref={qrCodeRef}>
-                  <QRCode value={profileUrl} size={220} />
+                  <QRCode value={profileUrl} size={300} />
                   <div className={styles.username}>@{username}</div>
                </div>
 
@@ -98,7 +98,7 @@ export default function ProfileShareDialog({
                      className={styles.share_button}
                      onClick={copyToClipboard}
                   >
-                     <FaCopy /> Copy Profile Link
+                     <FaCopy /> Copy
                   </Button>
                   <Button
                      variant="secondary"
@@ -106,7 +106,7 @@ export default function ProfileShareDialog({
                      onClick={downloadQRCode}
                   >
                      <BiSolidDownload />
-                     Download QR Code
+                     Download
                   </Button>
                </div>
             </div>
