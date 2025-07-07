@@ -3,8 +3,11 @@ import {
    doc,
    getDoc,
    getDocs,
+   limit as limitFirestore,
    onSnapshot,
+   orderBy,
    query,
+   startAfter,
    where,
 } from "firebase/firestore";
 import { db } from "../firebase";
@@ -147,10 +150,7 @@ export async function getUserLikeStatuses(
 
       return likeStatuses;
    } catch (error) {
-      console.error(
-         `Error getting like statuses for user ${userId}:`,
-         error
-      );
+      console.error(`Error getting like statuses for user ${userId}:`, error);
       return likeStatuses;
    }
 }
@@ -181,6 +181,154 @@ export async function getUserLikes(userId: string): Promise<PostLike[]> {
    } catch (error) {
       console.error(`Error getting likes for user ${userId}:`, error);
       return [];
+   }
+}
+
+/**
+ * Get user's likes with pagination
+ * @param userId The user's ID
+ * @param pageSize Number of likes to fetch per page (default: 10)
+ * @param lastLikeId ID of the last like from the previous page (for pagination)
+ * @returns Object with likes array and hasMore flag
+ */
+export async function getUserLikesPaginated(
+   userId: string,
+   pageSize: number = 10,
+   lastLikeId?: string
+) {
+   if (!userId) {
+      return {
+         likes: [],
+         hasMore: false,
+      };
+   }
+
+   try {
+      const likesRef = collection(db, "likes");
+      let q;
+
+      // If we have a lastLikeId, use it as a cursor for pagination
+      if (lastLikeId) {
+         // Get the last document as a reference point
+         const lastLikeDoc = await getDoc(doc(db, "likes", lastLikeId));
+
+         if (!lastLikeDoc.exists()) {
+            throw new Error(`Like with id ${lastLikeId} not found`);
+         }
+
+         // Create a query that starts after the last document
+         q = query(
+            likesRef,
+            where("userId", "==", userId),
+            orderBy("createdAt", "desc"),
+            startAfter(lastLikeDoc),
+            limitFirestore(pageSize)
+         );
+      } else {
+         // Initial query without a starting point
+         q = query(
+            likesRef,
+            where("userId", "==", userId),
+            orderBy("createdAt", "desc"),
+            limitFirestore(pageSize)
+         );
+      }
+
+      const querySnapshot = await getDocs(q);
+
+      // Check if there are more likes to load
+      const hasMore = querySnapshot.docs.length === pageSize;
+
+      const likes = querySnapshot.docs.map((doc) => {
+         const data = doc.data();
+         return {
+            id: doc.id,
+            userId: data.userId,
+            postId: data.postId,
+            createdAt: data.createdAt?.toDate() || new Date(),
+         } as PostLike;
+      });
+
+      return {
+         likes,
+         hasMore,
+      };
+   } catch (error) {
+      console.error("Error fetching user likes:", error);
+      return {
+         likes: [],
+         hasMore: false,
+      };
+   }
+}
+
+/**
+ * Get user's likes with post information for profile display
+ * @param userId The user's ID
+ * @param pageSize Number of likes to fetch per page (default: 10)
+ * @param lastLikeId ID of the last like from the previous page (for pagination)
+ * @returns Object with likes array (including post info) and hasMore flag
+ */
+export async function getUserLikesWithPostInfo(
+   userId: string,
+   pageSize: number = 10,
+   lastLikeId?: string
+) {
+   if (!userId) {
+      return {
+         likes: [],
+         hasMore: false,
+      };
+   }
+
+   try {
+      const result = await getUserLikesPaginated(userId, pageSize, lastLikeId);
+
+      // Enhance likes with post information
+      const likesWithPostInfo = await Promise.all(
+         result.likes.map(async (like) => {
+            try {
+               // Get post information
+               const postDoc = await getDoc(doc(db, "posts", like.postId));
+
+               if (postDoc.exists()) {
+                  const postData = postDoc.data();
+                  return {
+                     ...like,
+                     postTitle: postData.title,
+                     postSlug: postData.slug,
+                  };
+               }
+
+               return {
+                  ...like,
+                  postTitle: "Unknown Post",
+                  postSlug: "",
+               };
+            } catch (error) {
+               console.error(
+                  `Error fetching post info for like ${like.id}:`,
+                  error
+               );
+               return {
+                  ...like,
+                  postTitle: "Unknown Post",
+                  postSlug: "",
+               };
+            }
+         })
+      );
+
+      return {
+         likes: likesWithPostInfo,
+         hasMore: result.hasMore,
+      };
+   } catch (error) {
+      console.error("Error fetching user likes with post info:", error);
+      return {
+         likes: [],
+         hasMore: false,
+      };
    }
 }
 

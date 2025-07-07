@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Profile from "../_components/Pages/Profile/Profile";
 import Main from "../_components/UI/Main/Main";
-import { mockProfile } from "../_data/mock-profile";
 import { getUserMedia } from "../_lib/firebase/profile/media/service";
 import { getUserProfile } from "../_lib/firebase/profile/service";
 
@@ -44,23 +43,13 @@ export default async function ProfilePage() {
    // Fetch the user's profile data from Firebase
    let profileData = await getUserProfile(userId);
 
-   // If no profile data is found, use mock data as fallback
-   if (!profileData) {
-      profileData = {
-         ...mockProfile,
-         id: userId,
-         username: session.user?.name || mockProfile.username,
-         email: session.user?.email || mockProfile.email,
-         profileImage: session.user?.image || mockProfile.profileImage,
-      };
-   } else {
-      profileData = {
-         ...profileData,
-         email: session.user?.email || "",
-         profileImage: session.user?.image || "",
-         // commentsAndLikes: mockProfile.commentsAndLikes,
-      };
-   }
+   if (!profileData) return null;
+
+   profileData = {
+      ...profileData,
+      email: session.user?.email || "",
+      profileImage: session.user?.image || "",
+   };
 
    // Fetch the user's media items from the media collection
    const mediaItems = await getUserMedia(userId);

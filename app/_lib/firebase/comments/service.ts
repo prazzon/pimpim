@@ -179,3 +179,153 @@ export async function getCommentById(commentId: string) {
          : undefined,
    } as Comment;
 }
+
+/**
+ * Get user's comments with pagination
+ * @param userId The user's ID
+ * @param pageSize Number of comments to fetch per page (default: 10)
+ * @param lastCommentId ID of the last comment from the previous page (for pagination)
+ * @returns Object with comments array and hasMore flag
+ */
+export async function getUserComments(
+   userId: string,
+   pageSize: number = 10,
+   lastCommentId?: string
+) {
+   if (!userId) {
+      return {
+         comments: [],
+         hasMore: false,
+      };
+   }
+
+   try {
+      const commentsRef = collection(db, "comments");
+      let q;
+
+      // If we have a lastCommentId, use it as a cursor for pagination
+      if (lastCommentId) {
+         // Get the last document as a reference point
+         const lastCommentDoc = await getDoc(
+            doc(db, "comments", lastCommentId)
+         );
+
+         if (!lastCommentDoc.exists()) {
+            throw new Error(`Comment with id ${lastCommentId} not found`);
+         }
+
+         // Create a query that starts after the last document
+         q = query(
+            commentsRef,
+            where("userId", "==", userId),
+            orderBy("createdAt", "desc"),
+            startAfter(lastCommentDoc),
+            limitFirestore(pageSize)
+         );
+      } else {
+         // Initial query without a starting point
+         q = query(
+            commentsRef,
+            where("userId", "==", userId),
+            orderBy("createdAt", "desc"),
+            limitFirestore(pageSize)
+         );
+      }
+
+      const querySnapshot = await getDocs(q);
+
+      // Check if there are more comments to load
+      const hasMore = querySnapshot.docs.length === pageSize;
+
+      const comments = querySnapshot.docs.map((doc) => {
+         const data = doc.data();
+         return {
+            id: doc.id,
+            ...data,
+            createdAt: data.createdAt.toDate(),
+            updatedAt: data.updatedAt?.toDate(),
+         } as Comment;
+      });
+
+      return {
+         comments,
+         hasMore,
+      };
+   } catch (error) {
+      console.error("Error fetching user comments:", error);
+      return {
+         comments: [],
+         hasMore: false,
+      };
+   }
+}
+
+/**
+ * Get user's comments with post information for profile display
+ * @param userId The user's ID
+ * @param pageSize Number of comments to fetch per page (default: 10)
+ * @param lastCommentId ID of the last comment from the previous page (for pagination)
+ * @returns Object with comments array (including post info) and hasMore flag
+ */
+export async function getUserCommentsWithPostInfo(
+   userId: string,
+   pageSize: number = 10,
+   lastCommentId?: string
+) {
+   if (!userId) {
+      return {
+         comments: [],
+         hasMore: false,
+      };
+   }
+
+   try {
+      const result = await getUserComments(userId, pageSize, lastCommentId);
+
+      // Enhance comments with post information
+      const commentsWithPostInfo = await Promise.all(
+         result.comments.map(async (comment) => {
+            try {
+               // Get post information
+               const postDoc = await getDoc(doc(db, "posts", comment.postId));
+
+               if (postDoc.exists()) {
+                  const postData = postDoc.data();
+                  return {
+                     ...comment,
+                     postTitle: postData.title,
+                     postSlug: postData.slug,
+                  };
+               }
+
+               return {
+                  ...comment,
+                  postTitle: "Unknown Post",
+                  postSlug: "",
+               };
+            } catch (error) {
+               console.error(
+                  `Error fetching post info for comment ${comment.id}:`,
+                  error
+               );
+               return {
+                  ...comment,
+                  postTitle: "Unknown Post",
+                  postSlug: "",
+               };
+            }
+         })
+      );
+
+      return {
+         comments: commentsWithPostInfo,
+         hasMore: result.hasMore,
+      };
+   } catch (error) {
+      console.error("Error fetching user comments with post info:", error);
+      return {
+         comments: [],
+         hasMore: false,
+      };
+   }
+}
