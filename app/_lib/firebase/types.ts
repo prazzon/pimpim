@@ -166,7 +166,6 @@ export type Profile = {
       linkedin?: string;
       website?: string;
    };
-   commentsAndLikes?: Interaction[];
    createdAt?: Date;
    updatedAt?: Date;
 };
