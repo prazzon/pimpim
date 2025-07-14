@@ -38,7 +38,12 @@ async function TrendingPage() {
    return (
       <>
          {trendingPosts.map((item, index) => (
-            <ItemCard key={item.id} item={item} position={index + 1} />
+            <ItemCard
+               key={item.id}
+               item={item}
+               position={index + 1}
+               showDate={false}
+            />
          ))}
       </>
    );

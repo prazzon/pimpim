@@ -8,9 +8,10 @@ import styles from "./Trending.module.scss";
 
 type Props = {
    posts: Post[];
+   showDate?: boolean;
 };
 
-function Trending({ posts }: Props) {
+function Trending({ posts, showDate = true }: Props) {
    return (
       <div className={styles.trending}>
          <Title type="secondary">Trending</Title>
@@ -30,11 +31,13 @@ function Trending({ posts }: Props) {
                   </div>
 
                   <div className={styles.info}>
-                     <p className={styles.info_date}>
-                        {formatDistanceToNow(item.createdAt, {
-                           addSuffix: true,
-                        })}
-                     </p>
+                     {showDate && (
+                        <p className={styles.info_date}>
+                           {formatDistanceToNow(item.createdAt, {
+                              addSuffix: true,
+                           })}
+                        </p>
+                     )}
 
                      <h3 className={styles.info_title}>
                         <span>{item.title}</span>

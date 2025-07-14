@@ -13,9 +13,15 @@ type Props = {
    item: Post;
    position?: number;
    layout?: "horizontal" | "vertical";
+   showDate?: boolean;
 };
 
-function ItemCard({ item, position, layout = "horizontal" }: Props) {
+function ItemCard({
+   item,
+   position,
+   layout = "horizontal",
+   showDate = true,
+}: Props) {
    return (
       <motion.div
          className={clsx(styles.item, styles[layout])}
@@ -41,11 +47,13 @@ function ItemCard({ item, position, layout = "horizontal" }: Props) {
          </div>
 
          <div className={styles.info}>
-            <p className={styles.info_date}>
-               {formatDistanceToNow(item.createdAt, {
-                  addSuffix: true,
-               })}
-            </p>
+            {showDate && (
+               <p className={styles.info_date}>
+                  {formatDistanceToNow(item.createdAt, {
+                     addSuffix: true,
+                  })}
+               </p>
+            )}
 
             {/* <p className={styles.info_tags}>
                {item.tags?.map((tag) => (
