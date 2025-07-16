@@ -10,6 +10,7 @@ import { BiTimeFive } from "react-icons/bi";
 import CategoryBtn from "../../../UI/CategoryBtn/CategoryBtn";
 import PostContent from "../../../UI/PostContent/PostContent";
 import PostActionBar from "../PostActionBar/PostActionBar";
+import RelatedPosts from "../RelatedPosts/RelatedPosts";
 import styles from "./Post.module.scss";
 
 type Props = {
@@ -93,6 +94,8 @@ function Post({ post }: Props) {
             postTitle={post.title}
             authorName={post.author.name}
          />
+
+         <RelatedPosts currentPost={post} limit={6} />
       </div>
    );
 }

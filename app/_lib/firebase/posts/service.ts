@@ -336,3 +336,162 @@ export async function getPostCountByCategoryId(categoryId: string) {
    const querySnapshot = await getDocs(q);
    return querySnapshot.size;
 }
+
+/**
+ * Get related posts based on shared tags with two-tier fallback strategy
+ * @param currentPostId The ID of the current post to exclude from results
+ * @param currentPostCategoryId The category ID of the current post for fallback
+ * @param tags Array of tags to match against
+ * @param limitCount Number of related posts to return (default: 6)
+ * @returns Array of related posts
+ */
+export async function getRelatedPosts(
+   currentPostId: string,
+   currentPostCategoryId: string,
+   tags: string[],
+   limitCount: number = 6
+) {
+   const postsRef = collection(db, "posts");
+   let relatedPosts: Post[] = [];
+
+   // First, try to find posts with matching tags
+   if (tags && tags.length > 0) {
+      try {
+         // Firebase array-contains-any can only handle up to 10 values
+         const tagsToQuery = tags.slice(0, 10);
+
+         // Get more posts than needed to account for filtering out current post
+         const q = query(
+            postsRef,
+            where("tags", "array-contains-any", tagsToQuery),
+            orderBy("createdAt", "desc"),
+            limit(limitCount + 5) // Get extra to account for filtering
+         );
+
+         const querySnapshot = await getDocs(q);
+
+         // Filter out current post and limit results
+         const filteredDocs = querySnapshot.docs
+            .filter((doc) => doc.id !== currentPostId)
+            .slice(0, limitCount);
+
+         relatedPosts = await Promise.all(
+            filteredDocs.map(async (doc) => {
+               const { authorId, categoryId, createdAt, updatedAt, ...rest } =
+                  doc.data();
+
+               return {
+                  id: doc.id,
+                  ...rest,
+                  author: await getAuthorById(authorId),
+                  category: await getCategoryById(categoryId),
+                  createdAt: createdAt.toDate(),
+                  updatedAt: updatedAt.toDate(),
+               } as Post;
+            })
+         );
+      } catch (error) {
+         console.error("Error fetching posts by tags:", error);
+         // Continue to fallback logic
+      }
+   }
+
+   // Primary fallback: If we don't have enough related posts, try posts from the same category
+   if (relatedPosts.length < limitCount && currentPostCategoryId) {
+      const remainingCount = limitCount - relatedPosts.length;
+
+      try {
+         // Get posts from the same category excluding already found posts and current post
+         const excludeIds = [currentPostId, ...relatedPosts.map((p) => p.id)];
+
+         const categoryQuery = query(
+            postsRef,
+            where("categoryId", "==", currentPostCategoryId),
+            orderBy("createdAt", "desc"),
+            limit(remainingCount + excludeIds.length) // Get extra to account for filtering
+         );
+
+         const categorySnapshot = await getDocs(categoryQuery);
+
+         const categoryPosts = await Promise.all(
+            categorySnapshot.docs
+               .filter((doc) => !excludeIds.includes(doc.id))
+               .slice(0, remainingCount)
+               .map(async (doc) => {
+                  const {
+                     authorId,
+                     categoryId,
+                     createdAt,
+                     updatedAt,
+                     ...rest
+                  } = doc.data();
+
+                  return {
+                     id: doc.id,
+                     ...rest,
+                     author: await getAuthorById(authorId),
+                     category: await getCategoryById(categoryId),
+                     createdAt: createdAt.toDate(),
+                     updatedAt: updatedAt.toDate(),
+                  } as Post;
+               })
+         );
+
+         relatedPosts = [...relatedPosts, ...categoryPosts];
+      } catch (error) {
+         console.error("Error fetching posts by category for fallback:", error);
+         // Continue to secondary fallback
+      }
+   }
+
+   // Secondary fallback: If we still don't have enough posts, supplement with latest posts
+   if (relatedPosts.length < limitCount) {
+      const remainingCount = limitCount - relatedPosts.length;
+
+      try {
+         // Get latest posts excluding the current post and already found related posts
+         const excludeIds = [currentPostId, ...relatedPosts.map((p) => p.id)];
+
+         const latestQuery = query(
+            postsRef,
+            orderBy("createdAt", "desc"),
+            limit(remainingCount + excludeIds.length) // Get extra to account for filtering
+         );
+
+         const latestSnapshot = await getDocs(latestQuery);
+
+         const latestPosts = await Promise.all(
+            latestSnapshot.docs
+               .filter((doc) => !excludeIds.includes(doc.id))
+               .slice(0, remainingCount)
+               .map(async (doc) => {
+                  const {
+                     authorId,
+                     categoryId,
+                     createdAt,
+                     updatedAt,
+                     ...rest
+                  } = doc.data();
+
+                  return {
+                     id: doc.id,
+                     ...rest,
+                     author: await getAuthorById(authorId),
+                     category: await getCategoryById(categoryId),
+                     createdAt: createdAt.toDate(),
+                     updatedAt: updatedAt.toDate(),
+                  } as Post;
+               })
+         );
+
+         relatedPosts = [...relatedPosts, ...latestPosts];
+      } catch (error) {
+         console.error(
+            "Error fetching latest posts for secondary fallback:",
+            error
+         );
+      }
+   }
+
+   return relatedPosts.slice(0, limitCount);
+}
