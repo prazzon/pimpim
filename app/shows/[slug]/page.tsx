@@ -1,7 +1,6 @@
 import Series from "@/app/_components/Pages/Series/Series";
 import JsonLd from "@/app/_components/SEO/JsonLd";
 import { getSeriesBySlug } from "@/app/_lib/firebase/series/service";
-// import { shows } from "@/app/_data/data-shows";
 import { generateTVSeriesSchema } from "@/app/_lib/seo/schema";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
