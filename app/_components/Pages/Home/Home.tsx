@@ -3,13 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import AdBanner from "../../Ads/AdBanner";
 import MiniCarousel from "../../UI/MiniCarousel/MiniCarousel";
-import Title from "../../UI/Title/Title";
 import CategoriesGroup from "../Categories/CategoriesGroup/CategoriesGroup";
 import CreativeSpotlight from "./CreativeSpotlight/CreativeSpotlight";
 import Featured from "./Featured/Featured";
 import styles from "./Home.module.scss";
-import ItemCard from "./ItemCard/ItemCard";
 import LatestPosts from "./LatestPosts/LatestPosts";
+import SpotlightSection from "./SpotlightSection/SpotlightSection";
 import Trending from "./Trending/Trending";
 
 type Props = {
@@ -39,12 +38,7 @@ function Home({
                   dataAdClient="ca-pub-7227150050392511"
                   className={styles.ads}
                /> */}
-               <div>
-                  <Title type="secondary">Spotlight</Title>
-                  {spotlightPosts.map((item) => (
-                     <ItemCard key={item.id} item={item} />
-                  ))}
-               </div>
+               <SpotlightSection initialPosts={spotlightPosts} />
             </div>
 
             <div className={styles.sidebar}>

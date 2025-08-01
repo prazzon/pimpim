@@ -37,3 +37,18 @@ export async function getAuthorById(id: string) {
       ...docSnap.data(),
    };
 }
+
+/**
+ * Get multiple authors by their IDs
+ * @param ids Array of author IDs
+ * @returns Array of author objects
+ */
+export async function getAuthorsByIds(ids: string[]) {
+   if (!ids || ids.length === 0) return [];
+
+   const authors = await Promise.all(
+      ids.map((id) => getAuthorById(id).catch(() => null))
+   );
+
+   return authors.filter((author) => author !== null);
+}

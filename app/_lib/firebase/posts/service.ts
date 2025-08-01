@@ -9,8 +9,12 @@ import {
    startAfter,
    where,
 } from "firebase/firestore";
-import { getAuthorById } from "../authors/service";
-import { getCategoryById, getCategoryBySlug } from "../categories/service";
+import { getAuthorById, getAuthorsByIds } from "../authors/service";
+import {
+   getCategoriesByIds,
+   getCategoryById,
+   getCategoryBySlug,
+} from "../categories/service";
 import { db } from "../firebase";
 import { Post } from "../types";
 
@@ -323,6 +327,99 @@ export async function getPostsFromMultipleSections(
    );
 
    return postsBySection;
+}
+
+/**
+ * Get paginated posts by section with cursor-based pagination
+ * @param sectionId The ID of the section to filter by
+ * @param pageSize Number of posts to fetch per page (default: 5)
+ * @param lastPostId Optional ID of the last post for pagination
+ * @returns Object containing posts array and hasMore flag
+ */
+export async function getPaginatedPostsBySection(
+   sectionId: string,
+   pageSize: number = 5,
+   lastPostId?: string
+) {
+   const postsRef = collection(db, "posts");
+   let q;
+
+   // If we have a lastPostId, use it as a cursor for pagination
+   if (lastPostId) {
+      // Get the last document as a reference point
+      const lastPostDoc = await getDoc(doc(db, "posts", lastPostId));
+
+      if (!lastPostDoc.exists()) {
+         throw new Error(`Post with id ${lastPostId} not found`);
+      }
+
+      // Create a query that starts after the last document
+      q = query(
+         postsRef,
+         where("sections", "array-contains", sectionId),
+         orderBy("createdAt", "desc"),
+         startAfter(lastPostDoc),
+         limit(pageSize + 1) // Fetch one extra to check if there are more
+      );
+   } else {
+      // Initial query without a starting point
+      q = query(
+         postsRef,
+         where("sections", "array-contains", sectionId),
+         orderBy("createdAt", "desc"),
+         limit(pageSize + 1) // Fetch one extra to check if there are more
+      );
+   }
+
+   const querySnapshot = await getDocs(q);
+   const docs = querySnapshot.docs;
+
+   // Check if there are more posts
+   const hasMore = docs.length > pageSize;
+   const postsToReturn = hasMore ? docs.slice(0, pageSize) : docs;
+
+   // Get unique author and category IDs
+   const authorIds = new Set<string>();
+   const categoryIds = new Set<string>();
+
+   postsToReturn.forEach((doc) => {
+      const data = doc.data();
+      if (data.authorId) authorIds.add(data.authorId);
+      if (data.categoryId) categoryIds.add(data.categoryId);
+   });
+
+   // Batch fetch authors and categories
+   // const [authorsMap, categoriesMap] = await Promise.all([
+   //    getAuthorsByIds(Array.from(authorIds)),
+   //    getCategoriesByIds(Array.from(categoryIds)),
+   // ]);
+
+   const [authorsMap, categoriesMap] = await Promise.all([
+      getAuthorsByIds(Array.from(authorIds)).then(
+         (authors) => new Map(authors.map((author) => [author.id, author]))
+      ),
+      getCategoriesByIds(Array.from(categoryIds)).then(
+         (categories) =>
+            new Map(categories.map((category) => [category.id, category]))
+      ),
+   ]);
+
+   // Construct posts with related data
+   const posts: Post[] = postsToReturn.map((doc) => {
+      const data = doc.data();
+      const { authorId, categoryId, createdAt, updatedAt, ...rest } = data;
+
+      return {
+         id: doc.id,
+         ...rest,
+         author: authorsMap.get(authorId) || null,
+         category: categoriesMap.get(categoryId) || null,
+         createdAt: createdAt.toDate(),
+         updatedAt: updatedAt.toDate(),
+      } as Post;
+   });
+
+   return { posts, hasMore };
 }
 
 /**

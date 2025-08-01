@@ -37,8 +37,8 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
    const trendingPosts = await getTrendingPosts(5);
-   const spotlightPosts = await getPostsBySection("spotlight");
-   const mainPosts = await getPostsBySection("main");
+   const spotlightPosts = await getPostsBySection("spotlight", 6);
+   const mainPosts = await getPostsBySection("main", 10);
    const featuredPosts = await getPostsBySection("featured", 5);
    const creativeSpotlightPosts = await getPostsBySection("creative-spotlight");
    const categories = await getCategories();

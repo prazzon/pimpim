@@ -67,6 +67,21 @@ export async function getCategoryById(id: string) {
 }
 
 /**
+ * Get multiple categories by their IDs
+ * @param ids Array of category IDs
+ * @returns Array of category objects
+ */
+export async function getCategoriesByIds(ids: string[]) {
+   if (!ids || ids.length === 0) return [];
+
+   const categories = await Promise.all(
+      ids.map((id) => getCategoryById(id).catch(() => null))
+   );
+
+   return categories.filter((category) => category !== null);
+}
+
+/**
  * Get a category by its slug
  * @param slug The category's slug
  * @returns The category object or null if not found
