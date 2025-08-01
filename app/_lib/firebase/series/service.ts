@@ -3,6 +3,7 @@ import {
    doc,
    getDoc,
    getDocs,
+   orderBy,
    query,
    where,
 } from "firebase/firestore";
@@ -10,13 +11,15 @@ import { db } from "../firebase";
 import { Series } from "../types";
 
 /**
- * Get all series from the database
+ * Get all series from the database, ordered by creation date (newest first)
  * @returns An array of series objects
  */
 export async function getSeries() {
    const seriesRef = collection(db, "series");
 
-   const querySnapshot = await getDocs(seriesRef);
+   const q = query(seriesRef, orderBy("createdAt", "desc"));
+
+   const querySnapshot = await getDocs(q);
 
    const series = querySnapshot.docs.map(
       (doc) =>
@@ -24,7 +27,7 @@ export async function getSeries() {
             id: doc.id,
             ...doc.data(),
             createdAt: new Date(doc.data().createdAt),
-         } as Series)
+         }) as Series
    );
 
    return series;
