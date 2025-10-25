@@ -24,7 +24,10 @@ async function Featured({ features }: Props) {
 
          <div className={styles.featured_list}>
             <div className={styles.main}>
-               <Link href={`/feed/${main.slug}`} className={styles.overlay} />
+               <Link
+                  href={`/feed/${main.seo?.slug ?? main.slug}`}
+                  className={styles.overlay}
+               />
 
                <div className={styles.poster}>
                   <Image src={main.poster} alt={main.title} fill />
@@ -56,7 +59,10 @@ async function Featured({ features }: Props) {
    async function FeatureContent(item: Post) {
       return (
          <div className={styles.content_item} key={item.id}>
-            <Link href={`/feed/${item.slug}`} className={styles.overlay} />
+            <Link
+               href={`/feed/${item.seo?.slug ?? item.slug}`}
+               className={styles.overlay}
+            />
 
             <div className={styles.poster}>
                <Image src={item.poster} alt={item.title} fill />

@@ -30,7 +30,7 @@ function ItemCard({
          transition={{ duration: 0.25 }}
       >
          <Link
-            href={`/feed/${item.slug}`}
+            href={`/feed/${item.seo?.slug ?? item.slug}`}
             className={styles.overlay}
             aria-label={`Read more about ${item.title}`}
          />

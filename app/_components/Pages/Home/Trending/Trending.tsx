@@ -20,7 +20,7 @@ function Trending({ posts, showDate = true }: Props) {
             {posts.slice(0, 5).map((item, index) => (
                <div className={styles.trending_item} key={item.id}>
                   <Link
-                     href={`/feed/${item.slug}`}
+                     href={`/feed/${item.seo?.slug ?? item.slug}`}
                      className={styles.overlay}
                   />
 

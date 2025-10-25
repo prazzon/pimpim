@@ -7,8 +7,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
    const data = await getPosts();
 
    const posts = data.map((post) => {
+      const slug = post.seo?.slug ?? post.slug;
       return {
-         url: `https://pimpim.ng/feed/${post.slug}`,
+         url: `https://pimpim.ng/feed/${slug}`,
          lastModified: new Date(post.updatedAt),
          changeFrequency: "daily" as const,
          priority: 0.7,

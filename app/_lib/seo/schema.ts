@@ -35,10 +35,17 @@ export function generateOrganizationSchema(url: string) {
 
 // Article Schema
 export function generateArticleSchema(post: Post, url: string) {
+   const headline = post.seo?.titleTag || post.title;
+   const description =
+      post.seo?.metaDescription ||
+      post.summary ||
+      post.content.substring(0, 160);
+   const slug = post.seo?.slug || post.slug;
+
    return {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: post.title,
+      headline,
       image: [post.poster],
       datePublished: post.createdAt,
       dateModified: post.updatedAt ? post.updatedAt : post.createdAt,
@@ -54,10 +61,10 @@ export function generateArticleSchema(post: Post, url: string) {
             url: `${url}/logo.svg`,
          },
       },
-      description: post.summary || post.content.substring(0, 160),
+      description,
       mainEntityOfPage: {
          "@type": "WebPage",
-         "@id": `${url}/feed/${post.slug}`,
+         "@id": `${url}/feed/${slug}`,
       },
    };
 }

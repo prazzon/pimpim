@@ -191,15 +191,16 @@ export async function getPostById(id: string) {
 export async function getPostBySlug(slug: string) {
    const postsRef = collection(db, "posts");
 
-   const q = query(postsRef, where("slug", "==", slug));
+   // Try SEO slug first, then fall back to legacy slug
+   let q = query(postsRef, where("seo.slug", "==", slug));
+   let querySnapshot = await getDocs(q);
 
-   const querySnapshot = await getDocs(q);
+   if (querySnapshot.empty) {
+      q = query(postsRef, where("slug", "==", slug));
+      querySnapshot = await getDocs(q);
+   }
 
-   // if (querySnapshot.empty) {
-   //    throw new Error(`Post with slug ${slug} not found`);
-   // } //! REMOVE LATER
-
-   if (querySnapshot.empty) return null; //! REMOVE LATER
+   if (querySnapshot.empty) return null;
 
    const postDoc = querySnapshot.docs[0];
 
@@ -216,13 +217,6 @@ export async function getPostBySlug(slug: string) {
    } as Post;
 
    return post;
-
-   // return {
-   //    id: postDoc.id,
-   //    ...postDoc.data(),
-   //    createdAt: postDoc.data().createdAt.toDate(),
-   //    updatedAt: postDoc.data().updatedAt.toDate(),
-   // } as Post;
 }
 
 /**
