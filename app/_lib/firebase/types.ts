@@ -103,8 +103,6 @@ export type Post = {
       titleTag: string;
       metaDescription: string;
       slug: string;
-      createdAt?: Date;
-      updatedAt?: Date;
    };
 };
 
