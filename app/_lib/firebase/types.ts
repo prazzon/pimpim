@@ -99,6 +99,13 @@ export type Post = {
    updatedAt: Date;
    poster: string;
    tags: string[];
+   seo?: {
+      titleTag: string;
+      metaDescription: string;
+      slug: string;
+      createdAt?: Date;
+      updatedAt?: Date;
+   };
 };
 
 export type Category = {

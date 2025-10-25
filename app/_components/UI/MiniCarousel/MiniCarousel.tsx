@@ -84,7 +84,9 @@ function MiniCarousel({ items }: Props) {
          </Link>
 
          <Link
-            href={`/feed/${items[imageIndex].slug}`}
+            href={`/feed/${
+               items[imageIndex].seo?.slug ?? items[imageIndex].slug
+            }`}
             className={styles.title}
          >
             <AnimatePresence mode="wait">
