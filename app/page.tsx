@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       "pimpim network",
    ],
    alternates: {
-      canonical: "https://pimpim.ng",
+      canonical: "https://www.pimpim.ng",
    },
 };
 
@@ -43,7 +43,7 @@ export default async function HomePage() {
    const creativeSpotlightPosts = await getPostsBySection("creative-spotlight");
    const categories = await getCategories();
 
-   const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
+   const baseUrl = process.env.SITE_URL || "https://www.pimpim.ng";
    const websiteSchema = generateWebsiteSchema(baseUrl);
    const organizationSchema = generateOrganizationSchema(baseUrl);
 

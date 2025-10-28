@@ -15,7 +15,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-   metadataBase: new URL(process.env.SITE_URL || "https://pimpim.ng"),
+   metadataBase: new URL(process.env.SITE_URL || "https://www.pimpim.ng"),
    title: {
       default: "PimPim - Entertainment & Media Platform",
       template: "%s | PimPim",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
       google: process.env.GOOGLE_VERIFICATION,
    },
    alternates: {
-      canonical: "https://pimpim.ng",
+      canonical: "https://www.pimpim.ng",
       languages: {
          "en-US": "/en-US",
       },

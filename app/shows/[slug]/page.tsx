@@ -63,7 +63,7 @@ async function ShowPage({ params }: Props) {
 
    if (!show) notFound();
 
-   const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
+   const baseUrl = process.env.SITE_URL || "https://www.pimpim.ng";
    const tvSeriesSchema = generateTVSeriesSchema(show, baseUrl);
 
    return (

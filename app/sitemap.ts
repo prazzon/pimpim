@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
    const posts = data.map((post) => {
       const slug = post.seo?.slug ?? post.slug;
       return {
-         url: `https://pimpim.ng/feed/${slug}`,
+         url: `https://www.pimpim.ng/feed/${slug}`,
          lastModified: new Date(post.updatedAt),
          changeFrequency: "daily" as const,
          priority: 0.7,
@@ -18,43 +18,43 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
    return [
       {
-         url: "https://pimpim.ng",
+         url: "https://www.pimpim.ng",
          lastModified: new Date(),
          changeFrequency: "yearly",
          priority: 1,
       },
       {
-         url: "https://pimpim.ng/trending",
+         url: "https://www.pimpim.ng/trending",
          lastModified: new Date(),
          changeFrequency: "daily",
          priority: 0.8,
       },
       {
-         url: "https://pimpim.ng/movies",
+         url: "https://www.pimpim.ng/movies",
          lastModified: new Date(),
          changeFrequency: "daily",
          priority: 0.8,
       },
       {
-         url: "https://pimpim.ng/shows",
+         url: "https://www.pimpim.ng/shows",
          lastModified: new Date(),
          changeFrequency: "daily",
          priority: 0.8,
       },
       {
-         url: "https://pimpim.ng/events",
+         url: "https://www.pimpim.ng/events",
          lastModified: new Date(),
          changeFrequency: "daily",
          priority: 0.8,
       },
       {
-         url: "https://pimpim.ng/icon.svg",
+         url: "https://www.pimpim.ng/icon.svg",
          lastModified: new Date(),
          changeFrequency: "daily",
          priority: 0.7,
       },
       {
-         url: "https://pimpim.ng/opengraph-image.png",
+         url: "https://www.pimpim.ng/opengraph-image.png",
          lastModified: new Date(),
          changeFrequency: "daily",
          priority: 0.7,

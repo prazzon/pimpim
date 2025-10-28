@@ -62,7 +62,7 @@ async function MoviePage({ params }: Props) {
 
    if (!movieData) notFound();
 
-   const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
+   const baseUrl = process.env.SITE_URL || "https://www.pimpim.ng";
    const movieSchema = generateMovieSchema(movieData, baseUrl);
 
    return (

@@ -24,8 +24,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 To learn more about Next.js, take a look at the following resources:
 
--  [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--  [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
@@ -33,20 +33,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 This project includes comprehensive SEO optimization:
 
--  **Metadata**: Each page has unique titles, descriptions, and keywords tailored to its content.
--  **Dynamic Metadata**: Dynamic routes (like movie/[slug]) generate metadata based on the content being displayed.
--  **Structured Data**: JSON-LD schema markup for different content types (movies, shows, articles, events).
--  **Image Optimization**: All images include descriptive alt text generated based on content context.
--  **Sitemap Generation**: Automatic sitemap.xml generation during build process using next-sitemap.
--  **Robots.txt**: Custom robots.txt file to guide search engine crawlers.
--  **Open Graph & Twitter Cards**: Social media sharing metadata for better visibility on social platforms.
+- **Metadata**: Each page has unique titles, descriptions, and keywords tailored to its content.
+- **Dynamic Metadata**: Dynamic routes (like movie/[slug]) generate metadata based on the content being displayed.
+- **Structured Data**: JSON-LD schema markup for different content types (movies, shows, articles, events).
+- **Image Optimization**: All images include descriptive alt text generated based on content context.
+- **Sitemap Generation**: Automatic sitemap.xml generation during build process using next-sitemap.
+- **Robots.txt**: Custom robots.txt file to guide search engine crawlers.
+- **Open Graph & Twitter Cards**: Social media sharing metadata for better visibility on social platforms.
 
 ### Environment Variables
 
 The following environment variables are used for SEO:
 
--  `SITE_URL`: The base URL of the site (e.g., https://pimpim.ng)
--  `GOOGLE_VERIFICATION`: Google Search Console verification code
+- `SITE_URL`: The base URL of the site (e.g., https://www.pimpim.ng)
+- `GOOGLE_VERIFICATION`: Google Search Console verification code
 
 ## Deploy on Vercel
 

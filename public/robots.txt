@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://pimpim.ng
+Host: https://www.pimpim.ng
 
 # Sitemaps
-Sitemap: https://pimpim.ng/sitemap.xml
+Sitemap: https://www.pimpim.ng/sitemap.xml

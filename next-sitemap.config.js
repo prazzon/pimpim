@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-   siteUrl: process.env.SITE_URL || "https://pimpim.ng",
+   siteUrl: process.env.SITE_URL || "https://www.pimpim.ng",
    generateRobotsTxt: true,
    robotsTxtOptions: {
       policies: [
@@ -10,7 +10,7 @@ module.exports = {
          },
       ],
       additionalSitemaps: [
-         `${process.env.SITE_URL || "https://pimpim.ng"}/sitemap.xml`,
+         `${process.env.SITE_URL || "https://www.pimpim.ng"}/sitemap.xml`,
       ],
    },
    exclude: ["/api/*", "/auth/*"],

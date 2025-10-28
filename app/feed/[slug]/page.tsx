@@ -86,7 +86,7 @@ async function PostPage({ params }: Props) {
 
    if (!post) notFound();
 
-   const baseUrl = process.env.SITE_URL || "https://pimpim.ng";
+   const baseUrl = process.env.SITE_URL || "https://www.pimpim.ng";
    const articleSchema = generateArticleSchema(post, baseUrl);
 
    return (
