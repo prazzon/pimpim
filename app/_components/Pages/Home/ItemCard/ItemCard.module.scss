@@ -1,6 +1,6 @@
 .item {
    // margin: 2.5rem 0;
-   margin: 1.5rem 0;
+   // margin: 1.5rem 0;
    // margin-bottom: 2.5rem;
    display: grid;
    align-items: center;
@@ -30,9 +30,9 @@
       flex-direction: row;
       grid-template-columns: auto 1fr;
 
-      &:not(:last-child) {
-         margin-bottom: 3rem;
-      }
+      // &:not(:last-child) {
+      //    margin-bottom: 3rem;
+      // }
    }
 
    &.vertical {
