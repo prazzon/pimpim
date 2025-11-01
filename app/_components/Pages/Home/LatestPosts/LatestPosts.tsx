@@ -1,7 +1,7 @@
 "use client";
 
-import Loader from "@/app/_components/UI/Loader/Loader";
 import Skeleton from "@/app/_components/UI/Skeleton/Skeleton";
+import Spinner from "@/app/_components/UI/Spinner/Spinner";
 import { getPaginatedPosts } from "@/app/_lib/firebase/posts/service";
 import { Post } from "@/app/_lib/firebase/types";
 import { AnimatePresence, motion } from "framer-motion";
@@ -115,7 +115,7 @@ export default function LatestPosts() {
                      className={styles.see_more_content}
                   >
                      {isLoadingMore ? (
-                        <Loader />
+                        <Spinner size={20} containerMinHeight={0} />
                      ) : (
                         <>
                            <span>Show more</span>

@@ -11,8 +11,9 @@
    width: 50px;
    height: 50px;
    border-radius: 50%;
-   background: radial-gradient(farthest-side, rgb(245, 35, 35) 94%, #0000)
-         top/8px 8px no-repeat,
+   background:
+      radial-gradient(farthest-side, rgb(245, 35, 35) 94%, #0000) top/8px 8px
+         no-repeat,
       conic-gradient(#0000 30%, rgb(245, 35, 35));
    mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
    -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);

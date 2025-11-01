@@ -1,6 +1,5 @@
 "use client";
 
-import Loader from "@/app/_components/UI/Loader/Loader";
 import Spinner from "@/app/_components/UI/Spinner/Spinner";
 import {
    getPaginatedPosts,
@@ -146,7 +145,7 @@ export default function CategoriesPaginatedList({
                      className={styles.see_more_content}
                   >
                      {isLoadingMore ? (
-                        <Loader />
+                        <Spinner size={20} containerMinHeight={0} />
                      ) : (
                         <>
                            <span>Show more</span>

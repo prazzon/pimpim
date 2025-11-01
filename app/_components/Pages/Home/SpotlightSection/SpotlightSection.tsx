@@ -1,6 +1,6 @@
 "use client";
 
-import Loader from "@/app/_components/UI/Loader/Loader";
+import Spinner from "@/app/_components/UI/Spinner/Spinner";
 import Title from "@/app/_components/UI/Title/Title";
 import { getPaginatedPostsBySection } from "@/app/_lib/firebase/posts/service";
 import { Post } from "@/app/_lib/firebase/types";
@@ -87,7 +87,7 @@ function SpotlightSection({ initialPosts }: SpotlightSectionProps) {
                      className={styles.see_more_content}
                   >
                      {isLoadingMore ? (
-                        <Loader />
+                        <Spinner size={20} containerMinHeight={0} />
                      ) : (
                         <>
                            <span>Show more</span>
