@@ -7,7 +7,6 @@
 .posts_list {
    display: flex;
    flex-direction: column;
-   gap: 1.5rem;
 }
 
 .error_message {
@@ -77,7 +76,8 @@
 }
 
 @keyframes pulse {
-   0%, 100% {
+   0%,
+   100% {
       transform: translateY(0);
    }
    50% {
