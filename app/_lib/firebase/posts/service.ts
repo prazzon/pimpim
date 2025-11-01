@@ -155,6 +155,99 @@ export async function getPostsByCategorySlug(categorySlug: string) {
 }
 
 /**
+ * Get paginated posts for a specific category by its slug with cursor-based pagination
+ * @param categorySlug The category's slug
+ * @param pageSize Number of posts to fetch per page (default: 10)
+ * @param lastPostId Optional ID of the last post for pagination
+ * @returns Object containing posts array, hasMore flag, or null if category not found
+ */
+export async function getPaginatedPostsByCategorySlug(
+   categorySlug: string,
+   pageSize: number = 10,
+   lastPostId?: string
+) {
+   const postsRef = collection(db, "posts");
+
+   const categoryId = (await getCategoryBySlug(categorySlug))?.id;
+
+   if (!categoryId) return null;
+
+   let q;
+
+   // If we have a lastPostId, use it as a cursor for pagination
+   if (lastPostId) {
+      // Get the last document as a reference point
+      const lastPostDoc = await getDoc(doc(db, "posts", lastPostId));
+
+      if (!lastPostDoc.exists()) {
+         throw new Error(`Post with id ${lastPostId} not found`);
+      }
+
+      // Create a query that starts after the last document
+      q = query(
+         postsRef,
+         where("categoryId", "==", categoryId),
+         orderBy("createdAt", "desc"),
+         startAfter(lastPostDoc),
+         limit(pageSize + 1) // Fetch one extra to check if there are more
+      );
+   } else {
+      // Initial query without a starting point
+      q = query(
+         postsRef,
+         where("categoryId", "==", categoryId),
+         orderBy("createdAt", "desc"),
+         limit(pageSize + 1) // Fetch one extra to check if there are more
+      );
+   }
+
+   const querySnapshot = await getDocs(q);
+   const docs = querySnapshot.docs;
+
+   // Check if there are more posts
+   const hasMore = docs.length > pageSize;
+   const postsToReturn = hasMore ? docs.slice(0, pageSize) : docs;
+
+   // Get unique author and category IDs
+   const authorIds = new Set<string>();
+   const categoryIds = new Set<string>();
+
+   postsToReturn.forEach((doc) => {
+      const data = doc.data();
+      if (data.authorId) authorIds.add(data.authorId);
+      if (data.categoryId) categoryIds.add(data.categoryId);
+   });
+
+   // Batch fetch authors and categories
+   const [authorsMap, categoriesMap] = await Promise.all([
+      getAuthorsByIds(Array.from(authorIds)).then(
+         (authors) => new Map(authors.map((author) => [author.id, author]))
+      ),
+      getCategoriesByIds(Array.from(categoryIds)).then(
+         (categories) =>
+            new Map(categories.map((category) => [category.id, category]))
+      ),
+   ]);
+
+   // Construct posts with related data
+   const posts: Post[] = postsToReturn.map((doc) => {
+      const data = doc.data();
+      const { authorId, categoryId, createdAt, updatedAt, ...rest } = data;
+
+      return {
+         id: doc.id,
+         ...rest,
+         author: authorsMap.get(authorId) || null,
+         category: categoriesMap.get(categoryId) || null,
+         createdAt: createdAt.toDate(),
+         updatedAt: updatedAt.toDate(),
+      } as Post;
+   });
+
+   return { posts, hasMore };
+}
+
+/**
  * Get a post by its ID
  * @param id The post's ID
  * @returns The post object with author and category data

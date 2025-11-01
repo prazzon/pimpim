@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import ItemCard from "../_components/Pages/Home/ItemCard/ItemCard";
-import { getPosts } from "../_lib/firebase/posts/service";
+import CategoriesPaginatedList from "../_components/Pages/Categories/CategoriesPaginatedList/CategoriesPaginatedList";
 
 export const dynamic = "force-dynamic";
 
@@ -29,15 +28,7 @@ export const metadata: Metadata = {
 };
 
 async function CategoriesPage() {
-   const allPosts = await getPosts();
-
-   return (
-      <>
-         {allPosts.map((item) => (
-            <ItemCard key={item.id} item={item} />
-         ))}
-      </>
-   );
+   return <CategoriesPaginatedList />;
 }
 
 export default CategoriesPage;
