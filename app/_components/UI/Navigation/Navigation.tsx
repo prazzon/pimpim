@@ -15,9 +15,9 @@ import NavigationMenu from "./NavigationMenu/NavigationMenu";
 
 const navLinks = [
    { name: "Home", href: "/" },
+   { name: "Shows", href: "/shows" },
    { name: "Trending", href: "/trending" },
    { name: "Movies", href: "/movies" },
-   { name: "Shows", href: "/shows" },
    { name: "Events", href: "/events" },
 ];
 
